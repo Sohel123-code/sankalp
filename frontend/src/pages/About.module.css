@@ -1,0 +1,348 @@
+/* About.module.css */
+
+.page {
+  padding-bottom: 100px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Vision / Mission ── */
+.vmSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin: 60px 0 100px;
+}
+
+.vmCard {
+  background: rgba(15, 17, 32, 0.85);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 44px 36px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.vmCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--grad-primary);
+}
+
+.vmIcon {
+  font-size: 2.2rem;
+  margin-bottom: 16px;
+}
+
+.vmTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.vmTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: 14px;
+}
+
+.vmText {
+  font-size: 0.98rem;
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+}
+
+/* ── Workflow Pipeline ── */
+.workflowSection {
+  margin-bottom: 100px;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+
+.secEye {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--clr-accent);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.secTitle {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: 12px;
+}
+
+.secDesc {
+  font-size: 0.98rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+
+.stepTabs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stepTab {
+  background: rgba(15, 17, 32, 0.7);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--trans);
+}
+
+.stepTab:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.stepTabActive {
+  background: rgba(139, 92, 246, 0.18);
+  border-color: var(--clr-primary);
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+}
+
+.stepNum {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--clr-accent);
+}
+
+.stepName {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.stepCard {
+  background: rgba(15, 17, 32, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+}
+
+.stepBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.15);
+  padding: 4px 12px;
+  border-radius: 99px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.stepH3 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: 14px;
+}
+
+.stepDetail {
+  font-size: 1.05rem;
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.stepMeta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  border-top: 1px solid var(--clr-border);
+  padding-top: 24px;
+}
+
+.metaCol strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--clr-text);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metaCol p {
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Seven Objectives ── */
+.objectivesSection {
+  margin-bottom: 100px;
+}
+
+.objGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.objCard {
+  background: rgba(15, 17, 32, 0.75);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all var(--trans);
+}
+
+.objCard:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: translateY(-2px);
+}
+
+.objNum {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--clr-accent);
+  line-height: 1;
+}
+
+.objText {
+  font-size: 0.94rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── State Context ── */
+.stateContextSection {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: var(--radius-xl);
+  padding: 60px 48px;
+}
+
+.contextInner {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.contextH2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: 18px;
+}
+
+.contextText p {
+  font-size: 0.98rem;
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.contextCtas {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  color: #fff;
+  background: var(--grad-primary);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.btnOutline {
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  color: var(--clr-text);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--clr-border);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.contextStats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cStat {
+  background: rgba(15, 17, 32, 0.8);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+}
+
+.cStatVal {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #38bdf8;
+  display: block;
+}
+
+.cStatLbl {
+  font-size: 0.8rem;
+  color: var(--clr-text-dim);
+  font-weight: 600;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .vmSection,
+  .contextInner {
+    grid-template-columns: 1fr;
+  }
+  .stepTabs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .stepTabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stepMeta {
+    grid-template-columns: 1fr;
+  }
+  .stateContextSection {
+    padding: 36px 20px;
+  }
+}

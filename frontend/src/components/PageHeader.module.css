@@ -1,0 +1,113 @@
+/* PageHeader.module.css */
+
+.header {
+  position: relative;
+  padding: calc(var(--navbar-h) + 40px) 24px 48px;
+  background: linear-gradient(180deg, rgba(15, 17, 32, 0.9) 0%, rgba(7, 8, 15, 0.98) 100%);
+  border-bottom: 1px solid var(--clr-border);
+  overflow: hidden;
+}
+
+.bgBlobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blob1 {
+  position: absolute;
+  top: -20%;
+  right: 10%;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+.blob2 {
+  position: absolute;
+  bottom: -20%;
+  left: 5%;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.14) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--clr-text-dim);
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.bcHome,
+.bcLink {
+  color: var(--clr-text-muted);
+  text-decoration: none;
+  transition: color var(--trans);
+}
+
+.bcHome:hover,
+.bcLink:hover {
+  color: var(--clr-accent);
+}
+
+.bcSep {
+  opacity: 0.4;
+  margin: 0 2px;
+}
+
+.bcCurrent {
+  color: var(--clr-text);
+  font-weight: 500;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(139, 92, 246, 0.14);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #c4b5fd;
+  margin-bottom: 14px;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: var(--clr-text);
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--clr-text-muted);
+  max-width: 780px;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: calc(var(--navbar-h) + 24px) 16px 36px;
+  }
+}

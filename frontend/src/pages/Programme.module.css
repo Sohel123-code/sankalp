@@ -1,0 +1,345 @@
+/* Programme.module.css */
+
+.page {
+  padding-bottom: 100px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+
+/* ── Alert Banner ── */
+.alertBanner {
+  display: flex;
+  gap: 16px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  margin-bottom: 40px;
+}
+
+.alertIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.alertBody strong {
+  color: #fbbf24;
+  font-size: 0.92rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.alertBody p {
+  color: var(--clr-text-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Day Switcher ── */
+.daySwitchContainer {
+  margin-bottom: 32px;
+}
+
+.dayTabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.dayBtn {
+  background: rgba(15, 17, 32, 0.7);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all var(--trans);
+}
+
+.dayBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dayBtnActive {
+  background: rgba(139, 92, 246, 0.16);
+  border-color: var(--clr-primary);
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.25);
+}
+
+.dayNum {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--clr-accent);
+}
+
+.dayTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+/* ── Filter Row ── */
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.filterLabel {
+  font-size: 0.85rem;
+  color: var(--clr-text-dim);
+  font-weight: 600;
+}
+
+.typePills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.typePill {
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--trans);
+}
+
+.typePill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--clr-text);
+}
+
+.typePillActive {
+  background: rgba(139, 92, 246, 0.25);
+  border-color: var(--clr-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Timeline ── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 200px 32px 1fr;
+  gap: 20px;
+  padding-bottom: 28px;
+}
+
+.timeCol {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+.timeBadge {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+.trackTag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.12);
+  padding: 3px 8px;
+  border-radius: 99px;
+}
+
+/* Timeline vertical line and dot */
+.lineMarker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.markerDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--clr-primary);
+  border: 3px solid #07080f;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+  z-index: 1;
+  margin-top: 10px;
+}
+
+.markerLine {
+  flex: 1;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-top: 4px;
+}
+
+.contentCol {
+  background: rgba(15, 17, 32, 0.8);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  transition: all var(--trans);
+}
+
+.contentCol:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  background: rgba(18, 22, 42, 0.9);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.typeBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.15);
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.5px;
+}
+
+.locationBadge {
+  font-size: 0.8rem;
+  color: var(--clr-text-dim);
+}
+
+.sessionTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.sessionDesc {
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.overlapWarning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  font-size: 0.8rem;
+  color: #fbbf24;
+}
+
+/* ── Bottom CTA ── */
+.bottomCtaBanner {
+  margin-top: 48px;
+  background: rgba(15, 17, 32, 0.85);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+}
+
+.bottomCtaInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.bottomCtaInner h3 {
+  font-size: 1.3rem;
+  color: var(--clr-text);
+  margin-bottom: 6px;
+}
+
+.bottomCtaInner p {
+  color: var(--clr-text-muted);
+  font-size: 0.9rem;
+}
+
+.bottomCtaBtns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btnRegister {
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--grad-primary);
+  text-decoration: none;
+}
+
+.btnWs {
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--clr-border);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .dayTabs {
+    grid-template-columns: 1fr;
+  }
+  .timelineItem {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .timeCol {
+    text-align: left;
+    align-items: flex-start;
+  }
+  .lineMarker {
+    display: none;
+  }
+  .bottomCtaInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

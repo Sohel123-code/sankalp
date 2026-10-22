@@ -1,0 +1,326 @@
+/* Footer.module.css — SANKALP Andhra 2026 */
+
+.footer {
+  background: #05060c;
+  border-top: 1px solid var(--clr-border);
+  color: var(--clr-text-muted);
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.topNotice {
+  background: rgba(139, 92, 246, 0.08);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+  padding: 12px 24px;
+}
+
+.noticeInner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.noticeBadge {
+  background: rgba(139, 92, 246, 0.2);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+.noticeText {
+  color: var(--clr-text-dim);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 56px 24px 40px;
+  display: grid;
+  grid-template-columns: 1.6fr 1.6fr 1fr;
+  gap: 48px;
+}
+
+/* ── Brand ── */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--grad-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.45);
+  flex-shrink: 0;
+}
+
+.logoTextGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  letter-spacing: 0.5px;
+}
+
+.logoSubtitle {
+  font-size: 0.75rem;
+  color: var(--clr-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+
+.themeBadge {
+  font-size: 0.85rem;
+  color: var(--clr-text);
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 3px solid var(--clr-primary);
+  padding: 8px 12px;
+  border-radius: 0 8px 8px 0;
+}
+
+.themeBadge strong {
+  color: #38bdf8;
+}
+
+.tagline {
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+  font-size: 0.88rem;
+  max-width: 420px;
+}
+
+.metaPill {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--clr-text-dim);
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.socialLabel {
+  font-size: 0.8rem;
+  color: var(--clr-text-dim);
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  color: var(--clr-text-muted);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: all var(--trans);
+}
+
+.socialLink:hover {
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--clr-text);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* ── Columns ── */
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.colTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--clr-text);
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.colTitle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 28px;
+  height: 2px;
+  background: var(--grad-primary);
+  border-radius: 99px;
+}
+
+.colGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+  padding: 0;
+  margin: 0;
+}
+
+.colList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.colLink {
+  color: var(--clr-text-muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color var(--trans), transform var(--trans);
+  display: inline-block;
+}
+
+.colLink:hover {
+  color: #38bdf8;
+  transform: translateX(3px);
+}
+
+.quickContactBox {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 14px;
+}
+
+.contactBoxTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  margin-bottom: 6px;
+}
+
+.contactBoxText {
+  font-size: 0.82rem;
+  color: var(--clr-accent);
+  word-break: break-all;
+  margin-bottom: 4px;
+}
+
+.contactBoxSub {
+  font-size: 0.78rem;
+  color: var(--clr-text-dim);
+  margin-bottom: 12px;
+}
+
+.contactBtn {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-primary);
+  text-decoration: none;
+  transition: color var(--trans);
+}
+
+.contactBtn:hover {
+  color: #c4b5fd;
+}
+
+/* ── Bottom Bar ── */
+.bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 20px 24px;
+  background: #030408;
+}
+
+.bottomInner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.82rem;
+  color: var(--clr-text-dim);
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bottomLinks a {
+  color: var(--clr-text-dim);
+  text-decoration: none;
+  transition: color var(--trans);
+}
+
+.bottomLinks a:hover {
+  color: var(--clr-text);
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 20px 32px;
+  }
+  .colGrid {
+    grid-template-columns: 1fr;
+  }
+  .bottomInner {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+}

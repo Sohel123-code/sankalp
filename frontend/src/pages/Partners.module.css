@@ -1,0 +1,310 @@
+/* Partners.module.css */
+
+.page {
+  padding-bottom: 100px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+
+/* ── Governance Notice ── */
+.governanceNotice {
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+
+.govIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.govBody strong {
+  font-size: 0.92rem;
+  color: #c4b5fd;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.govBody p {
+  color: var(--clr-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Types Section ── */
+.typesSection {
+  margin-bottom: 80px;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+
+.secEye {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.secTitle {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: 12px;
+}
+
+.secDesc {
+  font-size: 0.98rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+
+.typesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.typeCard {
+  background: rgba(15, 17, 32, 0.8);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--trans);
+}
+
+.typeCard:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: translateY(-2px);
+}
+
+.typeNum {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--clr-accent);
+  margin-bottom: 8px;
+}
+
+.typeTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: 8px;
+}
+
+.typeDesc {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Benefits ── */
+.benefitsSection {
+  margin-bottom: 80px;
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.benefitCard {
+  background: rgba(15, 17, 32, 0.6);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.bIcon {
+  color: var(--clr-primary);
+  font-size: 1.1rem;
+}
+
+.benefitCard p {
+  font-size: 0.92rem;
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Form Card ── */
+.formSection {
+  margin-bottom: 40px;
+}
+
+.formCard {
+  background: rgba(15, 17, 32, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: var(--radius-xl);
+  padding: 56px 48px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.formH2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--clr-text);
+  margin-bottom: 8px;
+}
+
+.formSubtitle {
+  font-size: 0.92rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+
+.enquiryForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(7, 8, 15, 0.85);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text);
+  font-size: 0.88rem;
+  font-family: var(--font);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--clr-primary);
+  outline: none;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.checkboxGroup input {
+  margin-top: 3px;
+}
+
+.checkboxGroup label {
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+  line-height: 1.45;
+}
+
+.btnSubmit {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--grad-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all var(--trans);
+}
+
+.btnSubmit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.5);
+}
+
+/* Success State */
+.successState {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.successIcon {
+  font-size: 3rem;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.successState h3 {
+  font-size: 1.6rem;
+  color: var(--clr-text);
+  margin-bottom: 8px;
+}
+
+.successState p {
+  font-size: 0.95rem;
+  color: var(--clr-text-muted);
+  margin-bottom: 8px;
+}
+
+.successSub {
+  font-size: 0.85rem;
+  color: var(--clr-text-dim);
+  margin-bottom: 24px;
+}
+
+.btnReset {
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .formCard {
+    padding: 36px 20px;
+  }
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "sankalp-eventsweb-backend",
+  "version": "1.0.0",
+  "description": "Sankalp Events — Backend API with JWT auth, bcrypt, Supabase",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3"
+  }
+}
