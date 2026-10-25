@@ -36,6 +36,7 @@ export function homeIntroSeen() {
 export function HomeOpening({ heroRef, onComplete, onReveal }) {
   const reduced = useReducedMotion()
   const [snapshot, setSnapshot] = useState(null)
+  useEffect(() => () => { if (snapshot) URL.revokeObjectURL(snapshot.url) }, [snapshot])
   const [leaving, setLeaving] = useState(false)
   const finished = useRef(false)
   const finish = useCallback(() => {
@@ -58,7 +59,7 @@ export function HomeOpening({ heroRef, onComplete, onReveal }) {
     if (reduced || !heroRef?.current) return
     let cancelled = false
     buildHeroSnapshot(heroRef.current)
-      .then(result => { if (!cancelled) setSnapshot(result) })
+      .then(result => { if (cancelled) URL.revokeObjectURL(result.url); else setSnapshot(result) })
       .catch(() => { if (!cancelled) finish() })
     return () => { cancelled = true }
   }, [heroRef, reduced, finish])
@@ -74,7 +75,7 @@ export function HomeOpening({ heroRef, onComplete, onReveal }) {
   }, [finish, reduced])
   return <div className={`home-opening particle-opening${leaving ? ' is-leaving' : ''}`} data-framer-effect="particle-formation" aria-label="SANKALP Andhra 2026">
     <div className="particle-opening-art" aria-hidden="true"><VisualBoundary onFailure={finish}><Suspense fallback={null}>
-      {snapshot && <ParticleIntro image={snapshot.url} layoutMode="Fixed" imageWidth={snapshot.width} imageHeight={snapshot.height} particleCount={16000} particleSize={1.7} duration={1.2} easing="easeInOutQuad" overrideColor={false} onComplete={formed} onError={finish} />}
+      {snapshot && <ParticleIntro image={snapshot.url} layoutMode="Fixed" imageWidth={snapshot.width} imageHeight={snapshot.height} particleCount={window.innerWidth < 700 ? 5500 : 9000} particleSize={2} duration={1.2} easing="easeInOutQuad" overrideColor={false} onComplete={formed} onError={finish} />}
     </Suspense></VisualBoundary></div>
   </div>
 }

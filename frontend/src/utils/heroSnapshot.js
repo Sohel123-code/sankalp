@@ -50,5 +50,8 @@ export async function buildHeroSnapshot(hero) {
       }
     }
   }
-  return { url: canvas.toDataURL('image/png'), width: box.width, height: box.height }
+  // Encode off the main thread (toBlob) so the hero never stalls while the dots start.
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
+  if (!blob) throw new Error('Could not encode hero snapshot')
+  return { url: URL.createObjectURL(blob), width: box.width, height: box.height }
 }
