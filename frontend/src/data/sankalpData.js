@@ -12,7 +12,7 @@ export const SUMMIT_INFO = {
   supportingDescription:
     'Connecting research, industry and higher education to build the next generation of technology.',
   format: 'Proposed Two-Day Technology Summit',
-  dates: 'Dates Subject to Approval (Q4 2026 / TBD)',
+  dates: 'Dates and venue to be announced',
   venue: 'Andhra Pradesh, India (Venue details to be confirmed)',
   statusNotice:
     'Proposed summit details. Dates, venue, fees, and session allocations are preliminary and subject to formal institutional approval.',
@@ -30,48 +30,48 @@ export const SUMMIT_INFO = {
 }
 
 export const HIGHLIGHTS = [
-  { num: '2', label: 'Summit Days', icon: '📅', desc: 'Dense days of deep-tech keynotes, panels & networking' },
-  { num: '4', label: 'Technology Tracks', icon: '⚡', desc: 'AI, Quantum, Industry 4.0 & Precision Health' },
-  { num: '4', label: 'Specialist Workshops', icon: '🛠️', desc: 'Intensive hands-on labs with real outputs' },
-  { num: '3', label: 'Open Summit Labs', icon: '🧪', desc: 'Rapid sprint, deep-tech design & venture build' },
-  { num: '2', label: 'Panel Discussions', icon: '🎙️', desc: 'Academia-industry bridge & path to market' },
-  { num: '1', label: 'CEO Dialogue', icon: '💼', desc: 'Investor expectations & routes to commercialisation' },
-  { num: '1', label: 'Innovation Challenge', icon: '🏆', desc: 'Elevator pitches with multi-tier evaluation' },
-  { num: '1', label: 'Tech Showcase', icon: '🔬', desc: 'R&D demos from universities & tech ventures' },
-  { num: '1', label: 'Investor Connect', icon: '🤝', desc: 'Dedicated commercialisation & pilot meeting hub' },
-  { num: '2', label: 'Cultural Evenings', icon: '🎭', desc: 'Celebrating the heritage of Andhra Pradesh' },
+  { num: '2', label: 'Summit Days', icon: '', desc: 'Dense days of deep-tech keynotes, panels & networking' },
+  { num: '4', label: 'Technology Tracks', icon: '', desc: 'AI, Quantum, Industry 4.0 & Precision Health' },
+  { num: '4', label: 'Specialist Workshops', icon: '', desc: 'Intensive hands-on labs with real outputs' },
+  { num: '3', label: 'Open Summit Labs', icon: '', desc: 'Rapid sprint, deep-tech design & venture build' },
+  { num: '2', label: 'Panel Discussions', icon: '', desc: 'Academia-industry bridge & path to market' },
+  { num: '1', label: 'CEO Dialogue', icon: '', desc: 'Investor expectations & routes to commercialisation' },
+  { num: '1', label: 'Innovation Challenge', icon: '', desc: 'Elevator pitches with multi-tier evaluation' },
+  { num: '1', label: 'Tech Showcase', icon: '', desc: 'R&D demos from universities & tech ventures' },
+  { num: '1', label: 'Investor Connect', icon: '', desc: 'Dedicated commercialisation & pilot meeting hub' },
+  { num: '2', label: 'Cultural Evenings', icon: '', desc: 'Celebrating the heritage of Andhra Pradesh' },
 ]
 
 export const TARGET_AUDIENCE = [
   {
     role: 'Students & Scholars',
     desc: 'Undergraduate, post-graduate and PhD researchers looking for mentorship, workshops, and startup pathways.',
-    icon: '🎓',
+    icon: '',
   },
   {
     role: 'Faculty & Universities',
     desc: 'Academic leaders and researchers seeking industry partnerships, translational grants, and curriculum innovation.',
-    icon: '🏛️',
+    icon: '',
   },
   {
     role: 'Startups & Entrepreneurs',
     desc: 'Early and growth-stage deep-tech founders aiming to validate prototypes, access investors, and deploy pilots.',
-    icon: '🚀',
+    icon: '',
   },
   {
     role: 'Corporate R&D & Industry',
     desc: 'Technology firms, manufacturers, and enterprises scouting collaborative research and next-gen tech talent.',
-    icon: '🏢',
+    icon: '',
   },
   {
     role: 'Investors & Angels',
     desc: 'Venture capitalists, family offices, and angel syndicates looking for high-impact science and engineering ventures.',
-    icon: '📈',
+    icon: '',
   },
   {
     role: 'Government & Agencies',
     desc: 'Public policy makers, state departments, and technology missions driving regional innovation policy.',
-    icon: '🏛️',
+    icon: '',
   },
 ]
 
@@ -79,32 +79,32 @@ export const WHY_SANKALP = [
   {
     title: 'Research-to-Impact Pipeline',
     desc: 'Move beyond theoretical papers. SANKALP provides the structured pathway from laboratory discovery to validated deployment.',
-    icon: '🔬',
+    icon: '',
   },
   {
     title: 'Multidisciplinary Convergence',
     desc: 'Bringing together artificial intelligence, quantum systems, industrial automation, and biotechnology under one roof.',
-    icon: '🌐',
+    icon: '',
   },
   {
     title: 'Actionable Hands-On Learning',
     desc: 'No passive lectures. Participate in 4 specialist technical workshops and 3 sprint labs producing tangible prototypes.',
-    icon: '💻',
+    icon: '',
   },
   {
     title: 'Commercialisation & Capital',
     desc: 'Direct interaction with venture capitalists, industry challenge owners, and public sector pilot programs.',
-    icon: '💎',
+    icon: '',
   },
   {
     title: 'Talent Acceleration',
     desc: 'Connect top student engineers and researchers from across Andhra Pradesh with national and global technology pioneers.',
-    icon: '⚡',
+    icon: '',
   },
   {
     title: 'Ethical & Responsible Tech',
     desc: 'A dedicated focus on scientific rigor, privacy, safety, data ethics, and regional societal relevance.',
-    icon: '🛡️',
+    icon: '',
   },
 ]
 
@@ -139,7 +139,7 @@ export const TRACKS = [
     title: 'Artificial Intelligence & Applied Intelligence',
     shortTitle: 'AI & Applied Intelligence',
     theme: 'AI for Impact: From Generative AI and Foundation Models to Real-World Innovation',
-    icon: '🤖',
+    icon: '',
     color: '#8b5cf6',
     description:
       'Exploring the frontier of foundational intelligence models, multi-agent frameworks, computer vision, and applied machine learning solving real-world challenges across agriculture, healthcare, education, logistics, and governance.',
@@ -162,7 +162,7 @@ export const TRACKS = [
     title: 'Quantum Technologies',
     shortTitle: 'Quantum Tech',
     theme: 'Quantum Leap: From Scientific Discovery to Industrial Applications',
-    icon: '⚛️',
+    icon: '',
     color: '#06b6d4',
     description:
       'Examining quantum computing algorithms, cryogenic hardware, quantum sensing, photonic interconnections, and post-quantum cryptographic standards protecting digital infrastructure.',
@@ -185,7 +185,7 @@ export const TRACKS = [
     title: 'Intelligent Manufacturing & Industry 4.0',
     shortTitle: 'Intelligent Manufacturing',
     theme: 'Design to Deployment: Advancing Andhra Pradesh’s Next Industrial Revolution',
-    icon: '🏭',
+    icon: '',
     color: '#f59e0b',
     description:
       'Pioneering smart factories, cyber-physical systems, autonomous robotics, digital twins, and additive manufacturing to empower industrial corridors and manufacturing clusters across Andhra Pradesh.',
@@ -208,7 +208,7 @@ export const TRACKS = [
     title: 'Biotechnology, Healthcare & Precision Health',
     shortTitle: 'Biotech & Precision Health',
     theme: 'Precision Health and Bioengineering: Advancing Next-Generation Healthcare in Andhra Pradesh',
-    icon: '🧬',
+    icon: '',
     color: '#10b981',
     description:
       'Harnessing genomic discovery, AI-augmented biological design, point-of-care diagnostic biosensors, and advanced biomanufacturing to transform clinical outcomes and public health equity.',
@@ -234,7 +234,7 @@ export const SCHEDULE = {
   day1: {
     day: 'Day 1',
     title: 'Research, Industry & Strategic Dialogue',
-    date: 'Date TBD',
+    date: 'Date to be announced',
     sessions: [
       {
         time: '8:30 – 9:30 AM',
@@ -345,7 +345,7 @@ export const SCHEDULE = {
   day2: {
     day: 'Day 2',
     title: 'Hands-on Innovation & Industry Connect',
-    date: 'Date TBD',
+    date: 'Date to be announced',
     sessions: [
       {
         time: '8:30 – 9:00 AM',
@@ -365,7 +365,7 @@ export const SCHEDULE = {
         time: '9:15 AM – 1:00 PM',
         title: 'Four Specialist Workshops & Open Summit Labs (Parallel Tracks)',
         type: 'Workshops',
-        location: 'Seminar Halls I, II, III, IV & Design Studios',
+        location: 'Seminar Halls I–IV & Main Auditorium',
         desc: 'Deep-dive intensive sessions running concurrently across 4 technical domains alongside Open Summit Labs.',
       },
       {
@@ -447,14 +447,14 @@ export const SCHEDULE = {
         title: 'Workshop Outcomes, Summit Outcome Declaration & Closing Remarks',
         type: 'Valedictory',
         location: 'Main Auditorium',
-        desc: 'Presentation of workshop milestones, adoption of the Andhra Technology Declaration, and formal vote of thanks.',
+        desc: 'Workshop and Open Lab outcomes, summit outcome declaration and closing remarks.',
       },
       {
         time: '5:45 PM onwards',
-        title: 'SANKALP Cultural Gala Night & Farewell Dinner',
+        title: 'SANKALP Cultural Gala Night',
         type: 'Gala',
         location: 'Main Grounds',
-        desc: 'Festive concluding celebration, dinner, and live regional musical performance.',
+        desc: 'Evening cultural programming, subject to final confirmation.',
       },
     ],
   },
@@ -468,16 +468,16 @@ export const WORKSHOPS = [
     location: 'Seminar Hall I',
     track: 'AI & Applied Intelligence',
     time: '9:15 AM – 1:00 PM (Day 2)',
-    icon: '🤖',
+    icon: '',
     activities: [
       'Structured prompt engineering methodologies',
       'Knowledge-grounded retrieval workflows (RAG)',
       'Autonomous multi-agent orchestration frameworks',
-      'Evaluating halluncination and safety metrics',
+      'Evaluating hallucination and safety metrics',
     ],
     expectedOutput:
       'Working AI-assisted application or agent workflow, comprehensive prompt documentation, and a short test report.',
-    eligibility: 'Open to registered summit delegates who add the Specialist Workshop pass.',
+    eligibility: 'Final eligibility and the relationship to summit registration will be confirmed.',
   },
   {
     id: 'ws-2',
@@ -486,7 +486,7 @@ export const WORKSHOPS = [
     location: 'Seminar Hall II',
     track: 'Quantum Technologies',
     time: '9:15 AM – 1:00 PM (Day 2)',
-    icon: '⚛️',
+    icon: '',
     activities: [
       'Fundamentals of parameterized quantum circuits',
       'Quantum state preparation and measurement',
@@ -504,7 +504,7 @@ export const WORKSHOPS = [
     location: 'Seminar Hall III',
     track: 'Intelligent Manufacturing',
     time: '9:15 AM – 1:00 PM (Day 2)',
-    icon: '🏭',
+    icon: '',
     activities: [
       'Processing high-frequency industrial IoT sensor streams',
       'Time-series anomaly detection algorithms',
@@ -522,7 +522,7 @@ export const WORKSHOPS = [
     location: 'Seminar Hall IV',
     track: 'Biotech & Precision Health',
     time: '9:15 AM – 1:00 PM (Day 2)',
-    icon: '🧬',
+    icon: '',
     activities: [
       'Biomedical data hygiene and missing-value imputation',
       'Clinical prognostic prediction modelling',
@@ -541,7 +541,7 @@ export const OPEN_SUMMIT_LABS = [
     number: 'Open Lab 01',
     title: 'AI Innovation Sprint: From Problem to Prototype',
     time: '9:15 – 10:30 AM (Day 2)',
-    icon: '⚡',
+    icon: '',
     focus: 'Rapid problem definition, UX mockups, and prompt-driven micro-prototype building.',
     output: 'Structured problem statement, clickable prototype/mock-up, and a concise 3-minute pitch deck.',
   },
@@ -550,7 +550,7 @@ export const OPEN_SUMMIT_LABS = [
     number: 'Open Lab 02',
     title: 'Deep-Tech Design Challenge: Solve an Industry Problem',
     time: '10:45 AM – 12:00 PM (Day 2)',
-    icon: '📐',
+    icon: '',
     focus: 'Deconstructing real challenges supplied by manufacturing and public enterprise partners.',
     output: 'Solution canvas, detailed process diagram or low-fidelity prototype, and implementation roadmap.',
   },
@@ -559,7 +559,7 @@ export const OPEN_SUMMIT_LABS = [
     number: 'Open Lab 03',
     title: 'Research-to-Startup Lab: Build a Venture Concept',
     time: '12:00 – 1:00 PM (Day 2)',
-    icon: '🚀',
+    icon: '',
     focus: 'Translating laboratory IP into a defensible venture thesis, revenue model, and market entry.',
     output: 'One-page venture canvas and a three-minute investor-style pitch deck.',
   },
@@ -568,7 +568,7 @@ export const OPEN_SUMMIT_LABS = [
 export const WORKSHOP_REQUIREMENTS = [
   'Participants must bring a fully-charged laptop with WiFi capability.',
   'Laptop power charger / adapter.',
-  'Confirmed SANKALP Summit registration badge and Workshop confirmation pass.',
+  'Registration confirmation and institutional ID, where applicable.',
   'Institutional / Corporate identity card.',
   'Pre-installation of software environments (instructions will be shared via registered email).',
   'Compliance with approved datasets, research ethics, and data protection protocols.',
@@ -583,7 +583,7 @@ export const INNOVATION_CHALLENGE = {
     'Undergraduate & Postgraduate Students',
     'Full-time Research Scholars & PhDs',
     'University Faculty Members',
-    'Early-stage Startups (incorporated < 3 years)',
+    'Startups and entrepreneurs',
     'Independent Inventors & Tech Entrepreneurs',
     'Industry Innovation Teams',
   ],
@@ -654,7 +654,7 @@ export const SPEAKERS_INFO = {
     { title: 'Workshop Facilitators', desc: 'Hands-on practitioners leading intensive laboratory sessions.' },
   ],
   nominationCall:
-    'Are you a recognized researcher or enterprise leader interested in speaking at SANKALP Andhra 2026? Submissions for speaker nominations and session proposals are currently open for review.',
+    'Are you a recognized researcher or enterprise leader interested in speaking at SANKALP Andhra 2026? Contact the organising team when official speaker proposal arrangements are announced.',
 }
 
 export const PARTNERS_INFO = {
@@ -667,7 +667,7 @@ export const PARTNERS_INFO = {
     { id: 'showcase', name: 'Showcase / Exhibition Partner', desc: 'Sponsor dedicated demo pavilions and university pavilions.' },
     { id: 'workshop', name: 'Workshop Partner', desc: 'Collaborate on hands-on curriculum, hardware kits, and dataset sandboxes.' },
     { id: 'ecosystem', name: 'Innovation Ecosystem Partner', desc: 'Incubators, research parks, and accelerators connecting startups.' },
-    { id: 'sponsorship', name: 'Sponsorship Partner', desc: 'Title, Platinum, and Gold level summit corporate sponsors.' },
+    { id: 'sponsorship', name: 'Sponsorship Partner', desc: 'Explore approved visibility and engagement opportunities; packages to be confirmed.' },
   ],
   benefits: [
     'Engage directly with high-caliber student engineers, scholars, and future tech talent.',
@@ -716,35 +716,35 @@ export const REGISTRATION_FEES = {
       category: 'Students / Research Scholars',
       fee: 800,
       feeDisplay: '₹800',
-      note: 'Valid college/university ID required at check-in.',
+      note: 'Proposal includes 18% GST. Valid student ID or institutional verification required.',
       popular: false,
     },
     {
       category: 'Faculty & Academicians',
       fee: 1300,
       feeDisplay: '₹1,300',
-      note: 'Valid institutional affiliation proof required.',
+      note: 'Tax treatment and institutional verification requirements to be confirmed.',
       popular: true,
     },
     {
       category: 'Startup Founders',
       fee: 2000,
       feeDisplay: '₹2,000',
-      note: 'Incorporated startup (< 5 yrs) or recognized incubator incubatee.',
+      note: 'Proposed fee exclusive of 18% GST; final terms to be confirmed.',
       popular: false,
     },
     {
       category: 'Government Officials / Industry Professionals',
       fee: 3500,
       feeDisplay: '₹3,500',
-      note: 'Corporate R&D, enterprise engineers, and public officers.',
+      note: 'Proposed fee exclusive of 18% GST; final terms to be confirmed.',
       popular: false,
     },
     {
       category: 'International Delegates',
       fee: 20000,
       feeDisplay: '₹20,000',
-      note: 'Foreign passport holders or overseas academic institutions.',
+      note: 'Proposed fee exclusive of 18% GST; final eligibility to be confirmed.',
       popular: false,
     },
   ],
@@ -784,47 +784,18 @@ export const REGISTRATION_FEES = {
 export const VENUE_INFO = {
   status: 'Venue and dates to be formally confirmed',
   location: 'Andhra Pradesh, India',
-  description:
-    'SANKALP Andhra 2026 is planned to take place at a premier academic or convention campus in Andhra Pradesh, equipped with state-of-the-art auditoriums, advanced computing laboratories, and expansive research exhibition spaces.',
+  description: 'SANKALP Andhra 2026 is proposed to take place in Andhra Pradesh. The final institution, city, dates and travel details will be published once confirmed.',
   sections: [
-    {
-      title: 'Auditoriums & Halls',
-      desc: 'Central air-conditioned auditorium with 1,200+ capacity for keynotes, plus 4 dedicated multimedia seminar halls for parallel workshops.',
-      icon: '🏛️',
-    },
-    {
-      title: 'Research Exhibition Pavilion',
-      desc: 'High-ceilinged exhibition concourse providing structured booths, 3-phase power supply, and gigabit wired/wireless connectivity.',
-      icon: '🔬',
-    },
-    {
-      title: 'Investor & Networking Lounges',
-      desc: 'Dedicated private discussion pods reserved for 1-on-1 bilateral investor dialogues and startup pilot negotiations.',
-      icon: '🤝',
-    },
-    {
-      title: 'Dining & Atrium',
-      desc: 'Spacious banquet areas serving authentic regional Andhra cuisine alongside multi-cuisine lunch buffets and high tea.',
-      icon: '☕',
-    },
+    { title: 'Main Auditorium & Workshop Rooms', desc: 'Room locations, capacities and entry arrangements will be announced with the approved venue.', icon: '↗' },
+    { title: 'Research & Technology Showcase', desc: 'Exhibition space, equipment and network arrangements are to be confirmed.', icon: '↗' },
+    { title: 'Networking & Industry Connect', desc: 'Meeting areas and arrangements will be published with the final programme.', icon: '↗' },
+    { title: 'Accessibility & Delegate Support', desc: 'Accessibility, dining, parking and support information will be provided once verified.', icon: '↗' },
   ],
   travelGuidance: [
-    {
-      title: 'Air Connectivity',
-      detail: 'Nearest major airports include Vijayawada (VGA) and Visakhapatnam (VTZ), offering frequent direct flights from major Indian metro hubs.',
-    },
-    {
-      title: 'Rail Network',
-      detail: 'Well-connected through the Indian Railways network with key railway junctions providing round-the-clock express connectivity.',
-    },
-    {
-      title: 'Local Transport & Parking',
-      detail: 'Designated shuttle pickup points from transit terminals, secure on-campus delegate parking, and app-based cab accessibility.',
-    },
-    {
-      title: 'Accommodation Advice',
-      detail: 'Special delegate rates with partner hotels and campus guest accommodations will be published alongside confirmed dates.',
-    },
+    { title: 'Air & Rail Connections', detail: 'Nearest airport, railway station and verified travel options will follow the venue announcement.' },
+    { title: 'Local Transport & Parking', detail: 'Verified local transport and parking information will be published here.' },
+    { title: 'Accommodation', detail: 'Accommodation arrangements are not yet specified. Any future recommendations will clearly identify whether they are official partnerships.' },
+    { title: 'Arrival & Accessibility', detail: 'Venue access, ID requirements, accessibility arrangements and a support contact will be confirmed.' },
   ],
 }
 
@@ -868,7 +839,7 @@ export const FAQS = [
   {
     id: 7,
     q: 'Is summit registration required for workshops?',
-    a: 'Yes. Attendance in specialist workshops requires a valid base summit registration pass plus the appropriate workshop add-on fee.',
+    a: 'The proposal lists separate workshop fees. Whether summit registration is additionally required remains to be confirmed; check the approved registration details before paying.',
     category: 'Workshops',
   },
   {
@@ -904,7 +875,7 @@ export const FAQS = [
   {
     id: 13,
     q: 'Will participants receive certificates?',
-    a: 'Yes. Registered attendees who participate in specialist workshops and delegates who attend both summit days will receive verified digital certificates of completion/attendance.',
+    a: 'The workshop proposal includes a certificate of completion, subject to attendance and any deliverable requirements. Other certificate arrangements are to be confirmed.',
     category: 'General',
   },
   {
@@ -928,7 +899,7 @@ export const FAQS = [
   {
     id: 17,
     q: 'Will accommodation be provided to delegates?',
-    a: 'Registration passes do not cover hotel accommodation. However, the organizing team will offer discounted booking links with partner hotels and campus guest houses once dates are finalized.',
+    a: 'Accommodation arrangements are not specified. Verified travel and accommodation guidance will be published once the venue is confirmed.',
     category: 'Attendance',
   },
   {
@@ -946,18 +917,14 @@ export const FAQS = [
 ]
 
 export const CONTACT_INFO = {
-  generalEmail: 'enquiry@sankalpandhra2026.org',
-  registrationEmail: 'registration@sankalpandhra2026.org',
-  partnershipsEmail: 'partnerships@sankalpandhra2026.org',
-  challengeEmail: 'challenge@sankalpandhra2026.org',
-  phone: '+91 (0) 866 242 0000 (Proposed Helpline)',
+  generalEmail: 'Official email to be announced',
+  registrationEmail: 'Registration contact to be announced',
+  partnershipsEmail: 'Partnership contact to be announced',
+  challengeEmail: 'Challenge contact to be announced',
+  phone: 'Official telephone to be announced',
   officeAddress:
-    'SANKALP Andhra 2026 Secretariat, Directorate of Technology & Innovation, Andhra Pradesh, India.',
-  socials: [
-    { platform: 'LinkedIn', url: 'https://linkedin.com', icon: '💼' },
-    { platform: 'Instagram', url: 'https://instagram.com', icon: '📸' },
-    { platform: 'YouTube', url: 'https://youtube.com', icon: '▶️' },
-  ],
+    'Organising office address to be confirmed.',
+  socials: [],
   enquiryCategories: [
     'General Enquiries',
     'Registration & Delegate Support',

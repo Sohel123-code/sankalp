@@ -12,8 +12,8 @@
 
 /* ── Hero Card ── */
 .heroCard {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.16) 0%, rgba(15, 17, 32, 0.95) 100%);
-  border: 1px solid rgba(139, 92, 246, 0.35);
+  background: linear-gradient(135deg, rgba(255,120,53, 0.16) 0%, rgba(20,18,15, 0.95) 100%);
+  border: 1px solid rgba(255,120,53, 0.35);
   border-radius: var(--radius-lg);
   padding: 48px;
   display: grid;
@@ -82,7 +82,7 @@
 }
 
 .heroActionBox {
-  background: rgba(15, 17, 32, 0.9);
+  background: rgba(20,18,15, 0.9);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: 32px 24px;
@@ -111,13 +111,13 @@
   background: var(--grad-primary);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 20px rgba(255,120,53, 0.4);
   transition: all var(--trans);
 }
 
 .btnPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(139, 92, 246, 0.6);
+  box-shadow: 0 6px 28px rgba(255,120,53, 0.6);
 }
 
 .linkRegister {
@@ -162,12 +162,12 @@
 
 .stepsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 20px;
 }
 
 .stepCard {
-  background: rgba(15, 17, 32, 0.8);
+  background: rgba(20,18,15, 0.8);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: 26px;
@@ -177,14 +177,14 @@
 }
 
 .stepCard:hover {
-  border-color: rgba(139, 92, 246, 0.4);
+  border-color: rgba(255,120,53, 0.4);
   transform: translateY(-2px);
 }
 
 .stepNumber {
   font-size: 0.8rem;
   font-weight: 800;
-  color: #c4b5fd;
+  color: #f5bc88;
   margin-bottom: 8px;
 }
 
@@ -211,7 +211,7 @@
 }
 
 .panelBox {
-  background: rgba(15, 17, 32, 0.8);
+  background: rgba(20,18,15, 0.8);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   padding: 36px 32px;
@@ -291,7 +291,7 @@
 
 .modalCard {
   background: #0d0f1e;
-  border: 1px solid rgba(139, 92, 246, 0.4);
+  border: 1px solid rgba(255,120,53, 0.4);
   border-radius: var(--radius-lg);
   padding: 40px;
   max-width: 720px;
@@ -333,12 +333,14 @@
 }
 
 .formRow {
+  min-width: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
 .formGroup {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -355,7 +357,7 @@
 .formGroup textarea {
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(15, 17, 32, 0.9);
+  background: rgba(20,18,15, 0.9);
   border: 1px solid var(--clr-border);
   color: var(--clr-text);
   font-size: 0.88rem;
@@ -444,3 +446,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Keep native controls within their column and give errors room to wrap. */
+.formGroup :is(input,select,textarea) { width:100%; min-width:0; max-width:100%; box-sizing:border-box; }
+.formGroup label { overflow-wrap:anywhere; }
+.formGroup textarea { resize:vertical; }
+@media(max-width:640px) { .formRow { grid-template-columns:minmax(0,1fr); } }

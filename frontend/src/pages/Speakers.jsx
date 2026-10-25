@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import { SPEAKERS_INFO, TRACKS } from '../data/sankalpData'
 import styles from './Speakers.module.css'
@@ -36,73 +35,37 @@ export default function Speakers() {
         breadcrumb={[{ label: 'Speakers & Experts' }]}
       />
 
-      <div className={styles.container}>
-        {/* ── Formal Status Advisory Banner ── */}
-        <div className={styles.statusBanner}>
-          <span className={styles.statusIcon}>📢</span>
-          <div className={styles.statusText}>
-            <strong>{SPEAKERS_INFO.status}</strong>
-            <p>{SPEAKERS_INFO.statusMessage}</p>
-          </div>
-        </div>
+      <div data-summit-scene className={styles.container}>
+        <p className="sp-status"><strong>{SPEAKERS_INFO.status}</strong><span>{SPEAKERS_INFO.statusMessage}</span></p>
 
-        {/* ── Speaker Categories ── */}
-        <section className={styles.categoriesSection}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.secEye}>Session Classifications</span>
-            <h2 className={styles.secTitle}>Speaker Roles &amp; Line-up Structure</h2>
-            <p className={styles.secDesc}>
-              Our programme encompasses seven dedicated expert capacities spanning visionary keynotes to hands-on laboratory facilitators.
-            </p>
-          </div>
-
-          <div className={styles.catGrid}>
-            {SPEAKERS_INFO.categories.map((cat, idx) => (
-              <div key={idx} className={styles.catCard}>
-                <span className={styles.catNum}>0{idx + 1}</span>
-                <h3 className={styles.catTitle}>{cat.title}</h3>
-                <p className={styles.catDesc}>{cat.desc}</p>
-                <span className={styles.tbdTag}>Profile Confirmation in Progress</span>
-              </div>
-            ))}
-          </div>
+        <section className="sp-section" aria-labelledby="sp-voices-title">
+          <span className="eyebrow">SESSION CLASSIFICATIONS</span>
+          <h2 id="sp-voices-title">Voices across the programme</h2>
+          <p className="sp-lede">Keynotes, specialist talks, panels and hands-on sessions.</p>
+          <ul className="sp-cats">{SPEAKERS_INFO.categories.map((cat, index) => <li key={cat.title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{cat.title}</h3><p>{cat.desc}</p></li>)}</ul>
         </section>
 
-        {/* ── Call for Speaker Submissions / Proposal Form ── */}
-        <section className={styles.nominationSection}>
-          <div className={styles.nominationInner}>
-            <div className={styles.nominationText}>
-              <span className={styles.secEye}>Open Call</span>
-              <h2 className={styles.nominationH2}>Speaker Nomination &amp; Session Proposals</h2>
-              <p>
-                Are you a recognized academic researcher, laboratory director, or deep-tech enterprise architect with pioneering work in AI, Quantum, Mechatronics, or Bioengineering?
-              </p>
-              <p>
-                The SANKALP Andhra 2026 Academic Advisory Committee invites proposals for keynote talks, technical plenaries, and panel moderation.
-              </p>
-
-              <div className={styles.vettingCriteria}>
-                <h4>Speaker Evaluation Criteria:</h4>
-                <ul>
-                  <li>✔ Concrete translational relevance (Research to Deployment)</li>
-                  <li>✔ Peer-reviewed scientific pedigree or enterprise scale</li>
-                  <li>✔ Strict non-promotional, vendor-neutral educational content</li>
-                </ul>
-              </div>
-            </div>
-
+        <section className="sp-call" aria-labelledby="sp-call-title">
+          <div className="sp-call-text">
+            <span className="eyebrow">OPEN CALL</span>
+            <h2 id="sp-call-title">Speaker nomination &amp; session proposals</h2>
+            <p>Share your expertise in one of the four technology tracks. Propose a talk, workshop or panel session.</p>
+            <div className="sp-criteria"><span className="tiny-label">HOW PROPOSALS ARE JUDGED</span>
+              <ul><li>Concrete translational relevance, from research to deployment</li><li>Peer-reviewed scientific pedigree or enterprise scale</li><li>Non-promotional, vendor-neutral educational content</li></ul></div>
+          </div>
+          <div className="sp-call-form">
             <div className={styles.nominationFormCard}>
               <h3 className={styles.formTitle}>Submit Speaker Expression of Interest</h3>
 
               {proposalSubmitted ? (
                 <div className={styles.successBox}>
-                  <span className={styles.successIcon}>🎉</span>
-                  <h4>Proposal Received!</h4>
+                  <span className={styles.successIcon}></span>
+                  <h4>Speaker proposal preview</h4>
                   <p>
-                    Thank you, {proposal.name}. Your proposed session on <strong>{proposal.topicSummary}</strong> has been forwarded to the review committee.
+                    Thank you, {proposal.name}. Your proposed session on <strong>{proposal.topicSummary}</strong> is shown in this preview.
                   </p>
                   <p className={styles.subText}>
-                    Our secretariat will reach out to <strong>{proposal.email}</strong> regarding evaluation outcomes.
+                    No proposal has been sent. Your entered email is <strong>{proposal.email}</strong>. Speaker proposal arrangements are to be confirmed.
                   </p>
                   <button
                     className={styles.btnSecondary}

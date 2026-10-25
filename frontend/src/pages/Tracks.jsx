@@ -1,159 +1,18 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { TrackArc } from '../components/RequestedEffects'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import { TRACKS } from '../data/sankalpData'
-import styles from './Tracks.module.css'
+import { TRACK_CONTEXT } from '../data/trackContext'
 
 export default function Tracks() {
-  const [selectedTrackId, setSelectedTrackId] = useState('all')
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const filteredTracks = useMemo(() => {
-    return TRACKS.map(track => {
-      const matchesSearch =
-        track.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        track.theme.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        track.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        track.topics.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
-
-      const matchesTrack = selectedTrackId === 'all' || track.id === selectedTrackId
-
-      const filteredTopics = searchQuery
-        ? track.topics.filter(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
-        : track.topics
-
-      return {
-        ...track,
-        visible: matchesSearch && matchesTrack,
-        displayTopics: filteredTopics.length > 0 ? filteredTopics : track.topics,
-      }
-    }).filter(t => t.visible)
-  }, [selectedTrackId, searchQuery])
-
-  return (
-    <div className={styles.page}>
-      <PageHeader
-        badge="Technology Domains"
-        title="Four Strategic Technology Tracks"
-        subtitle="Explore the four deep-tech tracks anchored to accelerate research translation, industry adoption, and economic growth in Andhra Pradesh."
-        breadcrumb={[{ label: 'Technology Tracks' }]}
-      />
-
-      <div className={styles.container}>
-        {/* ── Filter & Search Controls ── */}
-        <div className={styles.controlsBar}>
-          <div className={styles.trackPills}>
-            <button
-              className={`${styles.pillBtn} ${selectedTrackId === 'all' ? styles.pillActive : ''}`}
-              onClick={() => setSelectedTrackId('all')}
-            >
-              All 4 Tracks
-            </button>
-            {TRACKS.map(t => (
-              <button
-                key={t.id}
-                className={`${styles.pillBtn} ${selectedTrackId === t.id ? styles.pillActive : ''}`}
-                onClick={() => setSelectedTrackId(t.id)}
-              >
-                <span>{t.icon}</span> {t.shortTitle}
-              </button>
-            ))}
-          </div>
-
-          <div className={styles.searchBox}>
-            <span className={styles.searchIcon}>🔍</span>
-            <input
-              type="text"
-              placeholder="Search topics (e.g. LLM, QKD, Digital Twins, Genomics)..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className={styles.searchInput}
-              aria-label="Search topics"
-            />
-            {searchQuery && (
-              <button
-                className={styles.clearBtn}
-                onClick={() => setSearchQuery('')}
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* ── Tracks Detailed List ── */}
-        <div className={styles.trackList}>
-          {filteredTracks.length === 0 ? (
-            <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>🔍</span>
-              <h3>No matching topics found</h3>
-              <p>Try searching for a different keyword or reset your filter.</p>
-              <button
-                className={styles.resetBtn}
-                onClick={() => {
-                  setSelectedTrackId('all')
-                  setSearchQuery('')
-                }}
-              >
-                Reset Filters
-              </button>
-            </div>
-          ) : (
-            filteredTracks.map(track => (
-              <article
-                key={track.id}
-                id={track.id}
-                className={styles.trackDetailCard}
-                style={{ '--track-accent': track.color }}
-              >
-                <div className={styles.trackHeader}>
-                  <div className={styles.headerLeft}>
-                    <div className={styles.iconBadge}>{track.icon}</div>
-                    <div>
-                      <span className={styles.trackBadge}>TRACK {track.number}</span>
-                      <h2 className={styles.trackTitle}>{track.title}</h2>
-                    </div>
-                  </div>
-                  <span className={styles.trackThemeBadge}>
-                    Theme: {track.theme}
-                  </span>
-                </div>
-
-                <p className={styles.trackDescription}>{track.description}</p>
-
-                <div className={styles.topicsSection}>
-                  <h3 className={styles.topicsHeading}>
-                    Syllabus Topics &amp; Research Areas ({track.displayTopics.length})
-                  </h3>
-                  <div className={styles.topicsGrid}>
-                    {track.displayTopics.map((topic, i) => (
-                      <div key={i} className={styles.topicChip}>
-                        <span className={styles.chipBullet}>•</span>
-                        <span className={styles.chipText}>{topic}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className={styles.trackFooter}>
-                  <div className={styles.footerNote}>
-                    Part of the SANKALP Innovation Challenge &amp; Day 2 Masterclasses
-                  </div>
-                  <div className={styles.footerCtas}>
-                    <Link to="/workshops" className={styles.btnWs}>
-                      Explore Specialist Workshop →
-                    </Link>
-                    <Link to="/innovation-challenge" className={styles.btnPitch}>
-                      Pitch in this Track →
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))
-          )}
-        </div>
-      </div>
-    </div>
-  )
+  const { hash } = useLocation()
+  const [activeId, setActiveId] = useState(hash.slice(1) || TRACKS[0].id)
+  const [selected, setSelected] = useState('all'), [query, setQuery] = useState('')
+  const search = query.trim().toLowerCase()
+  const filtered = TRACKS.filter(t => (selected === 'all' || selected === t.id) && [t.title,t.theme,t.description,...t.topics].some(s => s.toLowerCase().includes(search)))
+  const activeIndex = Math.max(0, filtered.findIndex(track => track.id === activeId))
+  const activeTrack = filtered[activeIndex]
+  return <div><PageHeader badge="Technology tracks" title="Four frontiers." subtitle="Explore the technologies shaping research and industry." breadcrumb={[{label:'Tracks'}]} /><div className="section-shell compact-page"><div className="explorer-controls"><div className="filter-pills"><button aria-pressed={selected==='all'} onClick={()=>setSelected('all')}>All tracks</button>{TRACKS.map(t=><button key={t.id} aria-pressed={selected===t.id} onClick={()=>setSelected(t.id)}>{t.shortTitle}</button>)}</div><input type="search" aria-label="Search topics" placeholder="Search research areas…" value={query} onChange={e=>setQuery(e.target.value)} /></div><TrackArc tracks={filtered} active={activeIndex} onSelect={index => setActiveId(filtered[index].id)} /><div data-summit-scene data-scroll-owned className="track-accordions track-arc-details">{filtered.length ? filtered.map((t) => <article id={t.id} key={t.id} className="research-card" hidden={t !== activeTrack}><details className="research-detail" open><summary><div><h2>{t.shortTitle}</h2><p>{t.theme}</p></div><span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary><div className="research-expanded"><p>{t.description}</p><div className="topic-tags">{t.topics.filter(topic=>!search || topic.toLowerCase().includes(search) || t.title.toLowerCase().includes(search)).map(topic=><span key={topic}>{topic}</span>)}</div><details className="disclosure"><summary>Applications & research context <span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary><div className="track-context">{[['Applications','focus'],['Considerations','considerations'],['Explore','explore']].map(([label,key])=><div key={key}><span className="tiny-label">{label}</span><p>{TRACK_CONTEXT[t.id][key]}</p></div>)}</div></details><div className="card-links"><Link to="/workshops">Related workshops </Link><Link to="/innovation-challenge">Pitch an idea </Link></div></div></details></article>) : <div className="empty-explorer"><h2>No matching topics found</h2><button onClick={()=>{setSelected('all');setQuery('')}}>Reset Filters</button></div>}</div></div></div>
 }

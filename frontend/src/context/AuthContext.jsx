@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react'
-import { getMe, login, logout, storeUser, clearUser, getStoredUser } from '../services/authService'
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react'
+import { getMe, login, register, logout, storeUser, clearUser, getStoredUser } from '../services/authService'
 
 // ─── Context creation ───────────────────────────────────────────────────────
 const AuthContext = createContext(null)
@@ -16,20 +16,22 @@ const AuthContext = createContext(null)
 export function AuthProvider({ children }) {
   const [user, setUser]       = useState(getStoredUser)   // hydrate from localStorage
   const [loading, setLoading] = useState(true)
+  const sessionVersion = useRef(0)
 
   // ── Verify JWT cookie on mount ────────────────────────────────────────────
   useEffect(() => {
     let cancelled = false
+    const version = sessionVersion.current
 
     async function verifySession() {
       try {
         const data = await getMe()
-        if (!cancelled) {
+        if (!cancelled && version === sessionVersion.current) {
           setUser(data.user)
           storeUser(data.user)
         }
       } catch (err) {
-        if (!cancelled) {
+        if (!cancelled && version === sessionVersion.current) {
           // Only clear session on explicit 401 (invalid/expired token).
           // Network errors (backend offline) should not log the user out.
           if (err.status === 401) {
@@ -50,6 +52,16 @@ export function AuthProvider({ children }) {
   // ── Sign in ───────────────────────────────────────────────────────────────
   const signIn = useCallback(async (credentials) => {
     const data = await login(credentials)   // throws on error
+    sessionVersion.current += 1
+    setUser(data.user)
+    storeUser(data.user)
+    return data
+  }, [])
+
+  // Registration already sets the same session cookie as login on the backend.
+  const signUp = useCallback(async (credentials) => {
+    const data = await register(credentials)
+    sessionVersion.current += 1
     setUser(data.user)
     storeUser(data.user)
     return data
@@ -57,12 +69,13 @@ export function AuthProvider({ children }) {
 
   // ── Sign out ──────────────────────────────────────────────────────────────
   const signOut = useCallback(async () => {
+    sessionVersion.current += 1
     try { await logout() } catch { /* ignore network errors */ }
     setUser(null)
     clearUser()
   }, [])
 
-  const value = { user, loading, signIn, signOut }
+  const value = { user, loading, signIn, signUp, signOut }
 
   return (
     <AuthContext.Provider value={value}>

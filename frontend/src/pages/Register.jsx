@@ -4,48 +4,21 @@ import AuthLayout from '../components/AuthLayout'
 import InputField from '../components/InputField'
 import ToastContainer from '../components/Toast'
 import { useToast, useForm } from '../hooks/useAuth'
-import { register, storeUser, getPasswordStrength, isValidEmail } from '../services/authService'
+import { getPasswordStrength, isValidEmail } from '../services/authService'
 import styles from './AuthPage.module.css'
+import { useAuth } from '../context/AuthContext'
 
 // ─── Brand Panel ───────────────────────────────────────────────────────────
 function RegisterBrand() {
-  return (
-    <div className={styles.brandContent}>
-      <div className={styles.logo}>
-        <div className={styles.logoIcon}>S</div>
-        <span className={styles.logoText}>Sankalp<em>Events</em></span>
-      </div>
-      <h1 className={styles.headline}>
-        Create<br />Unforgettable<br />Moments.
-      </h1>
-      <p className={styles.brandSub}>
-        Join thousands of event creators and attendees on the most premium events platform.
-      </p>
-      <div className={styles.stats}>
-        <div className={styles.stat}>
-          <span className={styles.statNum}>50K+</span>
-          <span className={styles.statLabel}>Events</span>
-        </div>
-        <div className={styles.statDivider} />
-        <div className={styles.stat}>
-          <span className={styles.statNum}>200K+</span>
-          <span className={styles.statLabel}>Users</span>
-        </div>
-        <div className={styles.statDivider} />
-        <div className={styles.stat}>
-          <span className={styles.statNum}>98%</span>
-          <span className={styles.statLabel}>Satisfaction</span>
-        </div>
-      </div>
-    </div>
-  )
+  return <div className={styles.brandContent}><Link to="/" aria-label="SANKALP home"><img className="auth-official-logo" src="/media/sankalp-logo.png" alt="SANKALP Andhra 2026" /></Link><h1 className={styles.headline}>Join the<br />conversation.</h1><p className={styles.brandSub}>Research. Technology. Real-world impact.</p><Link className="text-link" to="/">Back to the summit </Link></div>
 }
 
 // ─── Register Form ─────────────────────────────────────────────────────────
 export default function Register() {
   const navigate = useNavigate()
+  const { signUp } = useAuth()
   const { toasts, toast } = useToast()
-  const { values, errors, touched, setValue, setError, clearError, touch } = useForm({
+  const { values, errors, touched, setValue, setError, touch } = useForm({
     username: '',
     gmail: '',
     password: '',
@@ -96,15 +69,13 @@ export default function Register() {
 
     setLoading(true)
     try {
-      const data = await register({
+      await signUp({
         username: values.username.trim(),
         gmail:    values.gmail.trim(),
         password: values.password,
       })
-      storeUser(data.user)
-      setGlobalMsg({ text: '🎉 Account created! Redirecting to login…', type: 'success' })
       toast('Account created successfully!', 'success')
-      setTimeout(() => navigate('/login'), 1800)
+      navigate('/dashboard', { replace: true })
     } catch (err) {
       const msg = err.message || 'Registration failed. Please try again.'
       setGlobalMsg({ text: msg, type: 'error' })
@@ -204,7 +175,7 @@ export default function Register() {
 
             <p className={styles.footerNote}>
               By signing up you agree to our{' '}
-              <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>.
+              <Link to="/terms">Terms</Link> &amp; <Link to="/privacy-policy">Privacy Policy</Link>.
             </p>
           </div>
         }

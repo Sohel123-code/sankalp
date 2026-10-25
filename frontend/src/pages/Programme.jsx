@@ -1,143 +1,78 @@
-import { useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { useMemo, useRef, useState } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import PageHeader from '../components/PageHeader'
-import { SCHEDULE } from '../data/sankalpData'
-import styles from './Programme.module.css'
+import { FancyButton, Reveal } from '../components/Motion'
+import { SCHEDULE, WORKSHOPS, OPEN_SUMMIT_LABS } from '../data/sankalpData'
+import { groupProgramme } from '../utils/programme'
+import ProgrammeStage from '../components/ProgrammeStage'
+
+function Session({ session, index }) {
+  const ref = useRef(null)
+  const reduced = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start .96', 'start .55'] })
+  const opacity = useTransform(scrollYProgress, [0, .75], [0, 1])
+  const y = useTransform(scrollYProgress, [0, 1], [70, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [.94, 1])
+  return <motion.article ref={ref} className={`agenda-session ${session.type === 'Break' ? 'agenda-break' : ''}`}
+    style={{ opacity: reduced ? 1 : opacity, y: reduced ? 0 : y, scale: reduced ? 1 : scale, transformOrigin: 'top center' }}>
+    <div className="agenda-marker"><span>{String(index + 1).padStart(2, '0')}</span></div>
+    <div className="agenda-session-body">
+      <div className="agenda-meta"><span className="agenda-time">{session.time}</span><span className="agenda-type">{session.type}</span></div>
+      <h3>{session.title}</h3>
+      <span className="agenda-location">{session.location}{session.track && ` · ${session.track}`}</span>
+      <details className="disclosure session-description"><summary>Session details <span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary><p>{session.desc}</p>
+        {session.overlapNotice && <p className="agenda-note">{session.overlapNotice}</p>}
+      </details>
+      {session.overlapNotice && <span className="agenda-overlap">Overlapping session · see details</span>}
+      {session.type.toLowerCase().includes('workshop') && <details className="parallel-rooms"><summary>Parallel workshops & open labs <span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary><div>
+        {WORKSHOPS.map(w => <div key={w.id}><span>{w.location}</span><h4>{w.title}</h4></div>)}
+        <div><span>Main Auditorium · Open Summit Programme</span>{OPEN_SUMMIT_LABS.map(l => <p key={l.id}><strong>{l.time}</strong><br />{l.title}</p>)}</div>
+      </div></details>}
+    </div>
+  </motion.article>
+}
+
+function TimelineChapter({ chapter, day }) {
+  const ref = useRef(null), reduced = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start .7', 'end .6'] })
+  return <section className="agenda-chapter" id={`agenda-${day}-${chapter.id}`} ref={ref} aria-labelledby={`heading-${day}-${chapter.id}`}>
+    <div className="agenda-chapter-heading"><span className="tiny-label">{chapter.number} / THE DAY UNFOLDS</span><h2 id={`heading-${day}-${chapter.id}`}>{chapter.title}</h2><span>{chapter.sessions.length} sessions</span></div>
+    <div className="agenda-list">
+      <div className="agenda-rail" aria-hidden="true"><motion.div style={{ scaleY: reduced ? 1 : scrollYProgress }} /></div>
+      {chapter.sessions.map(({ session, index }) => <Session key={session.title} session={session} index={index} />)}
+    </div>
+  </section>
+}
 
 export default function Programme() {
-  const [activeDay, setActiveDay] = useState('day1')
-  const [filterType, setFilterType] = useState('all')
-
-  const currentSchedule = activeDay === 'day1' ? SCHEDULE.day1 : SCHEDULE.day2
-
-  const sessionTypes = useMemo(() => {
-    const types = new Set(currentSchedule.sessions.map(s => s.type))
-    return ['all', ...Array.from(types)]
-  }, [currentSchedule])
-
-  const filteredSessions = useMemo(() => {
-    if (filterType === 'all') return currentSchedule.sessions
-    return currentSchedule.sessions.filter(s => s.type === filterType)
-  }, [currentSchedule, filterType])
-
-  return (
-    <div className={styles.page}>
-      <PageHeader
-        badge="Programme & Agenda"
-        title="Summit Schedule & Timetable"
-        subtitle="Two days of visionary keynotes, deep-tech research tracks, specialist workshops, and venture pitching in Andhra Pradesh."
-        breadcrumb={[{ label: 'Programme & Schedule' }]}
-      />
-
-      <div className={styles.container}>
-        {/* ── Schedule Resolution Notice Banner ── */}
-        <div className={styles.alertBanner}>
-          <span className={styles.alertIcon}>⚠️</span>
-          <div className={styles.alertBody}>
-            <strong>Programme Timing &amp; Overlap Advisory:</strong>
-            <p>
-              {SCHEDULE.disclaimer} On Day 1, the preliminary draft notes concurrent timings between the Inaugural Ceremony &amp; Keynote, as well as the Research Showcase &amp; Cultural Evening. These timings are being reconciled by the secretariat prior to final publication.
-            </p>
-          </div>
-        </div>
-
-        {/* ── Day Switcher Tabs ── */}
-        <div className={styles.daySwitchContainer}>
-          <div className={styles.dayTabs}>
-            <button
-              className={`${styles.dayBtn} ${activeDay === 'day1' ? styles.dayBtnActive : ''}`}
-              onClick={() => {
-                setActiveDay('day1')
-                setFilterType('all')
-              }}
-            >
-              <span className={styles.dayNum}>DAY 01</span>
-              <span className={styles.dayTitle}>Research, Industry &amp; Strategic Dialogue</span>
-            </button>
-            <button
-              className={`${styles.dayBtn} ${activeDay === 'day2' ? styles.dayBtnActive : ''}`}
-              onClick={() => {
-                setActiveDay('day2')
-                setFilterType('all')
-              }}
-            >
-              <span className={styles.dayNum}>DAY 02</span>
-              <span className={styles.dayTitle}>Hands-On Innovation &amp; Industry Connect</span>
-            </button>
-          </div>
-        </div>
-
-        {/* ── Filter By Session Type ── */}
-        <div className={styles.filterRow}>
-          <span className={styles.filterLabel}>Filter Sessions:</span>
-          <div className={styles.typePills}>
-            {sessionTypes.map(type => (
-              <button
-                key={type}
-                className={`${styles.typePill} ${filterType === type ? styles.typePillActive : ''}`}
-                onClick={() => setFilterType(type)}
-              >
-                {type === 'all' ? 'All Sessions' : type}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Timeline Display ── */}
-        <div className={styles.timeline}>
-          {filteredSessions.map((sess, idx) => (
-            <div key={idx} className={styles.timelineItem}>
-              {/* Left Time Column */}
-              <div className={styles.timeCol}>
-                <div className={styles.timeBadge}>{sess.time}</div>
-                {sess.track && <span className={styles.trackTag}>{sess.track}</span>}
-              </div>
-
-              {/* Timeline Connector Dot */}
-              <div className={styles.lineMarker}>
-                <div className={styles.markerDot} />
-                <div className={styles.markerLine} />
-              </div>
-
-              {/* Right Content Column */}
-              <div className={styles.contentCol}>
-                <div className={styles.cardHeader}>
-                  <span className={styles.typeBadge}>{sess.type}</span>
-                  <span className={styles.locationBadge}>📍 {sess.location}</span>
-                </div>
-
-                <h3 className={styles.sessionTitle}>{sess.title}</h3>
-                <p className={styles.sessionDesc}>{sess.desc}</p>
-
-                {sess.overlapNotice && (
-                  <div className={styles.overlapWarning}>
-                    <span className={styles.warningIcon}>ℹ️</span>
-                    <span>{sess.overlapNotice}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* ── Schedule Action Banner ── */}
-        <div className={styles.bottomCtaBanner}>
-          <div className={styles.bottomCtaInner}>
-            <div>
-              <h3>Participate in the Summit</h3>
-              <p>Specialist workshops and pitch slots have limited room capacities. Book your delegate pass early.</p>
-            </div>
-            <div className={styles.bottomCtaBtns}>
-              <Link to="/registration" className={styles.btnRegister}>
-                Register for the Summit
-              </Link>
-              <Link to="/workshops" className={styles.btnWs}>
-                View Workshop Syllabi
-              </Link>
-            </div>
-          </div>
+  const [activeDay, setActiveDay] = useState('day1'), [filter, setFilter] = useState('all'), [view, setView] = useState('stage')
+  const current = SCHEDULE[activeDay]
+  const types = useMemo(() => ['all', ...new Set(current.sessions.map(s => s.type))], [current])
+  const chapters = groupProgramme(current.sessions, filter)
+  const count = chapters.reduce((sum, chapter) => sum + chapter.sessions.length, 0)
+  return <div className="programme-page">
+    <PageHeader badge="Programme & Schedule" title="The summit programme." breadcrumb={[{ label: 'Programme' }]} />
+    <div className="section-shell programme-body" id="programme-details">
+      <div className="programme-status"><span>PROPOSED PROGRAMME</span><details><summary>Dates & schedule status</summary><p>{SCHEDULE.disclaimer}</p></details></div>
+      <div className="agenda-layout">
+        <aside className="agenda-sidebar"><span className="eyebrow">YOUR SUMMIT JOURNEY</span>
+          <div className="agenda-days" aria-label="Programme day">{['day1', 'day2'].map((day, i) => <button key={day} className={activeDay === day ? 'active' : ''} aria-pressed={activeDay === day} onClick={() => { setActiveDay(day); setFilter('all') }}>
+            {activeDay === day && <motion.span className="agenda-day-indicator" layoutId="selected-programme-day" transition={{ type: 'spring', stiffness: 260, damping: 30 }} />}
+            <span className="agenda-day-number">0{i + 1}</span><div><span>DAY {i + 1}</span><strong>{i === 0 ? 'Discover. Discuss. Connect.' : 'Explore. Build. Pitch.'}</strong><small>{SCHEDULE[day].date}</small></div>
+          </button>)}</div>
+          <p className="agenda-sidebar-copy">{current.title}</p>
+          <nav className="agenda-chapters-nav" aria-label="Jump to time of day">{chapters.map(chapter => <a key={chapter.id} href={`#agenda-${activeDay}-${chapter.id}`}>{chapter.title}</a>)}</nav>
+          <span className="tiny-label">ALL TIMES IN IST · SUBJECT TO CONFIRMATION</span><FancyButton to="/registration" secondary>Join the summit</FancyButton>
+        </aside>
+        <div className="agenda-main">
+          <div className="agenda-filter"><label htmlFor="session-filter">Find your moment</label><select id="session-filter" value={filter} onChange={e => setFilter(e.target.value)}>{types.map(t => <option value={t} key={t}>{t === 'all' ? 'All sessions' : t}</option>)}</select><span aria-live="polite">{count} sessions</span>
+            <div className="agenda-view" role="group" aria-label="Programme view"><button aria-pressed={view === 'stage'} onClick={() => setView('stage')}>Interactive</button><button aria-pressed={view === 'list'} onClick={() => setView('list')}>Full list</button></div></div>
+          {view === 'stage'
+            ? <ProgrammeStage key={`${activeDay}-${filter}`} sessions={chapters.flatMap(chapter => chapter.sessions.map(item => item.session))} />
+            : <div key={`${activeDay}-${filter}`}>{chapters.map(chapter => <TimelineChapter key={chapter.id} chapter={chapter} day={activeDay} />)}</div>}
         </div>
       </div>
+      <Reveal className="agenda-outro"><span className="eyebrow">MAKE ROOM FOR POSSIBILITY</span><h2>Your next idea<br />starts with <em>showing up.</em></h2><FancyButton to="/workshops">Explore hands-on workshops</FancyButton></Reveal>
     </div>
-  )
+  </div>
 }

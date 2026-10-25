@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import EventCard from '../components/EventCard'
+import PageHeader from '../components/PageHeader'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { getEvents, getEventsByCategory, searchEvents } from '../services/eventService'
 import styles from './Events.module.css'
@@ -42,12 +43,13 @@ export default function Events() {
 
   return (
     <div className={styles.page}>
+      <PageHeader badge="Explore events" title="Find your next experience." subtitle="Browse events and filter by your interests." breadcrumb={[{ label: 'Events' }]} />
       <div className={styles.inner}>
         {/* ── Header ── */}
         <div className={styles.header}>
           <div>
             <p className={styles.eyebrow}>Explore</p>
-            <h1 className={styles.heading}>All Events</h1>
+            <h2 className={styles.heading}>All events</h2>
           </div>
 
           {/* Search */}
@@ -90,7 +92,7 @@ export default function Events() {
 
         {!loading && !error && events.length === 0 && (
           <div className={styles.empty}>
-            <span className={styles.emptyIcon} aria-hidden="true">🔍</span>
+            <span className={styles.emptyIcon} aria-hidden="true"></span>
             <p>No events found. Try a different search or category.</p>
           </div>
         )}

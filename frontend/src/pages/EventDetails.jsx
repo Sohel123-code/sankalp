@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { getEventById } from '../services/eventService'
 import LoadingSpinner from '../components/LoadingSpinner'
+import { useAuth } from '../context/AuthContext'
+import PageHeader from '../components/PageHeader'
 import styles from './EventDetails.module.css'
 
 export default function EventDetails() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [event,   setEvent]   = useState(null)
   const [loading, setLoading] = useState(true)
   const [error,   setError]   = useState('')
@@ -34,9 +37,9 @@ export default function EventDetails() {
     <div className={styles.page}>
       <div className={styles.inner}>
         <div className={styles.errorBox} role="alert">
-          <span>⚠️</span> {error}
+          <span></span> {error}
         </div>
-        <button onClick={() => navigate(-1)} className={styles.backBtn}>← Go Back</button>
+        <button onClick={() => navigate(-1)} className={styles.backBtn}> Go Back</button>
       </div>
     </div>
   )
@@ -49,23 +52,15 @@ export default function EventDetails() {
 
   return (
     <div className={styles.page}>
+      <PageHeader badge={event.category || 'Event details'} title={event.title} subtitle={`${formattedDate}${event.location ? ` · ${event.location}` : ''}`} breadcrumb={[{ label: 'Events', to: '/events' }, { label: 'Event details' }]} />
       <div className={styles.inner}>
         {/* Back */}
-        <Link to="/events" className={styles.backBtn} id="event-details-back">← All Events</Link>
-
-        {/* Hero image */}
-        <div className={styles.imgWrap}>
-          {event.image_url
-            ? <img src={event.image_url} alt={event.title} className={styles.img} />
-            : <div className={styles.imgPlaceholder} aria-hidden="true">🎉</div>
-          }
-          {event.category && <span className={styles.badge}>{event.category}</span>}
-        </div>
+        <Link to="/events" className={styles.backBtn} id="event-details-back"> All Events</Link>
 
         {/* Body */}
         <div className={styles.body}>
           <div className={styles.main}>
-            <h1 className={styles.title}>{event.title}</h1>
+            <h2 className={styles.title}>About this event</h2>
             {event.description && <p className={styles.desc}>{event.description}</p>}
           </div>
 
@@ -73,7 +68,7 @@ export default function EventDetails() {
           <div className={styles.sidebar}>
             <div className={styles.infoCard}>
               <div className={styles.infoRow}>
-                <span className={styles.infoIcon}>📅</span>
+                <span className={styles.infoIcon}></span>
                 <div>
                   <span className={styles.infoLabel}>Date</span>
                   <span className={styles.infoVal}>{formattedDate}</span>
@@ -81,7 +76,7 @@ export default function EventDetails() {
               </div>
               {event.location && (
                 <div className={styles.infoRow}>
-                  <span className={styles.infoIcon}>📍</span>
+                  <span className={styles.infoIcon}></span>
                   <div>
                     <span className={styles.infoLabel}>Location</span>
                     <span className={styles.infoVal}>{event.location}</span>
@@ -90,7 +85,7 @@ export default function EventDetails() {
               )}
               {event.price != null && (
                 <div className={styles.infoRow}>
-                  <span className={styles.infoIcon}>🎫</span>
+                  <span className={styles.infoIcon}></span>
                   <div>
                     <span className={styles.infoLabel}>Price</span>
                     <span className={styles.infoVal}>
@@ -99,8 +94,8 @@ export default function EventDetails() {
                   </div>
                 </div>
               )}
-              <Link to="/register" className={styles.registerBtn} id="event-details-register">
-                Register for This Event
+              <Link to={user ? '/dashboard' : '/register'} className={styles.registerBtn} id="event-details-register">
+                {user ? 'My profile' : 'Create an account'}
               </Link>
             </div>
           </div>

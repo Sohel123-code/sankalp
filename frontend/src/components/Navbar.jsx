@@ -1,257 +1,58 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { SUMMIT_INFO } from '../data/sankalpData'
-import styles from './Navbar.module.css'
+import { FancyButton } from './Motion'
+import ProfileMenu from './ProfileMenu'
 
-const MAIN_NAV_LINKS = [
-  { to: '/',                    label: 'Home' },
-  { to: '/about',               label: 'About' },
-  { to: '/tracks',              label: 'Tracks' },
-  { to: '/programme',           label: 'Programme' },
-  { to: '/workshops',           label: 'Workshops & Labs' },
-  { to: '/innovation-challenge',label: 'Challenge' },
+const main = [['/about','About'],['/tracks','Tracks'],['/programme','Programme'],['/workshops','Workshops'],['/contact','Contact']]
+const mobileMain = [['/','Home'], ...main]
+const groups = [
+  ['Participate', [['/innovation-challenge','Innovation Challenge'],['/investor-connect','Investor Connect'],['/showcase','Research Showcase'],['/partners','Partnerships']]],
+  ['Plan your visit', [['/speakers','Speakers'],['/venue','Venue & Travel'],['/registration','Registration & fees'],['/faq','FAQs']]],
 ]
-
-const MORE_LINKS = [
-  { to: '/investor-connect', label: 'Investor & Industry Connect', icon: '🤝' },
-  { to: '/showcase',         label: 'Research & Tech Showcase',  icon: '🔬' },
-  { to: '/speakers',         label: 'Speakers & Experts',        icon: '🎙️' },
-  { to: '/partners',         label: 'Partners & Sponsorship',    icon: '🏢' },
-  { to: '/venue',            label: 'Venue & Travel',            icon: '📍' },
-  { to: '/faq',              label: 'FAQs',                      icon: '❓' },
-  { to: '/contact',          label: 'Contact Secretariat',       icon: '✉️' },
-]
-
 export default function Navbar() {
-  const { user, signOut } = useAuth()
+  const { user, signOut, loading } = useAuth()
   const navigate = useNavigate()
-  const location = useLocation()
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const dropdownRef = useRef(null)
-
-  // ── Shrink navbar on scroll ──
+  const { pathname } = useLocation()
+  const [expanded, setExpanded] = useState(false), [mobile, setMobile] = useState(false)
+  const header = useRef(null), trigger = useRef(null), drawer = useRef(null), explore = useRef(null)
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const desktop = window.matchMedia('(min-width: 1101px)')
+    const resize = () => { if (desktop.matches) { setMobile(false); setExpanded(false) } }
+    desktop.addEventListener('change', resize)
+    return () => desktop.removeEventListener('change', resize)
   }, [])
-
-  // ── Close mobile menu & dropdown on route change ──
   useEffect(() => {
-    setMenuOpen(false)
-    setDropdownOpen(false)
-  }, [location.pathname])
-
-  // ── Close dropdown when clicking outside ──
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDropdownOpen(false)
+    const outside = e => { if (!header.current?.contains(e.target)) setExpanded(false) }
+    const keyboard = e => {
+      if (e.key === 'Escape') { if (mobile) trigger.current?.focus(); else if (expanded) explore.current?.focus(); setMobile(false); setExpanded(false) }
+      if (e.key === 'Tab' && mobile && drawer.current) {
+        const focusable = [trigger.current, ...drawer.current.querySelectorAll('a, button')]
+        const first = focusable[0], last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
       }
     }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const handleLogout = async () => {
-    await signOut()
-    navigate('/login')
-  }
-
-  const isMoreActive = MORE_LINKS.some(link => location.pathname === link.to)
-
-  return (
-    <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
-      <div className={styles.inner}>
-        {/* Brand Logo */}
-        <Link to="/" className={styles.logo} aria-label={SUMMIT_INFO.name}>
-          <span className={styles.logoIcon}>S</span>
-          <div className={styles.brandGroup}>
-            <span className={styles.logoTitle}>SANKALP <em>2026</em></span>
-            <span className={styles.logoSubtitle}>Andhra Tech Summit</span>
-          </div>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className={styles.nav} aria-label="Main summit navigation">
-          {MAIN_NAV_LINKS.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === '/'}
-              className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.active : ''}`
-              }
-            >
-              {label}
-            </NavLink>
-          ))}
-
-          {/* More Dropdown */}
-          <div className={styles.dropdownContainer} ref={dropdownRef}>
-            <button
-              type="button"
-              className={`${styles.navLink} ${styles.dropdownTrigger} ${
-                isMoreActive || dropdownOpen ? styles.active : ''
-              }`}
-              onClick={() => setDropdownOpen(prev => !prev)}
-              aria-expanded={dropdownOpen}
-              aria-haspopup="true"
-            >
-              More <span className={`${styles.chevron} ${dropdownOpen ? styles.chevronUp : ''}`}>▾</span>
-            </button>
-
-            {dropdownOpen && (
-              <div className={styles.dropdownMenu} role="menu">
-                <div className={styles.dropdownHeader}>Summit Initiatives</div>
-                {MORE_LINKS.map(({ to, label, icon }) => (
-                  <NavLink
-                    key={to}
-                    to={to}
-                    role="menuitem"
-                    className={({ isActive }) =>
-                      `${styles.dropdownItem} ${isActive ? styles.dropdownItemActive : ''}`
-                    }
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    <span className={styles.itemIcon}>{icon}</span>
-                    <span className={styles.itemLabel}>{label}</span>
-                  </NavLink>
-                ))}
-              </div>
-            )}
-          </div>
-        </nav>
-
-        {/* Action Buttons */}
-        <div className={styles.actions}>
-          <Link
-            to="/registration"
-            className={`${styles.btnRegister} ${
-              location.pathname === '/registration' ? styles.btnRegisterActive : ''
-            }`}
-            id="nav-register-cta"
-          >
-            Register Now
-          </Link>
-
-          {user ? (
-            <div className={styles.userSection}>
-              <span className={styles.userGreet} title={user.email}>
-                👤 {user.username || 'Delegate'}
-              </span>
-              <button
-                onClick={handleLogout}
-                className={styles.btnOutline}
-                id="logout-btn"
-                title="Sign out of account"
-              >
-                Sign Out
-              </button>
-            </div>
-          ) : (
-            <Link to="/login" className={styles.btnGhost} id="nav-login">
-              Sign In
-            </Link>
-          )}
-        </div>
-
-        {/* Mobile Hamburger Button */}
-        <button
-          className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
-          onClick={() => setMenuOpen(prev => !prev)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          id="mobile-menu-toggle"
-        >
-          <span /><span /><span />
-        </button>
-      </div>
-
-      {/* Mobile Drawer */}
-      {menuOpen && (
-        <div className={styles.mobileMenu} role="dialog" aria-label="Mobile navigation">
-          <div className={styles.mobileNavGroup}>
-            <div className={styles.mobileGroupTitle}>Core Summit</div>
-            {MAIN_NAV_LINKS.map(({ to, label }) => (
-              <NavLink
-                key={to}
-                to={to}
-                end={to === '/'}
-                className={({ isActive }) =>
-                  `${styles.mobileLink} ${isActive ? styles.mobileActive : ''}`
-                }
-                onClick={() => setMenuOpen(false)}
-              >
-                {label}
-              </NavLink>
-            ))}
-          </div>
-
-          <div className={styles.mobileNavGroup}>
-            <div className={styles.mobileGroupTitle}>Initiatives &amp; Details</div>
-            {MORE_LINKS.map(({ to, label, icon }) => (
-              <NavLink
-                key={to}
-                to={to}
-                className={({ isActive }) =>
-                  `${styles.mobileLink} ${isActive ? styles.mobileActive : ''}`
-                }
-                onClick={() => setMenuOpen(false)}
-              >
-                <span className={styles.mobileIcon}>{icon}</span> {label}
-              </NavLink>
-            ))}
-          </div>
-
-          <div className={styles.mobileDivider} />
-
-          <div className={styles.mobileActions}>
-            <Link
-              to="/registration"
-              onClick={() => setMenuOpen(false)}
-              className={styles.mobileRegisterBtn}
-            >
-              🎟️ Register for Summit
-            </Link>
-
-            {user ? (
-              <div className={styles.mobileUserBox}>
-                <span className={styles.mobileUserName}>Logged in as {user.username}</span>
-                <button
-                  onClick={handleLogout}
-                  className={styles.mobileLogoutBtn}
-                  id="mobile-logout"
-                >
-                  Sign Out
-                </button>
-              </div>
-            ) : (
-              <div className={styles.mobileAuthRow}>
-                <Link
-                  to="/login"
-                  onClick={() => setMenuOpen(false)}
-                  className={styles.mobileAuthLink}
-                  id="mobile-login"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/register"
-                  onClick={() => setMenuOpen(false)}
-                  className={styles.mobileAuthSecondary}
-                  id="mobile-register"
-                >
-                  Create Account
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-    </header>
-  )
+    document.addEventListener('pointerdown', outside); document.addEventListener('keydown', keyboard)
+    return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', keyboard) }
+  }, [mobile, expanded])
+  useEffect(() => {
+    if (!mobile) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    trigger.current?.focus()
+    return () => { document.body.style.overflow = previous }
+  }, [mobile])
+  const logout = async () => { await signOut(); navigate('/login') }
+  const links = items => items.map(([to,label]) => <NavLink key={to} to={to} end={to === '/'} onClick={() => { setExpanded(false); setMobile(false); if (to === pathname) window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) }}>{label}</NavLink>)
+  return <header className="site-header" ref={header}>
+    <div className="header-shell">
+      <Link to="/" className="header-brand" aria-label="SANKALP Andhra 2026 home"><img src="/media/sankalp-logo.png" alt="SANKALP Andhra 2026" /></Link>
+      <nav className="header-links" aria-label="Main summit navigation">{links(main)}<button ref={explore} className={expanded ? 'is-open' : ''} onClick={() => setExpanded(v => !v)} aria-expanded={expanded} aria-controls="summit-explore">More <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4 3 3 3-3" stroke="currentColor" /></svg></button></nav>
+      <div className="header-cta">{user ? <ProfileMenu /> : loading ? <span className="account-loading" role="status" aria-label="Checking your session" /> : <><Link to="/login" id="nav-login">Sign in</Link><FancyButton to="/register" id="nav-register-cta">Register</FancyButton></>}</div>
+      <button ref={trigger} id="mobile-menu-toggle" className="menu-toggle" aria-label={mobile ? 'Close menu' : 'Open menu'} aria-expanded={mobile} aria-controls="mobile-navigation" onClick={() => { setMobile(v => !v); setExpanded(false) }}><span /><span /></button>
+    </div>
+    {expanded && <nav className="explore-panel" id="summit-explore" aria-label="More pages">{groups.map(([label,items]) => <div key={label}><span className="tiny-label">{label}</span>{links(items)}</div>)}</nav>}
+    {mobile && <div ref={drawer} id="mobile-navigation" className="mobile-panel" role="dialog" aria-label="Mobile navigation"><nav aria-label="Summit pages"><div className="mobile-primary">{links(mobileMain)}</div><div className="mobile-secondary">{groups.map(([label,items]) => <div key={label}><span className="tiny-label">{label}</span>{links(items)}</div>)}</div></nav><div className="mobile-account">{user ? <button onClick={logout} id="mobile-logout">Sign out</button> : <><Link to="/login" id="mobile-login">Sign in</Link><Link to="/register" id="mobile-register">Create account</Link></>}</div></div>}
+  </header>
 }

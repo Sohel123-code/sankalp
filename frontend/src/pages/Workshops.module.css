@@ -12,8 +12,8 @@
 
 /* ── Info Strip ── */
 .infoStrip {
-  background: rgba(15, 17, 32, 0.85);
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: rgba(20,18,15, 0.85);
+  border: 1px solid rgba(255,120,53, 0.3);
   border-radius: var(--radius-md);
   padding: 20px 24px;
   display: flex;
@@ -84,10 +84,10 @@
 }
 
 .tabBtnActive {
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(255,120,53, 0.2);
   border-color: var(--clr-primary);
   color: #fff;
-  box-shadow: 0 4px 18px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 4px 18px rgba(255,120,53, 0.3);
 }
 
 /* ── Specialist Workshop Cards ── */
@@ -99,7 +99,7 @@
 }
 
 .wsCard {
-  background: rgba(15, 17, 32, 0.85);
+  background: rgba(20,18,15, 0.85);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   padding: 36px;
@@ -107,7 +107,7 @@
 }
 
 .wsCard:hover {
-  border-color: rgba(139, 92, 246, 0.45);
+  border-color: rgba(255,120,53, 0.45);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 
@@ -127,8 +127,8 @@
 .wsNumber {
   font-size: 0.78rem;
   font-weight: 800;
-  color: #c4b5fd;
-  background: rgba(139, 92, 246, 0.15);
+  color: #f5bc88;
+  background: rgba(255,120,53, 0.15);
   padding: 3px 10px;
   border-radius: 99px;
   letter-spacing: 0.6px;
@@ -207,7 +207,7 @@
 
 .outputBox,
 .eligibilityBox {
-  background: rgba(7, 8, 15, 0.6);
+  background: rgba(8,8,7, 0.6);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-sm);
   padding: 16px;
@@ -272,7 +272,7 @@
 }
 
 .labCard {
-  background: rgba(15, 17, 32, 0.85);
+  background: rgba(20,18,15, 0.85);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   padding: 32px 24px;
@@ -282,7 +282,7 @@
 }
 
 .labCard:hover {
-  border-color: rgba(6, 182, 212, 0.4);
+  border-color: rgba(229,165,98, 0.4);
   transform: translateY(-3px);
 }
 
@@ -301,7 +301,7 @@
   font-size: 0.78rem;
   font-weight: 700;
   color: #38bdf8;
-  background: rgba(6, 182, 212, 0.15);
+  background: rgba(229,165,98, 0.15);
   padding: 3px 10px;
   border-radius: 99px;
 }
@@ -355,7 +355,7 @@
 
 /* ── Guidelines ── */
 .checklistCard {
-  background: rgba(15, 17, 32, 0.85);
+  background: rgba(20,18,15, 0.85);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   padding: 40px;
@@ -386,7 +386,7 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  background: rgba(7, 8, 15, 0.5);
+  background: rgba(8,8,7, 0.5);
   border: 1px solid var(--clr-border);
   padding: 16px 20px;
   border-radius: var(--radius-md);
@@ -406,14 +406,14 @@
 }
 
 .noticeBox {
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: rgba(255,120,53, 0.1);
+  border: 1px solid rgba(255,120,53, 0.3);
   border-radius: var(--radius-md);
   padding: 20px;
 }
 
 .noticeBox strong {
-  color: #c4b5fd;
+  color: #f5bc88;
   display: block;
   font-size: 0.9rem;
   margin-bottom: 6px;
@@ -428,7 +428,7 @@
 
 /* ── Inclusions ── */
 .inclusionsSection {
-  background: rgba(15, 17, 32, 0.6);
+  background: rgba(20,18,15, 0.6);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   padding: 40px;
@@ -443,7 +443,7 @@
 
 .inclusionsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 18px;
 }
 

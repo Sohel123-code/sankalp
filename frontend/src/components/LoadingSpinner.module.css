@@ -15,7 +15,7 @@
 
 .ring {
   border-radius: 50%;
-  border: 3px solid rgba(139,92,246,0.2);
+  border: 3px solid rgba(255,120,53,0.2);
   border-top-color: var(--clr-primary);
   animation: spin 0.7s linear infinite;
 }

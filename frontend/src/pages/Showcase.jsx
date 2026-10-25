@@ -39,76 +39,33 @@ export default function Showcase() {
         breadcrumb={[{ label: 'Research & Tech Showcase' }]}
       />
 
-      <div className={styles.container}>
-        {/* ── Hero Banner ── */}
-        <div className={styles.heroBox}>
-          <div className={styles.heroLeft}>
-            <span className={styles.tag}>Live Demonstrations Pavilion</span>
-            <h2 className={styles.heroH2}>Give Your Research Real-World Visibility</h2>
-            <p className={styles.heroP}>
-              The Research &amp; Technology Showcase offers physical exhibition concourses for university research labs, corporate R&amp;D divisions, and deep-tech startups to demonstrate live working prototypes before 2,000+ delegates.
-            </p>
-            <div className={styles.pendingCard}>
-              <span className={styles.pendingIcon}>ℹ️</span>
-              <p>{SHOWCASE_INFO.pendingDetails}</p>
-            </div>
+      <div data-summit-scene className={styles.container}>
+        <section className="sc-intro" aria-labelledby="sc-intro-title">
+          <div>
+            <span className="eyebrow">LIVE DEMONSTRATIONS PAVILION</span>
+            <h2 id="sc-intro-title">Put research on display.</h2>
+            <p>Demonstrate your prototype to researchers, industry teams and summit participants.</p>
+            <p className="sc-note">{SHOWCASE_INFO.pendingDetails}</p>
           </div>
-
-          <div className={styles.heroRight}>
-            <div className={styles.ctaCard}>
-              <h3>Exhibit Your Innovation</h3>
-              <p>Booth allocation is subject to technical review and room capacity.</p>
-              <button
-                className={styles.btnPrimary}
-                onClick={() => {
-                  setShowModal(true)
-                  setSubmitted(false)
-                }}
-              >
-                🔬 Express Showcase Interest
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Potential Participants Grid ── */}
-        <section className={styles.participantsSection}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.secEye}>Exhibitor Cohorts</span>
-            <h2 className={styles.secTitle}>Who Can Exhibit?</h2>
-            <p className={styles.secDesc}>
-              Open to academic, industrial, and entrepreneurial research teams working on high-impact technology systems.
-            </p>
-          </div>
-
-          <div className={styles.partGrid}>
-            {SHOWCASE_INFO.potentialParticipants.map((part, idx) => (
-              <div key={idx} className={styles.partCard}>
-                <span className={styles.partNum}>0{idx + 1}</span>
-                <p className={styles.partName}>{part}</p>
-              </div>
-            ))}
+          <div className="sc-cta">
+            <h3>Exhibit your innovation</h3>
+            <p>Booth allocation is subject to technical review and room capacity.</p>
+            <button type="button" className="sc-cta-button" onClick={() => { setShowModal(true); setSubmitted(false) }}>Express showcase interest <span aria-hidden="true">→</span></button>
           </div>
         </section>
 
-        {/* ── Required Application Dossier ── */}
-        <section className={styles.fieldsSection}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.secEye}>Submission Requirements</span>
-            <h2 className={styles.secTitle}>Showcase Application Parameters</h2>
-            <p className={styles.secDesc}>
-              The screening committee evaluates demonstrations according to safety, technology readiness, and statewide impact.
-            </p>
-          </div>
+        <section className="sc-section" aria-labelledby="sc-who-title">
+          <span className="eyebrow">EXHIBITOR COHORTS</span>
+          <h2 id="sc-who-title">Who can exhibit?</h2>
+          <p className="sc-lede">Open to academic, industrial and entrepreneurial research teams working on high-impact technology systems.</p>
+          <ul className="sc-cohorts">{SHOWCASE_INFO.potentialParticipants.map((part, index) => <li key={part}><span>{String(index + 1).padStart(2, '0')}</span><p>{part}</p></li>)}</ul>
+        </section>
 
-          <div className={styles.fieldsGrid}>
-            {SHOWCASE_INFO.requiredFields.map((f, i) => (
-              <div key={i} className={styles.fItem}>
-                <span className={styles.fDot}>•</span>
-                <span>{f}</span>
-              </div>
-            ))}
-          </div>
+        <section className="sc-section" aria-labelledby="sc-prep-title">
+          <span className="eyebrow">SUBMISSION REQUIREMENTS</span>
+          <h2 id="sc-prep-title">What to prepare</h2>
+          <p className="sc-lede">The screening committee evaluates demonstrations on safety, technology readiness and statewide impact.</p>
+          <ol className="sc-fields">{SHOWCASE_INFO.requiredFields.map(field => <li key={field}>{field}</li>)}</ol>
         </section>
       </div>
 
@@ -120,21 +77,19 @@ export default function Showcase() {
               className={styles.closeBtn}
               onClick={() => setShowModal(false)}
               aria-label="Close modal"
-            >
-              ✕
-            </button>
+            ><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.5" /></svg></button>
 
             {submitted ? (
               <div className={styles.successState}>
-                <span className={styles.successIcon}>🎉</span>
-                <h2>Showcase Interest Logged!</h2>
+                <span className={styles.successIcon}></span>
+                <h2>Showcase interest preview</h2>
                 <p>
                   Thank you, <strong>{formData.leadName}</strong>. Your exhibit proposal{' '}
                   <strong>&ldquo;{formData.title}&rdquo;</strong> on behalf of{' '}
-                  <strong>{formData.institution}</strong> has been submitted.
+                  <strong>{formData.institution}</strong> is shown in this preview.
                 </p>
                 <p className={styles.successSub}>
-                  Our technical curation desk will contact <strong>{formData.email}</strong> once booth space allocations and logistical floor plans are finalized.
+                  No proposal has been sent. Your entered email is <strong>{formData.email}</strong>. Official showcase arrangements are to be confirmed.
                 </p>
                 <button
                   className={styles.btnPrimary}
@@ -147,7 +102,7 @@ export default function Showcase() {
               <>
                 <h2 className={styles.modalTitle}>Express Showcase Interest</h2>
                 <p className={styles.modalSub}>
-                  Complete the exhibition parameters below. All approved exhibits receive structured booth spaces and power facilities.
+                  Preview your exhibition requirements below. Space, equipment, selection and fees remain subject to confirmation.
                 </p>
 
                 <form onSubmit={handleSubmit} className={styles.form}>

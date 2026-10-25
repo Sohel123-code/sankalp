@@ -36,25 +36,25 @@ export default function InvestorConnect() {
         breadcrumb={[{ label: 'Investor & Industry Connect' }]}
       />
 
-      <div className={styles.container}>
+      <div data-summit-scene className={styles.container}>
         {/* ── Key Highlights Strip ── */}
         <div className={styles.strip}>
           <div className={styles.stripItem}>
-            <span className={styles.stripIcon}>🤝</span>
+            <span className={styles.stripIcon}></span>
             <div>
               <strong>Structured 1-on-1 Bilaterals</strong>
-              <p>Pre-scheduled 20-minute discussion pods</p>
+              <p>Curated introductions; final format to be confirmed</p>
             </div>
           </div>
           <div className={styles.stripItem}>
-            <span className={styles.stripIcon}>💼</span>
+            <span className={styles.stripIcon}></span>
             <div>
               <strong>Investor Access</strong>
               <p>Angel networks, VCs, and state innovation funds</p>
             </div>
           </div>
           <div className={styles.stripItem}>
-            <span className={styles.stripIcon}>🎟️</span>
+            <span className={styles.stripIcon}></span>
             <div>
               <strong>Access Model</strong>
               <p>Complimentary for confirmed Summit delegates</p>
@@ -63,16 +63,16 @@ export default function InvestorConnect() {
         </div>
 
         {/* ── Purpose and Activities ── */}
-        <section className={styles.activitiesSection}>
-          <div className={styles.sectionHeader}>
+        <section data-summit-scene className={styles.activitiesSection}>
+          <div data-reveal-heading className={styles.sectionHeader}>
             <span className={styles.secEye}>Bilateral Focus</span>
-            <h2 className={styles.secTitle}>Core Collaboration Activities</h2>
-            <p className={styles.secDesc}>{INVESTOR_CONNECT.purpose}</p>
+            <h2 className={styles.secTitle}>Collaboration opportunities</h2>
+            <details className="disclosure"><summary>About this programme <span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary><p>{INVESTOR_CONNECT.purpose}</p></details>
           </div>
 
           <div className={styles.activitiesGrid}>
             {INVESTOR_CONNECT.activities.map((act, idx) => (
-              <div key={idx} className={styles.actCard}>
+              <div key={idx} data-reveal-card className={styles.actCard}>
                 <span className={styles.actNum}>0{idx + 1}</span>
                 <p className={styles.actText}>{act}</p>
               </div>
@@ -84,15 +84,15 @@ export default function InvestorConnect() {
         <div className={styles.twoCol}>
           {/* Rules and Guidelines */}
           <div className={styles.rulesCol}>
-            <h3 className={styles.colH3}>📋 Participation Protocol</h3>
+            <details className="disclosure"><summary>Participation guidelines <span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary>
             <ul className={styles.rulesList}>
               {INVESTOR_CONNECT.participationRules.map((rule, idx) => (
                 <li key={idx}>
-                  <span className={styles.ruleBullet}>✔</span>
+                  <span className={styles.ruleBullet}></span>
                   <span>{rule}</span>
                 </li>
               ))}
-            </ul>
+            </ul></details>
 
             <div className={styles.disclaimerCard}>
               <strong>Official Disclaimer:</strong>
@@ -103,7 +103,7 @@ export default function InvestorConnect() {
               <h4>Summit Pass is Mandatory</h4>
               <p>Only confirmed delegates are eligible to reserve meeting slots in the Investor Lounge.</p>
               <Link to="/registration" className={styles.btnSmall}>
-                Get Your Summit Pass →
+                Get Your Summit Pass
               </Link>
             </div>
           </div>
@@ -118,13 +118,13 @@ export default function InvestorConnect() {
 
               {submitted ? (
                 <div className={styles.formSuccess}>
-                  <span className={styles.successIcon}>✅</span>
-                  <h4>Meeting Request Logged</h4>
+                  <span className={styles.successIcon}></span>
+                  <h4>Meeting request preview</h4>
                   <p>
-                    Thank you, {formData.fullName}. Your request for the <strong>{formData.organization}</strong> project has been scheduled for matchmaking.
+                    Thank you, {formData.fullName}. Your request for the <strong>{formData.organization}</strong> project is shown in this preview.
                   </p>
                   <p className={styles.subNote}>
-                    A calendar confirmation and NDA template will be emailed to <strong>{formData.email}</strong> once matching partners confirm.
+                    No meeting has been booked. Your entered email is <strong>{formData.email}</strong>. Matchmaking arrangements are to be confirmed.
                   </p>
                   <button
                     className={styles.btnReset}

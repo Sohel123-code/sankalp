@@ -1,8 +1,9 @@
 /* Events.module.css */
 
-.page { padding: 60px 24px 80px; }
+.page { padding: 0; }
 
 .inner {
+  padding: 55px 24px 80px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -86,13 +87,13 @@
 }
 
 .catPill:hover {
-  border-color: rgba(139,92,246,0.3);
+  border-color: rgba(255,120,53,0.3);
   color: var(--clr-text);
 }
 
 .catActive {
-  background: rgba(139,92,246,0.14);
-  border-color: rgba(139,92,246,0.4);
+  background: rgba(255,120,53,0.14);
+  border-color: rgba(255,120,53,0.4);
   color: var(--clr-primary);
 }
 

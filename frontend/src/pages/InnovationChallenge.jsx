@@ -46,13 +46,13 @@ export default function InnovationChallenge() {
         breadcrumb={[{ label: 'Innovation Challenge' }]}
       />
 
-      <div className={styles.container}>
+      <div data-summit-scene className={styles.container}>
         {/* ── Overview & Call to Action Banner ── */}
-        <div className={styles.heroCard}>
+        <div data-reveal-card className={styles.heroCard}>
           <div className={styles.heroText}>
             <span className={styles.heroBadge}>Elevator Pitch Across 4 Tracks</span>
-            <h2 className={styles.heroH2}>Turn Your Tech Prototype into a Validated Solution</h2>
-            <p className={styles.heroDesc}>{INNOVATION_CHALLENGE.purpose}</p>
+            <h2 className={styles.heroH2}>Bring your idea forward.</h2>
+            <details className="disclosure"><summary>About the challenge <span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary><p>{INNOVATION_CHALLENGE.purpose}</p></details>
             <div className={styles.feeBadges}>
               <div className={styles.fBadge}>
                 <strong>Students / Scholars:</strong>
@@ -76,17 +76,17 @@ export default function InnovationChallenge() {
                 setSubmitted(false)
               }}
             >
-              🚀 Submit Your Innovation Idea
+               Submit Your Innovation Idea
             </button>
             <Link to="/registration" className={styles.linkRegister}>
-              * Summit registration pass required →
+              * Summit registration pass required
             </Link>
           </div>
         </div>
 
         {/* ── 7-Step Process ── */}
-        <section className={styles.processSection}>
-          <div className={styles.sectionHeader}>
+        <details className="disclosure challenge-process"><summary>How to participate <span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary><section data-summit-scene className={styles.processSection}>
+          <div data-reveal-heading className={styles.sectionHeader}>
             <span className={styles.secEye}>Evaluation Workflow</span>
             <h2 className={styles.secTitle}>7-Step Participation Process</h2>
             <p className={styles.secDesc}>
@@ -96,7 +96,7 @@ export default function InnovationChallenge() {
 
           <div className={styles.stepsGrid}>
             {INNOVATION_CHALLENGE.steps.map(s => (
-              <div key={s.step} className={styles.stepCard}>
+              <div key={s.step} data-reveal-card className={styles.stepCard}>
                 <span className={styles.stepNumber}>Step 0{s.step}</span>
                 <h3 className={styles.stepTitle}>{s.title}</h3>
                 <p className={styles.stepDesc}>{s.desc}</p>
@@ -105,15 +105,16 @@ export default function InnovationChallenge() {
           </div>
         </section>
 
+        </details>
         {/* ── Eligible Participants & Required Info ── */}
         <div className={styles.twoColSection}>
           {/* Eligibility */}
-          <div className={styles.panelBox}>
-            <h3 className={styles.panelTitle}>👥 Eligible Participants</h3>
+          <div data-reveal-card className={styles.panelBox}>
+            <h3 className={styles.panelTitle}> Eligible Participants</h3>
             <ul className={styles.bulletList}>
               {INNOVATION_CHALLENGE.eligibleParticipants.map((p, idx) => (
                 <li key={idx}>
-                  <span className={styles.bulletCheck}>✓</span>
+                  <span className={styles.bulletCheck}></span>
                   <span>{p}</span>
                 </li>
               ))}
@@ -121,8 +122,8 @@ export default function InnovationChallenge() {
           </div>
 
           {/* Submission Fields */}
-          <div className={styles.panelBox}>
-            <h3 className={styles.panelTitle}>📝 Required Submission Dossier</h3>
+          <div data-reveal-card className={styles.panelBox}>
+            <h3 className={styles.panelTitle}> Required Submission Dossier</h3>
             <ul className={styles.bulletList}>
               {INNOVATION_CHALLENGE.requiredFields.map((f, idx) => (
                 <li key={idx}>
@@ -149,20 +150,17 @@ export default function InnovationChallenge() {
               className={styles.closeBtn}
               onClick={() => setShowSubmitModal(false)}
               aria-label="Close modal"
-            >
-              ✕
-            </button>
+            ><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.5" /></svg></button>
 
             {submitted ? (
               <div className={styles.successState}>
-                <span className={styles.successIcon}>🎉</span>
-                <h2 className={styles.successTitle}>Idea Submitted Successfully!</h2>
+                <span className={styles.successIcon}></span>
+                <h2 className={styles.successTitle}>Idea preview ready</h2>
                 <p className={styles.successText}>
-                  Your submission <strong>&ldquo;{formData.projectTitle}&rdquo;</strong> has been logged with reference ID{' '}
-                  <code>SANKALP-CH-{Math.floor(100000 + Math.random() * 900000)}</code>.
+                  Your submission <strong>&ldquo;{formData.projectTitle}&rdquo;</strong> is shown in this browser-only preview.
                 </p>
                 <p className={styles.successSub}>
-                  A confirmation email has been dispatched to <strong>{formData.email}</strong>. Our academic review jury will evaluate your dossier against track criteria and notify you of shortlisting status.
+                  No submission or email has been sent. Your entered email is <strong>{formData.email}</strong>. Submission arrangements will be announced by the organisers.
                 </p>
                 <button
                   className={styles.btnPrimary}

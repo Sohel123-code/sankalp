@@ -40,10 +40,10 @@ export default function Partners() {
         breadcrumb={[{ label: 'Partners & Sponsorship' }]}
       />
 
-      <div className={styles.container}>
+      <div data-summit-scene className={styles.container}>
         {/* ── Governance Notice ── */}
         <div className={styles.governanceNotice}>
-          <span className={styles.govIcon}>🛡️</span>
+          <span className={styles.govIcon}></span>
           <div className={styles.govBody}>
             <strong>Partnership Governance Protocol:</strong>
             <p>{PARTNERS_INFO.notice}</p>
@@ -51,37 +51,37 @@ export default function Partners() {
         </div>
 
         {/* ── Potential Partnership Types ── */}
-        <section className={styles.typesSection}>
-          <div className={styles.sectionHeader}>
+        <section data-summit-scene className={styles.typesSection}>
+          <div data-reveal-heading className={styles.sectionHeader}>
             <span className={styles.secEye}>Engagement Modes</span>
-            <h2 className={styles.secTitle}>Seven Strategic Partnership Avenues</h2>
+            <h2 className={styles.secTitle}>Find your partnership</h2>
             <p className={styles.secDesc}>
-              Flexible, value-oriented collaboration frameworks designed for academic societies, technology multinationals, and regional industrial leaders.
+              Seven ways to contribute to the summit.
             </p>
           </div>
 
           <div className={styles.typesGrid}>
             {PARTNERS_INFO.types.map((type, idx) => (
-              <div key={type.id} className={styles.typeCard}>
+              <div key={type.id} data-reveal-card className={styles.typeCard}>
                 <span className={styles.typeNum}>0{idx + 1}</span>
                 <h3 className={styles.typeTitle}>{type.name}</h3>
-                <p className={styles.typeDesc}>{type.desc}</p>
+                <details className="disclosure"><summary>Explore partnership <span className="disclosure-toggle" aria-hidden="true"><span className="disclosure-show">Details</span><span className="disclosure-hide">Hide</span></span></summary><p className={styles.typeDesc}>{type.desc}</p></details>
               </div>
             ))}
           </div>
         </section>
 
         {/* ── Potential Benefits ── */}
-        <section className={styles.benefitsSection}>
-          <div className={styles.sectionHeader}>
+        <section data-summit-scene className={styles.benefitsSection}>
+          <div data-reveal-heading className={styles.sectionHeader}>
             <span className={styles.secEye}>Mutual Value</span>
             <h2 className={styles.secTitle}>Why Partner With SANKALP 2026?</h2>
           </div>
 
           <div className={styles.benefitsGrid}>
             {PARTNERS_INFO.benefits.map((benefit, i) => (
-              <div key={i} className={styles.benefitCard}>
-                <span className={styles.bIcon}>✦</span>
+              <div key={i} data-reveal-card className={styles.benefitCard}>
+                <span className={styles.bIcon}></span>
                 <p>{benefit}</p>
               </div>
             ))}
@@ -89,7 +89,7 @@ export default function Partners() {
         </section>
 
         {/* ── Partnership Enquiry Form ── */}
-        <section className={styles.formSection}>
+        <section data-summit-scene className={styles.formSection}>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <span className={styles.secEye}>Direct Enquiry</span>
@@ -101,14 +101,14 @@ export default function Partners() {
 
             {submitted ? (
               <div className={styles.successState}>
-                <span className={styles.successIcon}>🎉</span>
-                <h3>Enquiry Successfully Received</h3>
+                <span className={styles.successIcon}></span>
+                <h3>Partnership enquiry preview</h3>
                 <p>
                   Thank you, <strong>{formData.contactPerson}</strong>. Your expression of interest on behalf of{' '}
-                  <strong>{formData.organization}</strong> has been logged.
+                  <strong>{formData.organization}</strong> is shown in this preview.
                 </p>
                 <p className={styles.successSub}>
-                  A partnership prospectus dossier will be delivered to <strong>{formData.workEmail}</strong>.
+                  No enquiry has been sent. Your entered email is <strong>{formData.workEmail}</strong>.
                 </p>
                 <button
                   className={styles.btnReset}

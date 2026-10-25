@@ -19,24 +19,23 @@
   border-radius: 50%;
   filter: blur(90px);
   opacity: 0.16;
-  animation: blobFloat 9s ease-in-out infinite alternate;
 }
 
 .blob1 {
   width: 600px; height: 600px;
-  background: radial-gradient(circle, #8b5cf6, transparent 70%);
+  background: radial-gradient(circle, #ff7835, transparent 70%);
   top: -220px; left: -160px;
   animation-delay: 0s;
 }
 .blob2 {
   width: 500px; height: 500px;
-  background: radial-gradient(circle, #06b6d4, transparent 70%);
+  background: radial-gradient(circle, #e5a562, transparent 70%);
   bottom: -150px; right: -120px;
   animation-delay: -3.5s;
 }
 .blob3 {
   width: 380px; height: 380px;
-  background: radial-gradient(circle, #7c3aed, transparent 70%);
+  background: radial-gradient(circle, #e3682c, transparent 70%);
   top: 42%; left: 48%;
   animation-delay: -6s;
 }
@@ -51,7 +50,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   min-height: 100vh;
 }
 
@@ -68,7 +67,7 @@
   align-items: center;
   justify-content: center;
   padding: 48px 44px;
-  background: linear-gradient(160deg, rgba(139,92,246,0.11) 0%, rgba(6,182,212,0.06) 100%);
+  background: linear-gradient(160deg, rgba(255,120,53,0.11) 0%, rgba(229,165,98,0.06) 100%);
   border-right: 1px solid var(--clr-border);
   position: relative;
 }
@@ -82,17 +81,18 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(139,92,246,0.2) 0%, transparent 70%);
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,120,53,0.2) 0%, transparent 70%);
   pointer-events: none;
 }
 
 /* ── Form panel ─────────────────────────────────── */
 .form {
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 24px;
-  overflow-y: auto;
+  /* Let the page grow with validation messages and the mobile keyboard. */
 }
 
 /* ── Responsive ─────────────────────────────────── */
@@ -107,7 +107,7 @@
     display: none; /* hide brand panel on mobile — show form only */
   }
   .form {
-    min-height: 100vh;
+    min-height: 100svh;
     padding: 24px 16px;
   }
 }

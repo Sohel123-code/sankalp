@@ -12,8 +12,8 @@
 
 /* ── Status Banner ── */
 .statusBanner {
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.35);
+  background: rgba(255,120,53, 0.1);
+  border: 1px solid rgba(255,120,53, 0.35);
   border-radius: var(--radius-md);
   padding: 24px 28px;
   display: flex;
@@ -29,7 +29,7 @@
 
 .statusText strong {
   font-size: 1.15rem;
-  color: #c4b5fd;
+  color: #f5bc88;
   display: block;
   margin-bottom: 4px;
 }
@@ -77,12 +77,12 @@
 
 .catGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 24px;
 }
 
 .catCard {
-  background: rgba(15, 17, 32, 0.8);
+  background: rgba(20,18,15, 0.8);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: 32px 26px;
@@ -92,7 +92,7 @@
 }
 
 .catCard:hover {
-  border-color: rgba(139, 92, 246, 0.4);
+  border-color: rgba(255,120,53, 0.4);
   transform: translateY(-2px);
 }
 
@@ -130,7 +130,7 @@
 
 /* ── Nomination Section ── */
 .nominationSection {
-  background: rgba(15, 17, 32, 0.85);
+  background: rgba(20,18,15, 0.85);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-xl);
   padding: 56px 44px;
@@ -184,7 +184,7 @@
 
 .nominationFormCard {
   background: #0d0f1e;
-  border: 1px solid rgba(139, 92, 246, 0.35);
+  border: 1px solid rgba(255,120,53, 0.35);
   border-radius: var(--radius-lg);
   padding: 36px 30px;
 }
@@ -203,12 +203,14 @@
 }
 
 .row {
+  min-width: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
 .formGroup {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -225,7 +227,7 @@
 .formGroup textarea {
   padding: 10px 12px;
   border-radius: var(--radius-sm);
-  background: rgba(15, 17, 32, 0.9);
+  background: rgba(20,18,15, 0.9);
   border: 1px solid var(--clr-border);
   color: var(--clr-text);
   font-size: 0.88rem;
@@ -254,7 +256,7 @@
 
 .btnSubmit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.5);
+  box-shadow: 0 4px 20px rgba(255,120,53, 0.5);
 }
 
 /* Success Box */
@@ -305,3 +307,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Keep native controls within their column and give errors room to wrap. */
+.formGroup :is(input,select,textarea) { width:100%; min-width:0; max-width:100%; box-sizing:border-box; }
+.formGroup label { overflow-wrap:anywhere; }
+.formGroup textarea { resize:vertical; }
+@media(max-width:640px) { .row { grid-template-columns:minmax(0,1fr); } }

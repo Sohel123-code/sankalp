@@ -1,16 +1,33 @@
-# React + Vite
+﻿# Sankalp frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite website. This directory contains the existing pages, navigation, account UI, motion effects, and public assets.
 
-Currently, two official plugins are available:
+```text
+src/
+  components/     Shared UI and animation components
+  context/        Authentication state
+  data/           Summit content and visual theme configuration
+  hooks/          Shared React hooks
+  layouts/        Page layout
+  lib/            Public Supabase client
+  pages/          Route components and styles
+  services/       Authentication API and event data access
+  styles/         Shared visual and responsive styles
+  utils/          Animation and data helpers
+public/           Static assets, including hero media
+scripts/          UI and motion checks
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The reference-led body redesign is documented in [REFERENCE_MOTION.md](REFERENCE_MOTION.md).
+`SummitHomeContent`, `SummitStory`, and `SummitSection` own the new homepage body;
+`utils/referenceMotion.js` owns its GSAP timelines and the public-page card reveals.
+`styles/summit-redesign.css` is scoped to the new body design. The homepage Hero
+function, media and loading sequence are intentionally unchanged.
 
-## React Compiler
+Run `npm run test:reference` for the reveal/reverse sequence, dynamic card cleanup,
+desktop pinning and mobile/reduced-motion checks. `npm run test:ui` checks the
+existing routes, forms and account interactions.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Use `npm run dev:frontend` from the project root. The Vite development server forwards `/api` requests to `backend` on port 3000. On Vercel, the API is served from the same domain.
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Only `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` belong in the frontend environment. Keep server secrets in the backend environment. See the root [deployment guide](../DEPLOY_VERCEL.md); deploy from the project root, not this subfolder.

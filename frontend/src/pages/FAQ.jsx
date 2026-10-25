@@ -34,11 +34,11 @@ export default function FAQ() {
         breadcrumb={[{ label: 'FAQs' }]}
       />
 
-      <div className={styles.container}>
+      <div data-summit-scene className={styles.container}>
         {/* ── Search and Filter Controls ── */}
         <div className={styles.searchBar}>
           <div className={styles.searchWrap}>
-            <span className={styles.searchIcon}>🔍</span>
+            <span className={styles.searchIcon}></span>
             <input
               type="text"
               placeholder="Search frequently asked questions..."
@@ -50,8 +50,9 @@ export default function FAQ() {
               <button
                 className={styles.clearBtn}
                 onClick={() => setSearchQuery('')}
+                aria-label="Clear search"
               >
-                ✕
+                Clear
               </button>
             )}
           </div>
@@ -74,7 +75,7 @@ export default function FAQ() {
         <div className={styles.accordionList}>
           {filteredFaqs.length === 0 ? (
             <div className={styles.emptyCard}>
-              <span className={styles.emptyIcon}>❓</span>
+              <span className={styles.emptyIcon}></span>
               <h3>No matching questions found</h3>
               <p>Try searching for a different keyword or view all categories.</p>
               <button
@@ -93,6 +94,7 @@ export default function FAQ() {
               return (
                 <div
                   key={faq.id}
+                  data-reveal-card
                   className={`${styles.accordionItem} ${isOpen ? styles.itemOpen : ''}`}
                 >
                   <button
@@ -101,14 +103,12 @@ export default function FAQ() {
                     aria-expanded={isOpen}
                   >
                     <div className={styles.headerLeft}>
-                      <span className={styles.faqNum}>#{faq.id}</span>
+
                       <span className={styles.faqQ}>{faq.q}</span>
                     </div>
                     <div className={styles.headerRight}>
                       <span className={styles.faqCategory}>{faq.category}</span>
-                      <span className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`}>
-                        ▾
-                      </span>
+                      <span className="disclosure-action">{isOpen ? 'Hide' : 'Details'}</span>
                     </div>
                   </button>
 
@@ -131,7 +131,7 @@ export default function FAQ() {
               <p>Our organizing secretariat is available to clarify delegate queries and group registrations.</p>
             </div>
             <Link to="/contact" className={styles.btnContact}>
-              Contact Secretariat Desk →
+              Contact Secretariat Desk
             </Link>
           </div>
         </div>

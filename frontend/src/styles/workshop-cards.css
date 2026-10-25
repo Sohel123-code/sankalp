@@ -1,0 +1,39 @@
+.workshop-collection{margin-block:28px 42px;min-width:0}
+.workshop-view-options{display:flex;justify-content:flex-end;gap:8px;margin-bottom:20px}
+.workshop-view-options button{min-height:42px;padding:10px 16px;border:1px solid #ffffff18;border-radius:8px;background:transparent;color:#b7aa9b;font-size:12px}
+.workshop-view-options button[aria-pressed=true]{color:#f7e8d6;background:#20160e;border-color:#bd7b3f66}
+.workshop-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.workshop-visual-card{min-width:0;border:1px solid #b6824140;border-radius:16px;overflow:hidden;background:#11100d;scroll-margin-top:calc(var(--navbar-h) + 24px);transition:border-color .3s,box-shadow .3s}
+.workshop-visual-card:hover,.workshop-visual-card:focus-within{border-color:#dca75c88;box-shadow:0 16px 50px #0003}
+.workshop-card-art{height:210px;position:relative;overflow:hidden;background:#100e0a;border-bottom:1px solid #ffffff0d}
+.workshop-card-art>img{width:100%;height:100%;object-fit:cover;object-position:center 45%;display:block}
+.workshop-card-copy{padding:26px}
+.workshop-card-copy>.tiny-label{color:#d1a875;font-size:10px;letter-spacing:.12em}
+.workshop-card-copy h2,.workshop-swipe-detail h2{font-size:clamp(23px,2.5vw,30px);line-height:1.22;margin:12px 0;max-width:24ch}
+.workshop-card-time{font-size:12px;color:#ac9e8c;line-height:1.7}
+.workshop-card-details{border-top:1px solid #ffffff14;margin-top:24px}
+.workshop-card-details>summary{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:52px;padding-top:12px;cursor:pointer;list-style:none;font-size:12px;color:#e7c595}
+.workshop-card-details>summary::-webkit-details-marker{display:none}
+.workshop-card-details>summary:focus-visible{outline:2px solid #ffb15f;outline-offset:4px}
+.workshop-card-expanded{padding-top:20px;color:#bcae9d;font-size:13px;line-height:1.85}
+.workshop-card-expanded>.tiny-label{margin:20px 0 8px;color:#d6b98f}
+.workshop-card-expanded>ul{padding-left:20px}
+.workshop-card-expanded li+li{margin-top:7px}
+.workshop-card-expanded .fancy-button{margin-top:24px;white-space:normal}
+.workshop-swipe-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:48px}
+.workshop-swipe-stage{height:540px;position:relative;overflow:hidden;isolation:isolate}
+.workshop-swipe-stage [role=group]:focus-visible{outline:2px solid #ffd18b!important;outline-offset:4px;border-radius:16px}
+.workshop-swipe-stage button{font-family:var(--font);font-size:12px}
+.workshop-swipe-hint{font-size:11px;color:#a99b8a;text-align:center;margin-top:12px}
+.workshop-swipe-detail{min-width:0;padding:30px;border:1px solid #b6824140;border-radius:16px;background:#11100d;scroll-margin-top:calc(var(--navbar-h) + 24px)}
+@media(max-width:760px){
+  .workshop-card-grid{grid-template-columns:minmax(0,1fr);gap:20px}
+  .workshop-card-copy{padding:22px}
+  .workshop-card-art{height:200px}
+  .workshop-view-options{justify-content:flex-start}
+  .workshop-swipe-layout{grid-template-columns:minmax(0,1fr);gap:24px}
+  .workshop-swipe-stage{height:500px;max-width:480px;margin-inline:auto}
+  .workshop-swipe-detail{padding:22px}
+}
+@media(max-width:380px){.workshop-swipe-stage{height:450px}}
+@media(prefers-reduced-motion:reduce){.workshop-visual-card{transition:none}}

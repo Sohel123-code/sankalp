@@ -10,32 +10,7 @@ import styles from './AuthPage.module.css'
 
 // ─── Brand Panel ───────────────────────────────────────────────────────────
 function LoginBrand() {
-  return (
-    <div className={styles.brandContent}>
-      <div className={styles.logo}>
-        <div className={styles.logoIcon}>S</div>
-        <span className={styles.logoText}>Sankalp<em>Events</em></span>
-      </div>
-      <h1 className={styles.headline}>
-        Your Events<br />Await<br />You.
-      </h1>
-      <p className={styles.brandSub}>
-        Sign in to access your events, manage bookings, and connect with the community.
-      </p>
-      <div className={styles.features}>
-        {[
-          { icon: '🎯', text: 'Personalized event recommendations' },
-          { icon: '🎫', text: 'Instant ticket booking & management' },
-          { icon: '🔔', text: 'Real-time event alerts & reminders'  },
-        ].map(f => (
-          <div key={f.icon} className={styles.featureItem}>
-            <span className={styles.featureIcon}>{f.icon}</span>
-            <span>{f.text}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  return <div className={styles.brandContent}><Link to="/" aria-label="SANKALP home"><img className="auth-official-logo" src="/media/sankalp-logo.png" alt="SANKALP Andhra 2026" /></Link><h1 className={styles.headline}>Continue your<br />summit journey.</h1><p className={styles.brandSub}>Sign in to your SANKALP account.</p><Link className="text-link" to="/">Back to the summit </Link></div>
 }
 
 // ─── Login Form ────────────────────────────────────────────────────────────
@@ -53,7 +28,7 @@ export default function Login() {
   const [globalMsg, setGlobalMsg] = useState(null)
 
   // Redirect to origin page after login (or home)
-  const from = location.state?.from || '/'
+  const from = location.state?.from || '/dashboard'
 
   const validateUsername = (val = values.username) =>
     val.trim() ? '' : 'Username is required.'
@@ -81,7 +56,7 @@ export default function Login() {
       storeUser(data.user)
       setGlobalMsg({ text: `Welcome back, ${data.user.username}! Redirecting…`, type: 'success' })
       toast(`Welcome back, ${data.user.username}!`, 'success')
-      setTimeout(() => navigate(from, { replace: true }), 1400)
+      navigate(from, { replace: true })
     } catch (err) {
       const msg = err.message || 'Login failed. Please try again.'
       setGlobalMsg({ text: msg, type: 'error' })
@@ -177,8 +152,8 @@ export default function Login() {
               </button>
             </form>
 
-            <div className={styles.divider}><span>Secured by JWT &amp; bcrypt</span></div>
-            <p className={styles.footerNote}>Your data is protected with end-to-end encryption.</p>
+
+            <p className={styles.footerNote}>Use your existing SANKALP username and password.</p>
           </div>
         }
       />

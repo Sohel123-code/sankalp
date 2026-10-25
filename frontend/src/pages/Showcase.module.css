@@ -12,8 +12,8 @@
 
 /* ── Hero Box ── */
 .heroBox {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.14) 0%, rgba(15, 17, 32, 0.95) 100%);
-  border: 1px solid rgba(6, 182, 212, 0.35);
+  background: linear-gradient(135deg, rgba(229,165,98, 0.14) 0%, rgba(20,18,15, 0.95) 100%);
+  border: 1px solid rgba(229,165,98, 0.35);
   border-radius: var(--radius-lg);
   padding: 48px;
   display: grid;
@@ -28,7 +28,7 @@
   font-weight: 700;
   text-transform: uppercase;
   color: #38bdf8;
-  background: rgba(6, 182, 212, 0.15);
+  background: rgba(229,165,98, 0.15);
   padding: 4px 12px;
   border-radius: 99px;
   display: inline-block;
@@ -72,7 +72,7 @@
 }
 
 .ctaCard {
-  background: rgba(15, 17, 32, 0.9);
+  background: rgba(20,18,15, 0.9);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: 32px 24px;
@@ -102,13 +102,13 @@
   background: var(--grad-primary);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 20px rgba(255,120,53, 0.4);
   transition: all var(--trans);
 }
 
 .btnPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(139, 92, 246, 0.6);
+  box-shadow: 0 6px 28px rgba(255,120,53, 0.6);
 }
 
 /* ── Participants Grid ── */
@@ -147,12 +147,12 @@
 
 .partGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 18px;
 }
 
 .partCard {
-  background: rgba(15, 17, 32, 0.8);
+  background: rgba(20,18,15, 0.8);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: 24px;
@@ -163,7 +163,7 @@
 }
 
 .partCard:hover {
-  border-color: rgba(6, 182, 212, 0.4);
+  border-color: rgba(229,165,98, 0.4);
   transform: translateY(-2px);
 }
 
@@ -187,12 +187,12 @@
 
 .fieldsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 16px;
 }
 
 .fItem {
-  background: rgba(15, 17, 32, 0.6);
+  background: rgba(20,18,15, 0.6);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-sm);
   padding: 16px 20px;
@@ -225,7 +225,7 @@
 
 .modalCard {
   background: #0d0f1e;
-  border: 1px solid rgba(6, 182, 212, 0.4);
+  border: 1px solid rgba(229,165,98, 0.4);
   border-radius: var(--radius-lg);
   padding: 40px;
   max-width: 720px;
@@ -267,12 +267,14 @@
 }
 
 .row {
+  min-width: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
 .formGroup {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -289,7 +291,7 @@
 .formGroup textarea {
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(15, 17, 32, 0.9);
+  background: rgba(20,18,15, 0.9);
   border: 1px solid var(--clr-border);
   color: var(--clr-text);
   font-size: 0.88rem;
@@ -360,3 +362,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Keep native controls within their column and give errors room to wrap. */
+.formGroup :is(input,select,textarea) { width:100%; min-width:0; max-width:100%; box-sizing:border-box; }
+.formGroup label { overflow-wrap:anywhere; }
+.formGroup textarea { resize:vertical; }
+@media(max-width:640px) { .row { grid-template-columns:minmax(0,1fr); } }

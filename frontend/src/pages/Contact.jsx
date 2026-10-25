@@ -1,7 +1,16 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FancyButton } from '../components/Motion'
 import PageHeader from '../components/PageHeader'
 import { CONTACT_INFO } from '../data/sankalpData'
 import styles from './Contact.module.css'
+
+const DESKS = [
+  { key: 'generalEmail', label: 'GENERAL', title: 'General enquiries', about: 'The summit, programme, venue and anything not covered elsewhere.', category: 'General Enquiries' },
+  { key: 'registrationEmail', label: 'DELEGATES', title: 'Registration & delegate support', about: 'Passes, group bookings, fees, invoices and accessibility needs.', category: 'Registration & Delegate Support' },
+  { key: 'partnershipsEmail', label: 'PARTNERS', title: 'Partnership & sponsorship', about: 'Institutional partners, sponsors, exhibitors and investors.', category: 'Partnerships & Sponsorship Opportunities' },
+  { key: 'challengeEmail', label: 'INNOVATORS', title: 'Innovation Challenge desk', about: 'Eligibility, submissions and mentoring for the pitch challenge.', category: 'SANKALP Innovation Challenge' },
+]
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
@@ -22,6 +31,12 @@ export default function Contact() {
     }))
   }
 
+  // A desk card pre-selects its category and moves the reader to the form.
+  const chooseDesk = category => {
+    setFormData(prev => ({ ...prev, category })); setSubmitted(false)
+    document.getElementById('enquiry-form')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     setSubmitted(true)
@@ -36,105 +51,77 @@ export default function Contact() {
         breadcrumb={[{ label: 'Contact' }]}
       />
 
-      <div className={styles.container}>
-        {/* ── Status Advisory ── */}
-        <div className={styles.advisoryBanner}>
-          <span className={styles.advIcon}>ℹ️</span>
-          <p>
-            All official contact details, helplines, and secretariat offices are preliminary placeholders pending formal state gazette announcement.
-          </p>
-        </div>
+      <div data-summit-scene className={styles.container} id="contact-details">
+        <p className="ct-note">Verified contact details and official channels will be announced by the organising team.</p>
 
-        <div className={styles.twoCol}>
-          {/* Left Column: Direct Communication Channels */}
-          <div className={styles.infoCol}>
-            <div className={styles.secretariatCard}>
-              <h3 className={styles.cardTitle}>🏛️ Organizing Secretariat</h3>
-              <p className={styles.addressText}>{CONTACT_INFO.officeAddress}</p>
-              <p className={styles.phoneText}>📞 {CONTACT_INFO.phone}</p>
-            </div>
-
-            <div className={styles.emailChannelsCard}>
-              <h3 className={styles.cardTitle}>✉️ Direct Department Desks</h3>
-              <ul className={styles.deskList}>
-                <li>
-                  <span className={styles.deskName}>General Enquiries:</span>
-                  <a href={`mailto:${CONTACT_INFO.generalEmail}`} className={styles.deskLink}>
-                    {CONTACT_INFO.generalEmail}
-                  </a>
-                </li>
-                <li>
-                  <span className={styles.deskName}>Registration &amp; Delegate Support:</span>
-                  <a href={`mailto:${CONTACT_INFO.registrationEmail}`} className={styles.deskLink}>
-                    {CONTACT_INFO.registrationEmail}
-                  </a>
-                </li>
-                <li>
-                  <span className={styles.deskName}>Partnership &amp; Sponsorship:</span>
-                  <a href={`mailto:${CONTACT_INFO.partnershipsEmail}`} className={styles.deskLink}>
-                    {CONTACT_INFO.partnershipsEmail}
-                  </a>
-                </li>
-                <li>
-                  <span className={styles.deskName}>Innovation Challenge Desk:</span>
-                  <a href={`mailto:${CONTACT_INFO.challengeEmail}`} className={styles.deskLink}>
-                    {CONTACT_INFO.challengeEmail}
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div className={styles.socialCard}>
-              <h3 className={styles.cardTitle}>🌐 Official Social Channels</h3>
-              <div className={styles.socialLinks}>
-                {CONTACT_INFO.socials.map(s => (
-                  <a
-                    key={s.platform}
-                    href={s.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.socBtn}
-                  >
-                    <span>{s.icon}</span> {s.platform}
-                  </a>
-                ))}
-              </div>
-            </div>
+        <section aria-labelledby="ct-desks-title" id="contact-desks">
+          <h2 id="ct-desks-title" className="ct-heading">Who should you write to?</h2>
+          <div className="ct-desks">
+            {DESKS.map(desk => {
+              const value = CONTACT_INFO[desk.key], live = value.includes('@')
+              return <article key={desk.key} className="ct-desk">
+                <span className="tiny-label">{desk.label}</span>
+                <h3>{desk.title}</h3>
+                <p>{desk.about}</p>
+                {live ? <a className="ct-desk-email" href={`mailto:${value}`}>{value}</a> : <span className="ct-desk-email is-pending">Email to be announced</span>}
+                <button type="button" className="ct-desk-action" onClick={() => chooseDesk(desk.category)}>Prepare an enquiry →</button>
+              </article>
+            })}
           </div>
+        </section>
 
-          {/* Right Column: Contact Form */}
-          <div className={styles.formCol}>
+        <div className="ct-split">
+          <aside className="ct-aside" aria-label="Secretariat and channels">
+            <div data-reveal-card className="ct-aside-block">
+              <span className="tiny-label">ORGANISING SECRETARIAT</span>
+              <p>{CONTACT_INFO.officeAddress}</p>
+              <p>{CONTACT_INFO.phone}</p>
+            </div>
+            <div className="ct-aside-block">
+              <span className="tiny-label">OFFICIAL SOCIAL CHANNELS</span>
+              {CONTACT_INFO.socials.length
+                ? <div className={styles.socialLinks}>{CONTACT_INFO.socials.map(s => <a key={s.platform} href={s.url} target="_blank" rel="noreferrer" className={styles.socBtn}>{s.platform}</a>)}</div>
+                : <p>To be announced.</p>}
+            </div>
+            <div className="ct-aside-block">
+              <span className="tiny-label">BEFORE YOU WRITE</span>
+              <p>Dates, fees and venue questions are often answered already.</p>
+              <Link className="editorial-link" to="/faq">Read the FAQs</Link>
+            </div>
+          </aside>
+
+          <div className={styles.formCol} id="enquiry-form">
             <div className={styles.formCard}>
-              <h3 className={styles.formH3}>Send An Official Enquiry</h3>
+              <h3 className={styles.formH3}>Prepare your enquiry</h3>
               <p className={styles.formSub}>
-                Fill out the dispatch form below. Our response time is typically within 1 business day.
+                Preview your enquiry. Official submission channels will be announced.
               </p>
 
               {submitted ? (
                 <div className={styles.formSuccess}>
-                  <span className={styles.successIcon}>🎉</span>
-                  <h4>Message Dispatched Successfully!</h4>
+                  <span className={styles.successIcon}></span>
+                  <h4>Enquiry preview ready</h4>
                   <p>
                     Thank you, <strong>{formData.name}</strong>. Your enquiry regarding{' '}
-                    <strong>{formData.category}</strong> has been logged.
+                    <strong>{formData.category}</strong> is shown in this preview.
                   </p>
                   <p className={styles.subText}>
-                    An acknowledgment has been dispatched to <strong>{formData.email}</strong>.
+                    No enquiry has been sent. Your entered email is <strong>{formData.email}</strong>.
                   </p>
                   <button
                     className={styles.btnSecondary}
                     onClick={() => setSubmitted(false)}
                   >
-                    Send Another Message
+                    Edit enquiry
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className={styles.contactForm}>
                   <div className={styles.field}>
-                    <label>Your Full Name *</label>
+                    <label htmlFor="contact-name">Your Full Name *</label>
                     <input
                       type="text"
-                      name="name"
+                      id="contact-name" name="name"
                       required
                       value={formData.name}
                       onChange={handleChange}
@@ -144,10 +131,10 @@ export default function Contact() {
 
                   <div className={styles.fieldRow}>
                     <div className={styles.field}>
-                      <label>Email Address *</label>
+                      <label htmlFor="contact-email">Email Address *</label>
                       <input
                         type="email"
-                        name="email"
+                        id="contact-email" name="email"
                         required
                         value={formData.email}
                         onChange={handleChange}
@@ -155,10 +142,10 @@ export default function Contact() {
                       />
                     </div>
                     <div className={styles.field}>
-                      <label>Organisation / University *</label>
+                      <label htmlFor="contact-organization">Organisation / University *</label>
                       <input
                         type="text"
-                        name="organization"
+                        id="contact-organization" name="organization"
                         required
                         value={formData.organization}
                         onChange={handleChange}
@@ -168,9 +155,9 @@ export default function Contact() {
                   </div>
 
                   <div className={styles.field}>
-                    <label>Enquiry Category *</label>
+                    <label htmlFor="contact-category">Enquiry Category *</label>
                     <select
-                      name="category"
+                      id="contact-category" name="category"
                       value={formData.category}
                       onChange={handleChange}
                     >
@@ -183,9 +170,9 @@ export default function Contact() {
                   </div>
 
                   <div className={styles.field}>
-                    <label>Detailed Message *</label>
+                    <label htmlFor="contact-message">Detailed Message *</label>
                     <textarea
-                      name="message"
+                      id="contact-message" name="message"
                       required
                       rows={4}
                       value={formData.message}
@@ -208,9 +195,7 @@ export default function Contact() {
                     </label>
                   </div>
 
-                  <button type="submit" className={styles.btnSubmit}>
-                    Dispatch Message
-                  </button>
+                  <FancyButton type="submit">Preview enquiry</FancyButton>
                 </form>
               )}
             </div>

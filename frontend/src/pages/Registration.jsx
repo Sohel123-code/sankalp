@@ -83,10 +83,10 @@ export default function Registration() {
         breadcrumb={[{ label: 'Registration & Fees' }]}
       />
 
-      <div className={styles.container}>
+      <div data-summit-scene className={styles.container}>
         {/* ── Governance Disclaimer Banner ── */}
         <div className={styles.warningBanner}>
-          <span className={styles.warnIcon}>⚖️</span>
+          <span className={styles.warnIcon}></span>
           <div className={styles.warnContent}>
             <strong>Proposed Pricing Notice:</strong>
             <p>{REGISTRATION_FEES.disclaimer}</p>
@@ -94,8 +94,8 @@ export default function Registration() {
         </div>
 
         {/* ── Category Tier Cards ── */}
-        <section className={styles.tiersSection}>
-          <div className={styles.sectionHeader}>
+        <section data-summit-scene className={styles.tiersSection}>
+          <div data-reveal-heading className={styles.sectionHeader}>
             <span className={styles.secEye}>Category Passes</span>
             <h2 className={styles.secTitle}>Summit Registration Tiers</h2>
             <p className={styles.secDesc}>
@@ -107,6 +107,7 @@ export default function Registration() {
             {REGISTRATION_FEES.summit.map((tier, idx) => (
               <div
                 key={tier.category}
+                data-reveal-card
                 className={`${styles.tierCard} ${
                   selectedCategoryIdx === idx ? styles.tierSelected : ''
                 } ${tier.popular ? styles.tierPopular : ''}`}
@@ -121,9 +122,10 @@ export default function Registration() {
                 <p className={styles.tierNote}>{tier.note}</p>
                 <button
                   type="button"
+                  aria-pressed={selectedCategoryIdx === idx}
                   className={selectedCategoryIdx === idx ? styles.btnTierActive : styles.btnTier}
                 >
-                  {selectedCategoryIdx === idx ? '✓ Selected' : 'Select Tier'}
+                  {selectedCategoryIdx === idx ? ' Selected' : 'Select Tier'}
                 </button>
               </div>
             ))}
@@ -131,7 +133,7 @@ export default function Registration() {
 
           {/* Student Group Notice */}
           <div className={styles.groupNoticeCard}>
-            <span className={styles.gnIcon}>🎓</span>
+            <span className={styles.gnIcon}></span>
             <div>
               <strong>Student Institutional Cohort Discount:</strong>
               <p>{REGISTRATION_FEES.groupDiscount.rule}</p>
@@ -140,7 +142,7 @@ export default function Registration() {
         </section>
 
         {/* ── Interactive Live Fee Calculator ── */}
-        <section className={styles.calculatorSection}>
+        <section data-summit-scene className={styles.calculatorSection}>
           <div className={styles.calcCard}>
             <div className={styles.calcHeader}>
               <span className={styles.secEye}>Interactive Estimate</span>
@@ -170,7 +172,7 @@ export default function Registration() {
                       className={styles.stepperInput}
                     />
                     {isStudent && delegateCount >= 10 && (
-                      <span className={styles.discountBadge}>🎉 10% Group Discount Active!</span>
+                      <span className={styles.discountBadge}> 10% Group Discount Active!</span>
                     )}
                   </div>
                 </div>
@@ -282,7 +284,7 @@ export default function Registration() {
                     setCheckoutComplete(false)
                   }}
                 >
-                  Proceed with Delegate Details →
+                  Proceed with Delegate Details
                 </button>
               </div>
             </div>
@@ -290,16 +292,16 @@ export default function Registration() {
         </section>
 
         {/* ── Proposed Inclusions Side by Side ── */}
-        <section className={styles.inclusionsSection}>
+        <section data-summit-scene className={styles.inclusionsSection}>
           <div className={styles.incCard}>
             <div className={styles.incHeader}>
-              <span className={styles.incIcon}>🎒</span>
+              <span className={styles.incIcon}></span>
               <h3 className={styles.incTitle}>Proposed Summit Inclusions</h3>
             </div>
             <ul className={styles.incList}>
               {REGISTRATION_FEES.summitInclusions.map((item, idx) => (
                 <li key={idx}>
-                  <span className={styles.incBullet}>✔</span>
+                  <span className={styles.incBullet}></span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -308,13 +310,13 @@ export default function Registration() {
 
           <div className={styles.incCard}>
             <div className={styles.incHeader}>
-              <span className={styles.incIcon}>🛠️</span>
+              <span className={styles.incIcon}></span>
               <h3 className={styles.incTitle}>Proposed Workshop Inclusions</h3>
             </div>
             <ul className={styles.incList}>
               {REGISTRATION_FEES.workshopInclusions.map((item, idx) => (
                 <li key={idx}>
-                  <span className={styles.incBullet}>✔</span>
+                  <span className={styles.incBullet}></span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -331,25 +333,22 @@ export default function Registration() {
               className={styles.closeBtn}
               onClick={() => setShowCheckoutModal(false)}
               aria-label="Close modal"
-            >
-              ✕
-            </button>
+            ><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.5" /></svg></button>
 
             {checkoutComplete ? (
               <div className={styles.successState}>
-                <span className={styles.successIcon}>🎉</span>
-                <h2>Pre-Registration Expressed!</h2>
+                <span className={styles.successIcon}></span>
+                <h2>Delegate details preview</h2>
                 <p>
-                  Thank you, <strong>{regForm.fullName}</strong>. Your provisional delegate pass for{' '}
-                  <strong>{currentCategory.category}</strong> has been created with reference{' '}
-                  <code>SKP-AP-{Math.floor(100000 + Math.random() * 900000)}</code>.
+                  Thank you, <strong>{regForm.fullName}</strong>. Your proposed category is{' '}
+                  <strong>{currentCategory.category}</strong>. This is a browser-only preview.
                 </p>
                 <div className={styles.quoteSummary}>
                   <p>Estimated Payable: <strong>₹{calculation.grandTotal.toLocaleString('en-IN')}</strong></p>
                   <p>Delegates: {calculation.totalDelegates} | Workshop: {includeWorkshop ? 'Included' : 'None'} | Challenge: {includePitch ? 'Included' : 'None'}</p>
                 </div>
                 <p className={styles.successSub}>
-                  Official payment gateway links, GST invoices, and venue access barcodes will be dispatched to <strong>{regForm.email}</strong> once official registration goes live.
+                  No booking, payment or email has been created. Your entered email is <strong>{regForm.email}</strong>. Official registration arrangements are to be confirmed.
                 </p>
                 <button
                   className={styles.btnPrimary}

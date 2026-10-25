@@ -1,12 +1,15 @@
 import { useEffect, useRef } from 'react'
+import { useReducedMotion } from 'framer-motion'
 
 export default function ParticleCanvas() {
   const canvasRef = useRef(null)
+  const reduced = useReducedMotion()
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    if (!canvas || reduced) return
     const ctx = canvas.getContext('2d')
+    if (!ctx) return
     const COUNT = 60
     let particles = []
     let raf
@@ -35,7 +38,7 @@ export default function ParticleCanvas() {
       particles.forEach(p => {
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(139, 92, 246, ${p.alpha})`
+        ctx.fillStyle = `rgba(255, 120, 53, ${p.alpha})`
         ctx.fill()
         p.x += p.vx
         p.y += p.vy
@@ -53,7 +56,7 @@ export default function ParticleCanvas() {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
     }
-  }, [])
+  }, [reduced])
 
   return (
     <canvas

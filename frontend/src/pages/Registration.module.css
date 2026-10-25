@@ -77,13 +77,13 @@
 
 .tiersGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 20px;
   margin-bottom: 30px;
 }
 
 .tierCard {
-  background: rgba(15, 17, 32, 0.8);
+  background: rgba(20,18,15, 0.8);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   padding: 32px 22px;
@@ -95,18 +95,18 @@
 }
 
 .tierCard:hover {
-  border-color: rgba(139, 92, 246, 0.4);
+  border-color: rgba(255,120,53, 0.4);
   transform: translateY(-3px);
 }
 
 .tierSelected {
-  background: rgba(139, 92, 246, 0.12);
+  background: rgba(255,120,53, 0.12);
   border-color: var(--clr-primary);
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
+  box-shadow: 0 8px 30px rgba(255,120,53, 0.25);
 }
 
 .tierPopular {
-  border-color: rgba(6, 182, 212, 0.5);
+  border-color: rgba(229,165,98, 0.5);
 }
 
 .popularBadge {
@@ -186,8 +186,8 @@
 }
 
 .groupNoticeCard {
-  background: rgba(139, 92, 246, 0.08);
-  border: 1px solid rgba(139, 92, 246, 0.25);
+  background: rgba(255,120,53, 0.08);
+  border: 1px solid rgba(255,120,53, 0.25);
   border-radius: var(--radius-md);
   padding: 16px 20px;
   display: flex;
@@ -200,7 +200,7 @@
 }
 
 .groupNoticeCard strong {
-  color: #c4b5fd;
+  color: #f5bc88;
   display: block;
   font-size: 0.9rem;
   margin-bottom: 2px;
@@ -218,8 +218,8 @@
 }
 
 .calcCard {
-  background: rgba(15, 17, 32, 0.9);
-  border: 1px solid rgba(139, 92, 246, 0.35);
+  background: rgba(20,18,15, 0.9);
+  border: 1px solid rgba(255,120,53, 0.35);
   border-radius: var(--radius-xl);
   padding: 48px;
 }
@@ -289,7 +289,7 @@
   width: 100px;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(7, 8, 15, 0.8);
+  background: rgba(8,8,7, 0.8);
   border: 1px solid var(--clr-border);
   color: var(--clr-text);
   font-size: 1.1rem;
@@ -308,7 +308,7 @@
 }
 
 .addonItem {
-  background: rgba(7, 8, 15, 0.5);
+  background: rgba(8,8,7, 0.5);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: 20px;
@@ -348,7 +348,7 @@
 .wsSelect {
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(15, 17, 32, 0.9);
+  background: rgba(20,18,15, 0.9);
   border: 1px solid var(--clr-border);
   color: var(--clr-text);
   font-size: 0.85rem;
@@ -357,7 +357,7 @@
 
 /* ── Summary Column ── */
 .summaryCol {
-  background: rgba(7, 8, 15, 0.7);
+  background: rgba(8,8,7, 0.7);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   padding: 32px 28px;
@@ -435,12 +435,12 @@
   border: none;
   cursor: pointer;
   transition: all var(--trans);
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 20px rgba(255,120,53, 0.4);
 }
 
 .btnCheckout:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(139, 92, 246, 0.6);
+  box-shadow: 0 6px 28px rgba(255,120,53, 0.6);
 }
 
 /* ── Inclusions Section ── */
@@ -451,7 +451,7 @@
 }
 
 .incCard {
-  background: rgba(15, 17, 32, 0.8);
+  background: rgba(20,18,15, 0.8);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   padding: 36px 32px;
@@ -512,7 +512,7 @@
 
 .modalCard {
   background: #0d0f1e;
-  border: 1px solid rgba(139, 92, 246, 0.4);
+  border: 1px solid rgba(255,120,53, 0.4);
   border-radius: var(--radius-lg);
   padding: 40px;
   max-width: 600px;
@@ -558,12 +558,14 @@
 }
 
 .formRow {
+  min-width: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
 .formGroup {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -578,7 +580,7 @@
 .formGroup input {
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(15, 17, 32, 0.9);
+  background: rgba(20,18,15, 0.9);
   border: 1px solid var(--clr-border);
   color: var(--clr-text);
   font-size: 0.88rem;
@@ -672,3 +674,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Keep native controls within their column and give errors room to wrap. */
+.formGroup :is(input,select,textarea) { width:100%; min-width:0; max-width:100%; box-sizing:border-box; }
+.formGroup label { overflow-wrap:anywhere; }
+.formGroup textarea { resize:vertical; }
+@media(max-width:640px) { .formRow { grid-template-columns:minmax(0,1fr); } }

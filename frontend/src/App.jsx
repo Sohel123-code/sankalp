@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
+import LoadingSpinner from './components/LoadingSpinner'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 
@@ -7,36 +8,38 @@ import MainLayout from './layouts/MainLayout'
 
 // Route guards
 import ProtectedRoute from './components/ProtectedRoute'
+import GuestOnly from './components/GuestOnly'
+const Dashboard = lazy(() => import('./pages/Dashboard'))
 
 // Core SANKALP Pages
 import Home                 from './pages/Home'
-import About                from './pages/About'
-import Tracks               from './pages/Tracks'
-import Programme            from './pages/Programme'
-import Workshops            from './pages/Workshops'
-import InnovationChallenge  from './pages/InnovationChallenge'
-import InvestorConnect      from './pages/InvestorConnect'
-import Speakers             from './pages/Speakers'
-import Partners             from './pages/Partners'
-import Showcase             from './pages/Showcase'
-import Registration         from './pages/Registration'
-import Venue                from './pages/Venue'
-import FAQ                  from './pages/FAQ'
-import Contact              from './pages/Contact'
+const About = lazy(() => import('./pages/About'))
+const Tracks = lazy(() => import('./pages/Tracks'))
+const Programme = lazy(() => import('./pages/Programme'))
+const Workshops = lazy(() => import('./pages/Workshops'))
+const InnovationChallenge = lazy(() => import('./pages/InnovationChallenge'))
+const InvestorConnect = lazy(() => import('./pages/InvestorConnect'))
+const Speakers = lazy(() => import('./pages/Speakers'))
+const Partners = lazy(() => import('./pages/Partners'))
+const Showcase = lazy(() => import('./pages/Showcase'))
+const Registration = lazy(() => import('./pages/Registration'))
+const Venue = lazy(() => import('./pages/Venue'))
+const FAQ = lazy(() => import('./pages/FAQ'))
+const Contact = lazy(() => import('./pages/Contact'))
 
 // Policy Pages
-import PrivacyPolicy        from './pages/PrivacyPolicy'
-import TermsConditions      from './pages/TermsConditions'
-import CancellationRefund   from './pages/CancellationRefund'
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const TermsConditions = lazy(() => import('./pages/TermsConditions'))
+const CancellationRefund = lazy(() => import('./pages/CancellationRefund'))
 
 // Platform legacy pages
-import Events               from './pages/Events'
-import EventDetails         from './pages/EventDetails'
-import NotFound             from './pages/NotFound'
+const Events = lazy(() => import('./pages/Events'))
+const EventDetails = lazy(() => import('./pages/EventDetails'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 // Auth pages (standalone)
-import Login                from './pages/Login'
-import Register             from './pages/Register'
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
 
 /**
  * ScrollToTop helper ensures every navigation scrolls viewport back to top.
@@ -45,12 +48,21 @@ function ScrollToTop() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
     if (!hash) {
-      window.scrollTo(0, 0)
+      // Route entrances begin at the top immediately; CSS smooth scrolling must
+      // not carry the previous page's scroll position into the new hero.
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     } else {
-      const element = document.getElementById(hash.replace('#', ''))
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+      const scrollToAnchor = () => {
+        const element = document.getElementById(hash.slice(1))
+        if (!element) return false
+        element.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+        return true
       }
+      if (scrollToAnchor()) return
+      // Route chunks may finish loading after this effect first runs.
+      const observer = new MutationObserver(() => { if (scrollToAnchor()) observer.disconnect() })
+      observer.observe(document.getElementById('root'), { childList: true, subtree: true })
+      return () => observer.disconnect()
     }
   }, [pathname, hash])
   return null
@@ -60,10 +72,11 @@ export default function App() {
   return (
     <AuthProvider>
       <ScrollToTop />
+      <Suspense fallback={<div className="route-loading"><LoadingSpinner /></div>}>
       <Routes>
         {/* ── Auth routes (standalone — no navbar/footer) ────────────── */}
-        <Route path="/login"    element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login"    element={<GuestOnly><Login /></GuestOnly>} />
+        <Route path="/register" element={<GuestOnly><Register /></GuestOnly>} />
 
         {/* ── Main layout routes (with SANKALP Navbar & Footer) ─────── */}
         <Route element={<MainLayout />}>
@@ -124,18 +137,14 @@ export default function App() {
 
           {/* ── Protected routes ────────────────────────────────────── */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={
-              <div style={{ padding: '100px 24px', textAlign: 'center', color: 'var(--clr-text-muted)' }}>
-                <h2>🎉 Delegate Dashboard</h2>
-                <p style={{ marginTop: '8px' }}>Your confirmed summit passes and workshop credentials will appear here.</p>
-              </div>
-            } />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
 
           {/* ── 404 Catch-All ───────────────────────────────────────── */}
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+      </Suspense>
     </AuthProvider>
   )
 }

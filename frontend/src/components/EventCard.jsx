@@ -3,7 +3,7 @@ import styles from './EventCard.module.css'
 
 /**
  * EventCard
- * @param {{ id, title, description, event_date, location, category, image_url }} event
+ * @param {{ id, title, description, event_date, location, category }} event
  */
 export default function EventCard({ event }) {
   const {
@@ -13,7 +13,6 @@ export default function EventCard({ event }) {
     event_date,
     location    = 'TBD',
     category    = 'General',
-    image_url,
   } = event
 
   const formattedDate = event_date
@@ -24,14 +23,7 @@ export default function EventCard({ event }) {
 
   return (
     <article className={styles.card}>
-      {/* Cover image */}
-      <div className={styles.imgWrap}>
-        {image_url
-          ? <img src={image_url} alt={title} className={styles.img} loading="lazy" />
-          : <div className={styles.imgPlaceholder} aria-hidden="true">🎉</div>
-        }
-        <span className={styles.badge}>{category}</span>
-      </div>
+      <div className={styles.categoryLabel}>{category || 'Summit event'}</div>
 
       {/* Content */}
       <div className={styles.body}>

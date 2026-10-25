@@ -1,15 +1,17 @@
 {
   "name": "sankalp-eventsweb",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "Sankalp frontend and backend, deployed together on Vercel",
+  "engines": { "node": "24.x" },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "setup": "npm ci --prefix backend && npm ci --prefix frontend --include=dev",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "build": "npm run build --prefix frontend",
+    "test": "npm test --prefix backend && npm run test:ui --prefix frontend && npm run test:scroll --prefix frontend && npm run test:cinematic --prefix frontend && npm run test:framer --prefix frontend && npm run test:reference --prefix frontend && npm run test:tunnel --prefix frontend"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^5.3.0"
-  }
+  "license": "ISC"
 }
