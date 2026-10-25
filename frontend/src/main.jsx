@@ -13,6 +13,12 @@ import './styles/responsive.css'
 import './styles/framer-enhancements.css'
 import './styles/summit-redesign.css'
 
+// On the home page, fetch the hero page and its dot animation in parallel with the app shell instead of one after the other.
+if (window.location.pathname === '/') {
+  import('./pages/Home.jsx').catch(() => {})
+  import('./components/framer/ParticleIntro.js').catch(() => {})
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

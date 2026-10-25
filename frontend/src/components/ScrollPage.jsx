@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
-import { useReducedMotion, useScroll } from 'framer-motion'
+import { useScroll } from 'framer-motion'
+import { useCalmScroll } from '../utils/calmScroll'
 import { revealFrame } from '../utils/scrollReveal'
 
 const cards = 'article:not(.agenda-session), .research-card, .impact-art, .about-purpose > details, .explorer-controls, .workshop-meta, .participant-checklist, .participation-links > a, .summit-facts > span, .profile-summary > div, [class*="catCard"], [class*="actCard"], [class*="partCard"], [class*="typeCard"], [class*="tierCard"], [class*="faqItem"], [class*="heroBox"], [class*="heroCard"], [class*="formCard"], [class*="nominationFormCard"], [class*="panelBox"], [class*="secretariatCard"], [class*="stepCard"], [class*="stripItem"]'
 
 export default function ScrollPage({ children, route }) {
-  const root = useRef(null), reduced = useReducedMotion()
+  const root = useRef(null), reduced = useCalmScroll()
   const { scrollY } = useScroll()
   useEffect(() => {
     if (reduced || !root.current) return

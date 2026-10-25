@@ -152,8 +152,12 @@ try {
   width=390
   const releaseMobile=mountSummitStory(nextStory)
   assert(!nextStory.classList.contains('story-pinned')&&!ScrollTrigger.getAll().some(t=>t.pin),'Mobile never pins the introduction')
-  assert.equal(ScrollTrigger.getAll().length,4,'Mobile facts reveal individually in normal document flow')
+  assert.equal(ScrollTrigger.getAll().length,0,'Phones lay the facts out in normal document flow with no scroll animation')
   releaseMobile()
+  width=800
+  const tabletStory=storyFixture(),releaseTablet=mountSummitStory(tabletStory)
+  assert.equal(ScrollTrigger.getAll().length,4,'Tablet facts reveal individually in normal document flow')
+  releaseTablet()
   width=1280; height=500
   const releaseShort=mountSummitStory(nextStory)
   assert(!nextStory.classList.contains('story-pinned'),'Short landscape viewports keep the entire story readable')

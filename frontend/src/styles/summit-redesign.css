@@ -790,3 +790,27 @@
 .tr-map-actions .tr-primary:hover { background:#ffab7a; }
 @media(max-width:1000px) { .tr { grid-template-columns:minmax(0,1fr); } .tr-map { position:static; } .tr-map iframe { height:320px; } }
 @media(max-width:700px) { .tr-routes li { grid-template-columns:minmax(0,1fr); } .tr-routes dl { gap:28px; } .tr-routes a { justify-self:start; min-height:44px; display:inline-flex; align-items:center; } .tr-panel { min-height:0; } }
+
+/* Phones: one calm column, tighter spacing, nothing waiting on scroll to appear. */
+@media(max-width:700px) {
+  .summit-track-explorer .frontier-tabs { grid-template-columns:minmax(0,1fr); gap:0; }
+  .summit-track-explorer .frontier-tabs button { min-height:64px; padding:16px 0; }
+  .summit-section { padding-block:56px; }
+  .summit-section-heading { margin-bottom:28px; }
+  [data-reveal-word],[data-reveal-card],[data-reveal-heading] { opacity:1!important; transform:none!important; clip-path:none!important; }
+  .scroll-scene .scene-surface { opacity:1!important; transform:none!important; clip-path:none!important; }
+  .summit-closing { padding-block:64px; }
+}
+
+/* Phones: page banners fit their content instead of filling the whole screen. */
+@media(max-width:700px) {
+  .page-intro { min-height:0!important; }
+  .page-intro .intro-inner { min-height:0; gap:20px; padding-block:24px 8px; }
+  .page-intro .intro-inner>[data-hero-entry] { margin-block:0; padding-block:28px 12px; }
+  .page-intro h1 { font-size:clamp(34px,10vw,46px); }
+  .research-tunnel,.research-tunnel-stage { min-height:0; }
+  .research-tunnel-stage { padding:72px 20px 56px; }
+  .research-tunnel-art { display:none; }
+  .research-frontiers { gap:14px; }
+  .research-frontier { padding:24px; }
+}

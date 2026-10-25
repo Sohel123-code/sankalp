@@ -1,3 +1,4 @@
+import { isPhone } from './calmScroll'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -7,7 +8,7 @@ export function mountCinematicMotion(host) {
   gsap.registerPlugin(ScrollTrigger)
   const media = gsap.matchMedia()
   media.add({ desktop: '(min-width: 900px)', mobile: '(max-width: 899px)', reduced: '(prefers-reduced-motion: reduce)' }, context => {
-    if (context.conditions.reduced) return
+    if (context.conditions.reduced || isPhone()) return
     const { desktop } = context.conditions
     const hero = host.querySelector('.page-intro, .summit-hero')
     if (!hero) return

@@ -1,5 +1,6 @@
 import { Component, Suspense, lazy, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { useCalmScroll } from '../utils/calmScroll'
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import TextHoverEffects from './framer/TextHoverEffects'
 import ScrollRevealText from './framer/ScrollRevealText'
@@ -27,7 +28,7 @@ export function FancyButton({ to, children, secondary = false, className = '', .
 
 export function Reveal({ children, className = '', delay = 0, ...props }) {
   const ref = useRef(null)
-  const reduced = useReducedMotion()
+  const reduced = useCalmScroll()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start .94', 'start .5'] })
   const y = useTransform(scrollYProgress, [Math.min(delay, .35), 1], [70, 0])
   const opacity = useTransform(scrollYProgress, [Math.min(delay, .35), .85], [0, 1])
@@ -63,7 +64,7 @@ export function Ambient({ kind, className = '', liquid = {} }) {
 
 export function CurveSection({ children, className = '' }) {
   const ref = useRef(null)
-  const reduced = useReducedMotion()
+  const reduced = useCalmScroll()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const radius = useTransform(scrollYProgress, [0, .45, 1], ['50% 50% 0 0 / 130px 130px 0 0', '2% 2% 0 0 / 12px 12px 0 0', '0 0 50% 50% / 0 0 120px 120px'])
   return <motion.section ref={ref} className={`curve-section ${className}`} style={{ borderRadius: reduced ? 0 : radius }}>{children}</motion.section>
@@ -71,7 +72,7 @@ export function CurveSection({ children, className = '' }) {
 
 export function TornReveal({ children }) {
   const ref = useRef(null)
-  const reduced = useReducedMotion()
+  const reduced = useCalmScroll()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start center'] })
   const y = useTransform(scrollYProgress, [0, 1], [100, 0])
   return <motion.section ref={ref} className="torn-reveal" style={{ y: reduced ? 0 : y }}>

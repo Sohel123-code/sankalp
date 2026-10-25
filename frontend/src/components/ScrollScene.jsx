@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCalmScroll } from '../utils/calmScroll'
 import { motion, useMotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 
 const SceneProgress = createContext(null)
@@ -9,7 +10,7 @@ const MotionLink = motion.create(Link)
  * Tall content stays in normal flow; no wheel interception or nested scroller.
  */
 export function ScrollScene({ children, name, className = '' }) {
-  const ref = useRef(null), content = useRef(null), reduced = useReducedMotion()
+  const ref = useRef(null), content = useRef(null), reduced = useCalmScroll()
   const [pinned, setPinned] = useState(false)
   // Measure the content, not the outer runway: centered headings must start
   // revealing when they reach the screen, rather than while still below it.

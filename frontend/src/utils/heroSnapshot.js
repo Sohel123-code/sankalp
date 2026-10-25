@@ -17,7 +17,7 @@ export async function buildHeroSnapshot(hero) {
   // font host must not stall the opening for long, so the wait is capped.
   const wanted = [...hero.querySelectorAll('.hero-liquid-name, .hero-subname, .hero-tagline')].flatMap(line => [line, ...line.children])
   const loads = wanted.map(element => document.fonts?.load(fontOf(getComputedStyle(element)), element.textContent).catch(() => {}))
-  await Promise.race([Promise.all(loads), new Promise(resolve => setTimeout(resolve, 1500))])
+  await Promise.race([Promise.all(loads), new Promise(resolve => setTimeout(resolve, 500))])
   const box = hero.getBoundingClientRect()
   const scale = Math.min(2, window.devicePixelRatio || 1)
   const canvas = document.createElement('canvas')
@@ -50,8 +50,6 @@ export async function buildHeroSnapshot(hero) {
       }
     }
   }
-  // Encode off the main thread (toBlob) so the hero never stalls while the dots start.
-  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
-  if (!blob) throw new Error('Could not encode hero snapshot')
-  return { url: URL.createObjectURL(blob), width: box.width, height: box.height }
+  // The canvas itself is handed to the animation: no PNG encode or decode on the main thread.
+  return { canvas, width: box.width, height: box.height }
 }

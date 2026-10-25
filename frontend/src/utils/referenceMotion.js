@@ -1,3 +1,4 @@
+import { isPhone } from './calmScroll'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -8,7 +9,7 @@ export function mountReferenceMotion(host) {
   gsap.registerPlugin(ScrollTrigger)
   const media = gsap.matchMedia()
   media.add({ desktop: '(min-width: 900px)', mobile: '(max-width: 899px)', reduced: reduceQuery }, context => {
-    if (context.conditions.reduced) return
+    if (context.conditions.reduced || isPhone()) return
     const desktop = context.conditions.desktop
     const scenes = new Map()
     const addScene = scene => {
@@ -119,7 +120,7 @@ export function mountSummitStory(host) {
     timeline.to(facts,{opacity:1,duration:1.35},5.3)
     return ()=>host.classList.remove('story-pinned')
   },host)
-  media.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)',()=>{
+  media.add('(min-width: 701px) and (max-width: 899px) and (prefers-reduced-motion: no-preference)',()=>{
     host.querySelectorAll('.summit-story-panel').forEach(panel=>{
       gsap.fromTo(panel,{opacity:0,y:24},{opacity:1,y:0,ease:'none',scrollTrigger:{trigger:panel,start:'top 95%',end:'top 65%',scrub:.3,invalidateOnRefresh:true}})
     })

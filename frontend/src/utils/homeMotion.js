@@ -1,3 +1,4 @@
+import { isPhone } from './calmScroll'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -10,7 +11,7 @@ export function mountHomeMotion(host) {
   gsap.registerPlugin(ScrollTrigger)
   const media = gsap.matchMedia()
   media.add({ desktop: '(min-width: 900px)', mobile: '(max-width: 899px)', reduced: '(prefers-reduced-motion: reduce)' }, context => {
-    if (context.conditions.reduced) return
+    if (context.conditions.reduced || isPhone()) return
     const d = context.conditions.desktop
     const x = amount => (d ? amount : amount / 3)
     const y = amount => (d ? amount : amount / 2)

@@ -35,18 +35,18 @@ try {
   assert(!trigger.pin && !host.querySelector('.pin-spacer'), 'Native sticky needs no generated pin spacers')
   const timeline = trigger.animation
   timeline.time(0)
-  assert(cards.every(card => Number(gsap.getProperty(card, 'opacity')) === 0))
+  assert(cards.every(card => Number(gsap.getProperty(card.children[1], 'opacity')) === 0), 'Frontier text starts hidden')
   assert.equal(progress, 0)
   for (let index = 0; index < cards.length; index++) {
     timeline.time(.7 + index * 1.35 + .85)
-    assert.equal(Number(gsap.getProperty(cards[index], 'opacity')), 1, `Frontier ${index + 1} reaches its readable hold`)
-    assert.equal(Number(gsap.getProperty(cards[index], 'z')), 0)
+    assert.equal(Number(gsap.getProperty(cards[index].children[1], 'opacity')), 1, `Frontier ${index + 1} title reaches its readable hold`)
+    assert.equal(Number(gsap.getProperty(cards[index].children[1], 'y')), 0)
     assert.equal(cards[index].inert, false)
     assert.equal(cards.filter(card => !card.inert).length, 1, 'Only the current frontier has focusable links')
     assert(progress > 0 && progress < 1, 'The background receives the same finite progress')
   }
-  timeline.time(.7 + .25)
-  assert(Number(gsap.getProperty(cards[0], 'z')) < 0, 'Frontiers approach from behind the screen')
+  timeline.time(.7 + .1)
+  assert(Number(gsap.getProperty(cards[0].children[1], 'y')) > 0, 'Frontier text rises into place')
   timeline.time(.7 + .85)
   assert.equal(cards[0].inert, false, 'Reverse scrolling restores the first frontier')
   window.scrollTo(0, trigger.end + viewport / 2)
@@ -54,7 +54,7 @@ try {
   trigger.getTween()?.progress(1)
   assert.equal(trigger.isActive, false, 'Normal page scrolling resumes after the last frontier')
   assert.equal(progress, 1)
-  assert.equal(Number(gsap.getProperty(cards[3], 'opacity')), 1, 'Last frontier stays visible during release')
+  assert.equal(Number(gsap.getProperty(cards[3].children[1], 'opacity')), 1, 'Last frontier stays visible during release')
   assert.notEqual(document.body.style.overflow, 'hidden', 'The sequence never locks page scrolling')
   assert.equal(document.getElementById('after').textContent, 'Normal website content')
   release(); release = null

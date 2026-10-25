@@ -1,9 +1,12 @@
 import { gsap } from 'gsap'
+import { isPhone } from './calmScroll'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // CSS sticky supplies the finite pin. No wheel interception, body scroll lock,
 // nested scrollport or generated pin spacer is needed for this sequence.
 export function mountResearchTunnel(host, progress) {
+  // On a phone the four frontiers simply stack, instead of a long pinned sequence with little on screen.
+  if (isPhone()) return () => {}
   gsap.registerPlugin(ScrollTrigger)
   const media = gsap.matchMedia()
   media.add('(prefers-reduced-motion: no-preference)', () => {

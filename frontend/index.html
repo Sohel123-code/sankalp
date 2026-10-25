@@ -7,10 +7,13 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>SANKALP Andhra 2026 | Andhra Pradesh Technology Summit</title>
     <meta name="description" content="Explore SANKALP Andhra 2026, a proposed technology summit connecting research, industry and higher education. Discover four tracks, hands-on workshops and innovation activities." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <script>/* Start the hero fonts now so the opening can draw the real heading without waiting for first layout. */document.fonts&&["700 40px Manrope","500 20px Inter","400 20px Inter"].forEach(function(f){document.fonts.load(f).catch(function(){})})</script>
+    <!-- Fonts are self-hosted and preloaded so the hero text (and the opening that draws it) is ready immediately. -->
+    <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <style>
+      @font-face { font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap; src: url(/fonts/inter-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+      @font-face { font-family: 'Manrope'; font-style: normal; font-weight: 200 800; font-display: swap; src: url(/fonts/manrope-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
