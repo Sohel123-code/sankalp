@@ -1,9 +1,13 @@
 import { Children, Component, Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
 import { useInView, useReducedMotion } from 'framer-motion'
+import { buildHeroSnapshot } from '../utils/heroSnapshot'
 import TextRevealHelper from './framer/TextRevealHelper'
 import TypewriterEffect from './framer/TypewriterEffect'
 
-const ParticleIntro = lazy(() => import('./framer/ParticleIntro'))
+const loadParticleIntro = () => import('./framer/ParticleIntro')
+const ParticleIntro = lazy(loadParticleIntro)
+// Start fetching the dot animation as soon as the home page code loads, not when the hero mounts.
+loadParticleIntro().catch(() => {})
 const Waveslics = lazy(() => import('./framer/Waveslics'))
 const DragableCarousel = lazy(() => import('./framer/DragableCarousel'))
 const INTRO_KEY = 'sankalp-particle-opening-v3-viewed'
@@ -29,8 +33,9 @@ export function homeIntroSeen() {
   try { return sessionStorage.getItem(INTRO_KEY) === 'yes' } catch { return false }
 }
 
-export function HomeOpening({ onComplete, onReveal }) {
+export function HomeOpening({ heroRef, onComplete, onReveal }) {
   const reduced = useReducedMotion()
+  const [snapshot, setSnapshot] = useState(null)
   const [leaving, setLeaving] = useState(false)
   const finished = useRef(false)
   const finish = useCallback(() => {
@@ -41,17 +46,26 @@ export function HomeOpening({ onComplete, onReveal }) {
     setLeaving(true)
   }, [onReveal])
   const holdTimer = useRef(0)
-  const formed = useCallback(() => { holdTimer.current = window.setTimeout(finish, 450) }, [finish])
+  const formed = useCallback(() => { holdTimer.current = window.setTimeout(finish, 250) }, [finish])
   useEffect(() => () => clearTimeout(holdTimer.current), [])
   useEffect(() => {
     if (!leaving) return
     const timer = window.setTimeout(onComplete, reduced ? 0 : 550)
     return () => clearTimeout(timer)
   }, [leaving, onComplete, reduced])
+  // The dots assemble the hero's own text, so the heading is never duplicated.
+  useEffect(() => {
+    if (reduced || !heroRef?.current) return
+    let cancelled = false
+    buildHeroSnapshot(heroRef.current)
+      .then(result => { if (!cancelled) setSnapshot(result) })
+      .catch(() => { if (!cancelled) finish() })
+    return () => { cancelled = true }
+  }, [heroRef, reduced, finish])
   useEffect(() => {
     if (reduced) { finish(); return }
     // The hero stays reachable if a chunk, canvas or image cannot load.
-    const timeout = window.setTimeout(finish, 4500)
+    const timeout = window.setTimeout(finish, 5000)
     const escape = event => { if (event.key === 'Escape') finish() }
     const skipOnScroll = () => { if (window.scrollY > 40) finish() }
     window.addEventListener('keydown', escape)
@@ -59,10 +73,9 @@ export function HomeOpening({ onComplete, onReveal }) {
     return () => { clearTimeout(timeout); window.removeEventListener('keydown', escape); window.removeEventListener('scroll', skipOnScroll) }
   }, [finish, reduced])
   return <div className={`home-opening particle-opening${leaving ? ' is-leaving' : ''}`} data-framer-effect="particle-formation" aria-label="SANKALP Andhra 2026">
-    <div className="particle-opening-art" aria-hidden="true"><VisualBoundary onFailure={finish}><Suspense fallback={<div className="particle-name-fallback">SANKALP<small>ANDHRA 2026</small></div>}>
-      <ParticleIntro image="/media/sankalp-opening.svg" layoutMode="Relative" imageScale={.8} particleCount={2200} particleSize={1.6} duration={1.65} easing="easeInOutQuad" overrideColor={false} onComplete={formed} onError={finish} />
+    <div className="particle-opening-art" aria-hidden="true"><VisualBoundary onFailure={finish}><Suspense fallback={null}>
+      {snapshot && <ParticleIntro image={snapshot.url} layoutMode="Fixed" imageWidth={snapshot.width} imageHeight={snapshot.height} particleCount={16000} particleSize={1.7} duration={1.2} easing="easeInOutQuad" overrideColor={false} onComplete={formed} onError={finish} />}
     </Suspense></VisualBoundary></div>
-    <button type="button" className="opening-skip" onClick={finish} disabled={leaving}>Skip intro</button>
   </div>
 }
 

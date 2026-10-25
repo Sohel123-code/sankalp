@@ -23,6 +23,17 @@ function useWide() {
   return wide
 }
 
+function usePhone() {
+  const [phone, setPhone] = useState(false)
+  useEffect(() => {
+    const query = matchMedia('(max-width: 700px)')
+    const update = () => setPhone(query.matches)
+    update(); query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
+  return phone
+}
+
 export function WorkshopMotionIntro() {
   const reduced = useReducedMotion()
   const wide = useWide()
@@ -73,7 +84,7 @@ export function ResearchTunnel() {
 }
 
 export function TrackArc({ tracks, active, onSelect }) {
-  const reduced = useReducedMotion()
+  const reduced = useReducedMotion(), phone = usePhone()
   const ref = useRef(null), inView = useInView(ref, { amount: .25 })
   const [paused, setPaused] = useState(false), [focused, setFocused] = useState(false)
   const [visible, setVisible] = useState(() => typeof document === 'undefined' || !document.hidden)
@@ -87,7 +98,7 @@ export function TrackArc({ tracks, active, onSelect }) {
   if (reduced || tracks.length < 2) return <div ref={ref} className="track-arc" data-effect-owned data-scroll-owned>{fallback}</div>
   const items = tracks.map(track => ({ image: { src: `${import.meta.env.BASE_URL}media/tracks/${track.id}.svg`, alt: `${track.shortTitle}: ${track.theme}` } }))
   return <div ref={ref} className="track-arc" data-effect-owned data-scroll-owned data-framer-effect="panorama-carousel">
-    <VisualBoundary fallback={fallback}><Suspense fallback={fallback}><div className="track-arc-stage" onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false) }}><PanoramaCarousel items={items} autoplay={playing} speed={5} direction="left" pauseOnHover draggable momentum={.6} tileHeight={66} aspectRatio={1.25} gap={4} radius="20px" axis={50} curve={68} fade={0} placeholder="#14100b" /></div></Suspense></VisualBoundary>
+    <VisualBoundary fallback={fallback}><Suspense fallback={fallback}><div className="track-arc-stage" onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false) }}><PanoramaCarousel items={items} autoplay={playing} speed={5} direction="left" pauseOnHover draggable momentum={.6} tileHeight={phone ? 72 : 66} maxWidth={phone ? 82 : 55} aspectRatio={1.25} gap={4} radius="20px" axis={50} curve={phone ? 40 : 68} fade={0} placeholder="#14100b" /></div></Suspense></VisualBoundary>
     <div className="arc-toolbar"><div className="arc-controls" role="group" aria-label="Choose a technology track">{tracks.map((track, index) => <button key={track.id} aria-pressed={active === index} onClick={() => onSelect(index)}>{track.shortTitle}</button>)}</div><button className="arc-playback" aria-label={paused ? 'Play automatic track rotation' : 'Stop automatic track rotation'} onClick={() => setPaused(value => !value)}>{paused ? 'Play' : 'Stop'}</button></div>
   </div>
 }

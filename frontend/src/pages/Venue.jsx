@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import { VENUE_INFO, CONTACT_INFO } from '../data/sankalpData'
+import KakinadaPlaces from '../components/KakinadaPlaces'
+import TravelRoutes from '../components/TravelRoutes'
 import styles from './Venue.module.css'
 
 export default function Venue() {
@@ -71,6 +73,22 @@ export default function Venue() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* ── Top tourist places near Kakinada ── */}
+        <section className="kk-section" aria-labelledby="kk-title">
+          <span className="eyebrow">EXPLORE KAKINADA</span>
+          <h2 id="kk-title">Top tourist places near Kakinada</h2>
+          <p className="kk-lede">Extend your trip: mangrove boardwalks, an island by boat, the beach, an ancient temple and a coastal village, all within a day trip of the city. Distances are approximate.</p>
+          <KakinadaPlaces />
+        </section>
+
+        {/* ── How to reach Kakinada ── */}
+        <section className="kk-section" aria-labelledby="tr-title">
+          <span className="eyebrow">GETTING THERE</span>
+          <h2 id="tr-title">How to reach Kakinada</h2>
+          <p className="kk-lede">There are three ways to reach Kakinada: by air, by train and by road. Pick one below, then open the route in Google Maps. The final venue is still to be announced, so directions lead to Kakinada city.</p>
+          <TravelRoutes />
         </section>
 
         {/* ── Venue Access, Security & Travel Assistance ── */}

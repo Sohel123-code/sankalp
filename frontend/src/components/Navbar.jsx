@@ -4,8 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { FancyButton } from './Motion'
 import ProfileMenu from './ProfileMenu'
 
-const main = [['/about','About'],['/tracks','Tracks'],['/programme','Programme'],['/workshops','Workshops'],['/contact','Contact']]
-const mobileMain = [['/','Home'], ...main]
+const main = [['/','Home'],['/about','About'],['/tracks','Tracks'],['/programme','Programme'],['/workshops','Workshops'],['/contact','Contact']]
 const groups = [
   ['Participate', [['/innovation-challenge','Innovation Challenge'],['/investor-connect','Investor Connect'],['/showcase','Research Showcase'],['/partners','Partnerships']]],
   ['Plan your visit', [['/speakers','Speakers'],['/venue','Venue & Travel'],['/registration','Registration & fees'],['/faq','FAQs']]],
@@ -53,6 +52,6 @@ export default function Navbar() {
       <button ref={trigger} id="mobile-menu-toggle" className="menu-toggle" aria-label={mobile ? 'Close menu' : 'Open menu'} aria-expanded={mobile} aria-controls="mobile-navigation" onClick={() => { setMobile(v => !v); setExpanded(false) }}><span /><span /></button>
     </div>
     {expanded && <nav className="explore-panel" id="summit-explore" aria-label="More pages">{groups.map(([label,items]) => <div key={label}><span className="tiny-label">{label}</span>{links(items)}</div>)}</nav>}
-    {mobile && <div ref={drawer} id="mobile-navigation" className="mobile-panel" role="dialog" aria-label="Mobile navigation"><nav aria-label="Summit pages"><div className="mobile-primary">{links(mobileMain)}</div><div className="mobile-secondary">{groups.map(([label,items]) => <div key={label}><span className="tiny-label">{label}</span>{links(items)}</div>)}</div></nav><div className="mobile-account">{user ? <button onClick={logout} id="mobile-logout">Sign out</button> : <><Link to="/login" id="mobile-login">Sign in</Link><Link to="/register" id="mobile-register">Create account</Link></>}</div></div>}
+    {mobile && <div ref={drawer} id="mobile-navigation" className="mobile-panel" role="dialog" aria-label="Mobile navigation"><nav aria-label="Summit pages"><div className="mobile-primary">{links(main)}</div><div className="mobile-secondary">{groups.map(([label,items]) => <div key={label}><span className="tiny-label">{label}</span>{links(items)}</div>)}</div></nav><div className="mobile-account">{user ? <button onClick={logout} id="mobile-logout">Sign out</button> : <><Link to="/login" id="mobile-login">Sign in</Link><Link to="/register" id="mobile-register">Create account</Link></>}</div></div>}
   </header>
 }
