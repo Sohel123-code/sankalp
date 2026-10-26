@@ -208,10 +208,7 @@
 .summit-redesign .route-registration [class*="_tierSelected_"] { border-color:#ff985c; }
 .summit-redesign .route-privacy-policy [class*="_container_"],
 .summit-redesign .route-terms [class*="_container_"],
-.summit-redesign .route-cancellation-refund [class*="_container_"] { max-width:940px; }
-.summit-redesign .route-privacy-policy [class*="_card_"],
-.summit-redesign .route-terms [class*="_card_"],
-.summit-redesign .route-cancellation-refund [class*="_card_"] { background:transparent; border:0; padding:0; }
+.summit-redesign .route-cancellation-refund [class*="_container_"] { max-width:1040px; }
 
 /* Shared controls keep a single underline and no filled active navigation. */
 .summit-redesign .site-header { background:#070707ed; border-color:#ffffff1b; }

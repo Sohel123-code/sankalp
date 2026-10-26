@@ -1,9 +1,9 @@
 import PolicyContent from '../components/PolicyContent'
 export default function CancellationRefund() {
-  return <PolicyContent title="Cancellation & Refund Policy" description="Cancellation and refund rules are not yet established in the supplied summit materials." sections={[
-    ['Approval status', 'No cancellation deadlines, refund percentages, transfer rules or no-show rules have been specified. These details will be published after organiser approval and before payments are collected.'],
-    ['Summit, workshop and Challenge fees', 'The approved policy will explain the rules for delegate registration, specialist workshops and Innovation Challenge fees. No refund entitlement or non-refundable period is currently announced.'],
-    ['Payment issues and invoices', 'Payment-failure handling, duplicate-payment requests, invoice procedures, refund processing and support contacts will be included in the final policy.'],
-    ['Event changes', 'The organisers will publish the applicable process for postponement, cancellation, programme changes and delegate substitutions.'],
+  return <PolicyContent title="Cancellation & Refund Policy" description="Cancellation and refund rules, published before payments open." sections={[
+    ['Status', 'No deadlines, refund percentages, transfer or no-show rules are set yet. They will be published before any payment is collected.'],
+    ['Fees covered', 'Delegate registration, specialist workshops and Innovation Challenge fees. No refund entitlement is announced yet.'],
+    ['Payment issues', 'Failed or duplicate payments, invoices, refund processing and support contacts.'],
+    ['Event changes', 'Postponement, cancellation, programme changes and delegate substitutions.'],
   ]} />
 }
