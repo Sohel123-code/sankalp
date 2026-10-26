@@ -1,12 +1,13 @@
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { useCalmScroll } from '../../utils/calmScroll'
 
 // Content-slot adaptation of the supplied Scroll Zoom Reveal. Retains its
 // sticky expanding aperture, rounded-corner spring and delayed content reveal.
 // Real summit content replaces the reference's stock showreel photograph.
 export default function ScrollZoomReveal({ children }) {
   const ref = useRef(null)
-  const reduced = useReducedMotion()
+  const reduced = useCalmScroll()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] })
   const aperture = useTransform(scrollYProgress, [0, .65], ['inset(38% 38% round 80px)', 'inset(0% 0% round 16px)'])
   const scaleRaw = useTransform(scrollYProgress, [0, .65], [.88, 1])

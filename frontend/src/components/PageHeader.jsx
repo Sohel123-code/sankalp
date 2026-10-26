@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useCalmScroll } from '../utils/calmScroll'
 import { Ambient } from './Motion'
 import { LIQUID_HEROES } from '../data/heroThemes'
 import HeroMesh from './HeroMesh'
@@ -22,12 +23,12 @@ const labels = { '/about': 'THE VISION', '/tracks': 'THE FRONTIERS', '/programme
 
 export default function PageHeader({ badge, title, subtitle, backgroundImage }) {
   const { pathname } = useLocation()
-  const reduced = useReducedMotion()
+  const reduced = useCalmScroll()
   const copy = concise[pathname]
   if (copy) { title = copy[0]; subtitle = copy[1] }
   const liquid = LIQUID_HEROES[pathname]
   return <section id="page-top" className={`page-intro intro-${pathname.slice(1)} ${liquid ? 'intro-liquid' : ''}`}>
-    {backgroundImage ? <img className="intro-image" src={backgroundImage} alt="" /> : pathname === '/programme' ? <WaveBackdrop /> : liquid ? <Ambient kind="liquid" liquid={liquid} /> : treatments[pathname] ? <Ambient kind={treatments[pathname]} /> : <div className="intro-graphic" aria-hidden="true"><i /><i /><i /><i /><i />{(pathname === '/about' || pathname === '/dashboard') && <HeroMesh scale={pathname === '/about' ? .7 : 1} pointerStrength={pathname === '/dashboard' ? 1.4 : .35} />}</div>}
+    {backgroundImage ? <img className="intro-image" src={backgroundImage} alt="" /> : reduced && !['/about', '/dashboard'].includes(pathname) ? <div className="intro-mobile-atmosphere" aria-hidden="true" /> : pathname === '/programme' ? <WaveBackdrop /> : liquid ? <Ambient kind="liquid" liquid={liquid} /> : treatments[pathname] ? <Ambient kind={treatments[pathname]} /> : <div className="intro-graphic" aria-hidden="true"><i /><i /><i /><i /><i />{(pathname === '/about' || pathname === '/dashboard') && <HeroMesh scale={pathname === '/about' ? .7 : 1} pointerStrength={pathname === '/dashboard' ? 1.4 : .35} />}</div>}
     <div className="intro-overlay" />
     <div className="section-shell intro-inner">
       <motion.div data-hero-entry initial={reduced ? false : { opacity: 1, y: '-100vh' }} animate={{ opacity: 1, y: '0vh' }} transition={{ duration: 1.35, ease: [.22, 1, .36, 1] }}>

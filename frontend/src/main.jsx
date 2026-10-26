@@ -9,9 +9,10 @@ import './styles/refinement.css'
 import './styles/scroll-scenes.css'
 import './styles/chapters.css'
 import './styles/cinematic.css'
-import './styles/responsive.css'
 import './styles/framer-enhancements.css'
 import './styles/summit-redesign.css'
+// Responsive rules run after the page/effect layers they adapt.
+import './styles/responsive.css'
 
 // On the home page, fetch the hero page and its dot animation in parallel with the app shell instead of one after the other.
 if (window.location.pathname === '/') {

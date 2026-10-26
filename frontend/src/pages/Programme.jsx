@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import PageHeader from '../components/PageHeader'
+import { useCalmScroll } from '../utils/calmScroll'
 import { FancyButton, Reveal } from '../components/Motion'
 import { SCHEDULE, WORKSHOPS, OPEN_SUMMIT_LABS } from '../data/sankalpData'
 import { groupProgramme } from '../utils/programme'
@@ -8,7 +9,7 @@ import ProgrammeStage from '../components/ProgrammeStage'
 
 function Session({ session, index }) {
   const ref = useRef(null)
-  const reduced = useReducedMotion()
+  const reduced = useCalmScroll()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start .96', 'start .55'] })
   const opacity = useTransform(scrollYProgress, [0, .75], [0, 1])
   const y = useTransform(scrollYProgress, [0, 1], [70, 0])
@@ -33,7 +34,7 @@ function Session({ session, index }) {
 }
 
 function TimelineChapter({ chapter, day }) {
-  const ref = useRef(null), reduced = useReducedMotion()
+  const ref = useRef(null), reduced = useCalmScroll()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start .7', 'end .6'] })
   return <section className="agenda-chapter" id={`agenda-${day}-${chapter.id}`} ref={ref} aria-labelledby={`heading-${day}-${chapter.id}`}>
     <div className="agenda-chapter-heading"><span className="tiny-label">{chapter.number} / THE DAY UNFOLDS</span><h2 id={`heading-${day}-${chapter.id}`}>{chapter.title}</h2><span>{chapter.sessions.length} sessions</span></div>

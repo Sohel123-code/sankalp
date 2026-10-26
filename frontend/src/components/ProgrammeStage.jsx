@@ -14,7 +14,13 @@ export default function ProgrammeStage({ sessions }) {
     setDirection(target >= active ? 1 : -1); setActive(target)
   }
   useEffect(() => {
-    rail.current?.querySelector('[aria-current=step]')?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduced ? 'auto' : 'smooth' })
+    const container = rail.current
+    const stop = container?.querySelector('[aria-current=step]')
+    if (!container || !stop) return
+    // Move only the horizontal timeline. scrollIntoView also pulled the whole
+    // page past its hero on mount, especially on narrow phone layouts.
+    const left = container.scrollLeft + stop.getBoundingClientRect().left - container.getBoundingClientRect().left - (container.clientWidth - stop.offsetWidth) / 2
+    container.scrollTo?.({ left: Math.max(0, left), behavior: reduced ? 'auto' : 'smooth' })
   }, [active, reduced])
   if (!session) return null
   const onKey = event => {

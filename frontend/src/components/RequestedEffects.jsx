@@ -95,6 +95,9 @@ export function TrackArc({ tracks, active, onSelect }) {
   }, [])
   const playing = !paused && !focused && visible && inView && !reduced
   const fallback = <div className="track-arc-static">{tracks.map((track, index) => <button key={track.id} onClick={() => onSelect(index)} aria-pressed={active === index}><span className="eyebrow">Technology track</span><h2>{track.shortTitle}</h2><p>{track.theme}</p><span>Explore this track</span></button>)}</div>
+  // SVG panorama labels become too small on phones. Keep the same tracks as
+  // native, readable cards with horizontal touch scrolling and explicit selection.
+  if (phone && !reduced && tracks.length > 1) return <div ref={ref} className="track-arc phone-track-swiper" data-effect-owned data-scroll-owned><p className="track-swipe-label">Swipe through the tracks. Select a card for research details.</p>{fallback}</div>
   if (reduced || tracks.length < 2) return <div ref={ref} className="track-arc" data-effect-owned data-scroll-owned>{fallback}</div>
   const items = tracks.map(track => ({ image: { src: `${import.meta.env.BASE_URL}media/tracks/${track.id}.svg`, alt: `${track.shortTitle}: ${track.theme}` } }))
   return <div ref={ref} className="track-arc" data-effect-owned data-scroll-owned data-framer-effect="panorama-carousel">

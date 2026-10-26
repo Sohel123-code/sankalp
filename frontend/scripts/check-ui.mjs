@@ -11,7 +11,9 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true
 globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window)
 globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window)
 window.scrollTo = () => {}
-Element.prototype.scrollIntoView = () => {}
+const elementScrolls = [], railScrolls = []
+Element.prototype.scrollIntoView = function () { elementScrolls.push(this) }
+Element.prototype.scrollTo = function (options) { railScrolls.push({ element: this, options }) }
 window.matchMedia = query => ({ matches: query.includes('prefers-reduced-motion'), media: query, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {} })
 globalThis.matchMedia = window.matchMedia
 globalThis.IntersectionObserver = class { observe() {} unobserve() {} disconnect() {} }
@@ -37,7 +39,7 @@ const React = await import('react')
 const { act } = React
 const { createRoot } = await import('react-dom/client')
 const { MemoryRouter } = await import('react-router-dom')
-const server = await createServer({ server: { middlewareMode: true, hmr: false }, appType: 'custom', optimizeDeps: { noDiscovery: true, entries: [] } })
+const server = await createServer({ cacheDir: 'node_modules/.vite-ui-check', server: { middlewareMode: true, hmr: false, open: false }, appType: 'custom', optimizeDeps: { noDiscovery: true, entries: [] } })
 const { default: App } = await server.ssrLoadModule('/src/App.jsx')
 const { groupProgramme } = await import('../src/utils/programme.js')
 const { SCHEDULE } = await import('../src/data/sankalpData.js')
@@ -96,6 +98,8 @@ try {
   console.log('PASS: About mesh, unchanged title and six-stage journey interaction')
   await route('/programme')
   assert.equal(document.querySelectorAll('.stage-stop').length, 14, 'The interactive programme shows a stop for every session')
+  assert(!elementScrolls.some(element => element.matches('.stage-stop')), 'Programme does not pull the document past its hero on mount')
+  assert(railScrolls.some(({ element }) => element.matches('.stage-rail')), 'Selection scrolls only the horizontal timeline')
   await click(document.querySelectorAll('.stage-stop')[3])
   await act(async () => { await new Promise(resolve => setTimeout(resolve, 600)) })
   assert.equal(document.querySelector('.stage-card h3').textContent, SCHEDULE.day1.sessions[3].title, 'Choosing a stop opens that session')

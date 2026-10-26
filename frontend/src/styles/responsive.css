@@ -58,3 +58,135 @@
   .summit-hero,.page-intro{min-height:calc(100svh - var(--navbar-h))}
   .mobile-panel{max-height:calc(100dvh - var(--navbar-h))}
 }
+
+/* Shared phone/tablet contract, after the desktop and effect styles. */
+.intro-mobile-atmosphere{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 85% 45%,#6b301b55,transparent 65%),linear-gradient(145deg,#15110a,#080807 70%)}
+@media(max-width:1100px){
+  body :is(button,summary,input:not([type=checkbox]):not([type=radio]),select){min-height:44px}
+  .summit-redesign .route-content:not(.route-home) .disclosure>summary{min-height:44px;display:flex;align-items:center;gap:12px}
+  body [class*="_toggleBtn_"]{width:44px;height:44px}
+  body [class*="_rememberLabel_"],body [class*="_checkLabel_"]{min-height:44px}
+  .summit-redesign .header-shell{gap:14px}
+  .site-header .menu-toggle,.site-header .profile-trigger{min-width:44px;min-height:44px}
+  .mobile-primary>a,.mobile-secondary a,.mobile-account>a,.mobile-account>button{min-height:44px;display:flex;align-items:center}
+  .mobile-panel{padding-bottom:calc(28px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
+  .profile-panel a,.profile-panel button{min-height:44px;display:flex;align-items:center}
+  .route-content :is(button,summary,select){touch-action:manipulation}
+  .kk-dots button{width:44px;height:44px;min-height:44px;background:transparent;border-radius:0}
+  .kk-dots button::after{inset:19px 4px;background:#ffffff50;border-radius:4px}
+  .kk-dots button[aria-pressed=true]{background:transparent}
+  .kk-dots button[aria-pressed=true]::after{background:#ff9657}
+}
+@media(max-width:900px){
+  .summit-redesign .route-programme .agenda-layout{grid-template-columns:minmax(0,1fr)}
+  .summit-redesign .route-programme .agenda-sidebar{position:static;max-height:none;overflow:visible}
+  .agenda-days{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .agenda-chapters-nav{flex-direction:row;flex-wrap:wrap;gap:16px}
+  .agenda-chapters-nav a{min-height:44px;flex:1}
+  .summit-programme-preview,.summit-workshop-feature>.summit-section-body{grid-template-columns:minmax(0,1fr);gap:32px}
+  .summit-redesign .route-content [class*="_twoCol_"],.summit-redesign .route-content [class*="_twoColSection_"]{grid-template-columns:minmax(0,1fr)}
+  .arc-toolbar{grid-template-columns:minmax(0,1fr);gap:16px}
+  .arc-controls{width:100%;gap:8px}
+  .arc-controls button{flex:1 1 180px;min-height:44px;white-space:normal;line-height:1.5}
+  .arc-playback{grid-column:1;justify-self:end}
+}
+@media(max-width:700px){
+  :root{--navbar-h:72px}
+  .summit-redesign .header-shell{width:calc(100% - 28px);gap:10px}
+  .header-brand{padding:3px 5px}
+  .header-brand img{width:94px;height:44px}
+  .header-cta{min-width:0;gap:8px}
+  .header-cta #nav-login{display:none}
+  .header-cta .fancy-button{font-size:12px;min-height:44px;padding:10px 14px}
+  .account-loading{width:80px}
+  .mobile-primary{font-size:20px;gap:8px 16px}
+  .mobile-secondary{font-size:14px;gap:20px}
+  .mobile-panel{padding-inline:20px}
+  .profile-panel{position:fixed;top:calc(var(--navbar-h) + 8px);right:14px;left:auto;width:min(320px,calc(100vw - 28px))}
+  .profile-id>div{min-width:0;overflow-wrap:anywhere}
+  .summit-redesign .section-shell:not(.intro-inner),.summit-redesign .route-content:not(.route-home) .compact-page,.summit-redesign .route-content:not(.route-home) [class*="_container_"]{width:calc(100% - 36px)}
+  .page-intro .intro-inner{width:calc(100% - 36px);padding:24px 0 20px}
+  .page-intro .intro-inner>[data-hero-entry]{width:100%;padding:24px 0 12px}
+  .page-intro h1{font-size:clamp(32px,9vw,46px);line-height:1.16;overflow-wrap:normal;hyphens:auto}
+  .page-intro p{font-size:15px;line-height:1.7;max-width:100%}
+  .page-intro .intro-index{flex-wrap:wrap;gap:12px;font-size:10px}
+  .summit-hero{min-height:calc(100svh - var(--navbar-h));height:auto}
+  .summit-hero .hero-content{padding:40px 18px 130px}
+  .summit-hero .hero-content h1{font-size:clamp(46px,13.8vw,86px);letter-spacing:-.045em}
+  .summit-hero .hero-subname{font-size:clamp(15px,4.5vw,22px);letter-spacing:.22em}
+  .summit-hero .hero-eyebrow{font-size:9px;letter-spacing:.1em;line-height:1.6}
+  .summit-hero .hero-tagline{font-size:19px;line-height:1.5}
+  .hero-bottom{left:18px;right:18px;bottom:max(16px,env(safe-area-inset-bottom));gap:12px;align-items:flex-end}
+  .hero-bottom>span{max-width:65%;font-size:9px}
+  .hero-bottom small{display:block;line-height:1.6}
+  .hero-bottom .motion-toggle{min-height:44px;min-width:44px;font-size:12px;line-height:1.4;text-align:right}
+  .summit-home-content h3{overflow-wrap:anywhere}
+  .summit-redesign .editorial-link,.summit-footer-main nav a,.footer-bottom a{min-height:44px;display:inline-flex;align-items:center;line-height:1.5}
+  .summit-footer-main nav{gap:4px}
+  .summit-footer-main nav a,.footer-bottom{font-size:13px}
+  .filter-pills{gap:8px}
+  .filter-pills button{font-size:12px;line-height:1.4;min-height:44px}
+  .explorer-controls input,.agenda-filter select{width:100%;max-width:100%;min-height:48px}
+  .agenda-filter{display:flex;flex-wrap:wrap;align-items:center}
+  .agenda-filter label{flex:1 0 100%;font-size:14px}
+  .agenda-filter select{flex:1 1 180px}
+  .agenda-days strong{font-size:14px;line-height:1.45}
+  .agenda-days small,.agenda-days button>div>span{font-size:12px;line-height:1.6}
+  .agenda-meta{flex-wrap:wrap;gap:10px}
+  .agenda-type{font-size:11px;max-width:100%;white-space:normal}
+  .agenda-time{font-size:14px}
+  .agenda-session-body{min-width:0}
+  .agenda-session h3{overflow-wrap:anywhere}
+  .agenda-chapters-nav a{font-size:13px}
+  .workshop-card-copy p,.workshop-card-expanded,.research-expanded{font-size:14px;line-height:1.75}
+  .workshop-card-copy>.tiny-label,.workshop-card-time{font-size:12px;line-height:1.6}
+  .workshop-view-options{flex-wrap:wrap}
+  .workshop-view-options button{min-height:44px}
+  .workshop-swipe-stage{width:100%;min-width:0;max-width:440px}
+  .workshop-zoom{min-height:0;padding-inline:0}
+  .workshop-zoom-stage{position:relative;top:auto;height:auto}
+  .workshop-zoom-aperture{min-height:0;padding:44px 20px}
+  .research-frontiers{grid-template-columns:minmax(0,1fr)}
+  .research-tunnel-copy{padding:0}
+  .research-tunnel-copy h2{margin-block:24px;font-size:clamp(32px,9vw,48px)}
+  .research-frontier h3{font-size:28px;overflow-wrap:anywhere}
+  .folded-content .objective-details{padding:22px 18px}
+  .folded-content .objective-details ol{padding-left:20px}
+  .arc-toolbar .arc-controls{gap:8px}
+  .arc-toolbar .arc-controls button{padding:12px;font-size:13px}
+  .track-swipe-label{font-size:13px;color:#b7aa98;margin-bottom:16px;line-height:1.6}
+  .phone-track-swiper .track-arc-static{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:4px 2px 18px;margin:0;-webkit-overflow-scrolling:touch}
+  .phone-track-swiper .track-arc-static>button{flex:0 0 88%;min-width:0;scroll-snap-align:center;padding:24px 20px;display:flex;flex-direction:column;align-items:flex-start;touch-action:pan-x pan-y}
+  .phone-track-swiper .track-arc-static>button[aria-pressed=true]{border-color:#ff985c;background:#21160d}
+  .phone-track-swiper .track-arc-static h2{font-size:26px;line-height:1.2;margin:16px 0}
+  .phone-track-swiper .track-arc-static p{font-size:14px;line-height:1.7}
+  .phone-track-swiper .track-arc-static>button>span:last-child{margin-top:auto;padding-top:18px;font-size:13px;color:#ffc07c}
+  .route-content [class*="_formCard_"],.route-content [class*="_modalCard_"]{min-width:0}
+  [class*="_modalOverlay_"]{padding:12px;align-items:flex-start;overflow-y:auto}
+  [class*="_modalCard_"]{margin-block:auto;max-height:calc(100dvh - 24px);width:100%;overflow-y:auto}
+  [class*="_formRow_"],[class*="_fieldRow_"]{grid-template-columns:minmax(0,1fr);gap:18px}
+  [class*="_form_"] input,[class*="_form_"] select,[class*="_form_"] textarea{font-size:16px}
+  .route-content :is(button,summary,input:not([type=checkbox]):not([type=radio]),select){min-height:44px}
+  .route-content [class*="_formGroup_"] label{line-height:1.5}
+  .route-content [class*="_modalActions_"]{flex-wrap:wrap}
+  .route-content [class*="_modalActions_"]>*{flex:1 1 160px}
+  .profile-summary{grid-template-columns:minmax(0,1fr)}
+  .profile-summary strong{font-size:16px}
+}
+@media(max-width:480px){
+  .agenda-days{grid-template-columns:minmax(0,1fr)}
+  .agenda-days button{width:100%;display:flex;align-items:center;gap:16px;padding:16px}
+  .agenda-days .agenda-day-number{font-size:36px;flex-shrink:0}
+  .agenda-marker{display:none}
+  .agenda-rail,.agenda-list:before{display:none}
+  .summit-redesign .route-programme .agenda-session-body{width:100%;padding:22px 18px}
+  .summit-footer-main{gap:28px 20px}
+  .mobile-secondary{grid-template-columns:minmax(0,1fr)}
+  .tr-routes dl{flex-wrap:wrap;gap:14px 24px}
+  .tr-routes dd{white-space:normal}
+}
+@media(max-height:500px) and (orientation:landscape){
+  .summit-hero .hero-content{padding:28px 20px 110px}
+  .summit-hero .hero-content h1{font-size:48px}
+  .summit-hero .hero-tagline{font-size:18px}
+}

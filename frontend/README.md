@@ -31,3 +31,16 @@ existing routes, forms and account interactions.
 Use `npm run dev:frontend` from the project root. The Vite development server forwards `/api` requests to `backend` on port 3000. On Vercel, the API is served from the same domain.
 
 Only `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` belong in the frontend environment. Keep server secrets in the backend environment. See the root [deployment guide](../DEPLOY_VERCEL.md); deploy from the project root, not this subfolder.
+
+Responsive styles are loaded last in `src/main.jsx` so page/effect styles cannot
+accidentally replace the phone rules. Phones use readable native swipe cards for
+tracks, an unpinned programme, and immediately visible session content. The
+programme timeline scrolls its own rail without moving the document on load.
+
+For real-browser layout checks, run `node scripts/mobile-audit.mjs` from this
+folder and open `http://127.0.0.1:5176/__mobile-audit`. The isolated local preview
+mocks API responses and checks 22 routes at 320, 390, 768 and 1024 pixels, including
+mobile menus, expanded disclosures and the registration modal. It writes
+`.mobile-audit.json` (ignored by Git). It does not submit forms or use real
+accounts. This checks desktop Chrome rendering at narrow widths; physical iOS
+and Android keyboard, browser chrome and touch behavior still need device review.

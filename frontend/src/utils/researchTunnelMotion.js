@@ -1,15 +1,14 @@
 import { gsap } from 'gsap'
-import { isPhone } from './calmScroll'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // CSS sticky supplies the finite pin. No wheel interception, body scroll lock,
 // nested scrollport or generated pin spacer is needed for this sequence.
 export function mountResearchTunnel(host, progress) {
-  // On a phone the four frontiers simply stack, instead of a long pinned sequence with little on screen.
-  if (isPhone()) return () => {}
   gsap.registerPlugin(ScrollTrigger)
   const media = gsap.matchMedia()
-  media.add('(prefers-reduced-motion: no-preference)', () => {
+  // Respond to rotation/resizing too: reverting the desktop sequence restores
+  // every card's visibility and keyboard access on the stacked phone layout.
+  media.add('(min-width: 701px) and (prefers-reduced-motion: no-preference)', () => {
     const intro = host.querySelector('.research-tunnel-copy')
     const cards = [...host.querySelectorAll('.research-frontier')]
     if (!intro || !cards.length) return
