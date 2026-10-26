@@ -1,12 +1,13 @@
 import { useEffect, useRef } from 'react'
-import { useScroll } from 'framer-motion'
+import { useReducedMotion, useScroll } from 'framer-motion'
 import { useCalmScroll } from '../utils/calmScroll'
 import { revealFrame } from '../utils/scrollReveal'
+import { mountTouchReveal } from '../utils/touchReveal'
 
 const cards = 'article:not(.agenda-session), .research-card, .impact-art, .about-purpose > details, .explorer-controls, .workshop-meta, .participant-checklist, .participation-links > a, .summit-facts > span, .profile-summary > div, [class*="catCard"], [class*="actCard"], [class*="partCard"], [class*="typeCard"], [class*="tierCard"], [class*="faqItem"], [class*="heroBox"], [class*="heroCard"], [class*="formCard"], [class*="nominationFormCard"], [class*="panelBox"], [class*="secretariatCard"], [class*="stepCard"], [class*="stripItem"]'
 
 export default function ScrollPage({ children, route }) {
-  const root = useRef(null), reduced = useCalmScroll()
+  const root = useRef(null), reduced = useCalmScroll(), motionReduced = useReducedMotion()
   const { scrollY } = useScroll()
   useEffect(() => {
     if (reduced || !root.current) return
@@ -55,6 +56,8 @@ export default function ScrollPage({ children, route }) {
         el.style.setProperty('--scroll-opacity', next.opacity.toFixed(4))
         el.style.setProperty('--scroll-inset', `${next.inset.toFixed(2)}%`)
         unit.y = next.y; unit.last = next.progress
+        // Layer promotion only while a unit is moving: dozens of permanent layers cost more than they save.
+        el.classList.toggle('is-revealing', next.progress > 0 && next.progress < 1)
       }
     }
     const schedule = () => { if (!frame && !disposed) frame = requestAnimationFrame(update) }
@@ -63,20 +66,28 @@ export default function ScrollPage({ children, route }) {
       host.querySelectorAll('h2').forEach(el => register(el, true))
       schedule()
     }
+    // React can mutate the tree many times per frame; rescan once per frame.
+    let scanFrame = 0
+    const scanSoon = () => { if (!scanFrame && !disposed) scanFrame = requestAnimationFrame(() => { scanFrame = 0; if (!disposed) scan() }) }
     scan()
     const unsubscribe = scrollY.on('change', schedule)
     const resize = new ResizeObserver(schedule); resize.observe(host)
-    const mutations = new MutationObserver(scan); mutations.observe(host, { childList: true, subtree: true })
+    const mutations = new MutationObserver(scanSoon); mutations.observe(host, { childList: true, subtree: true })
     window.addEventListener('resize', schedule)
     host.addEventListener('focusin', schedule); host.addEventListener('focusout', schedule)
     return () => {
-      disposed = true; cancelAnimationFrame(frame); unsubscribe(); resize.disconnect(); mutations.disconnect()
+      disposed = true; cancelAnimationFrame(frame); cancelAnimationFrame(scanFrame); unsubscribe(); resize.disconnect(); mutations.disconnect()
       window.removeEventListener('resize', schedule); host.removeEventListener('focusin', schedule); host.removeEventListener('focusout', schedule)
       for (const el of units.keys()) {
-        el.classList.remove('scroll-unit', 'scroll-heading-unit', 'scroll-card-unit')
+        el.classList.remove('scroll-unit', 'scroll-heading-unit', 'scroll-card-unit', 'is-revealing')
         for (const key of ['y', 'scale', 'opacity', 'inset']) el.style.removeProperty(`--scroll-${key}`)
       }
     }
   }, [route, reduced, scrollY])
+  // Phones and touch tablets skip the scrubbed reveals above; they get a one-shot fade-up instead (unless motion is reduced).
+  useEffect(() => {
+    if (!reduced || motionReduced || !root.current) return
+    return mountTouchReveal(root.current)
+  }, [route, reduced, motionReduced])
   return <div ref={root} className={`route-content route-${route.split('/')[1] || 'home'}`}>{children}</div>
 }

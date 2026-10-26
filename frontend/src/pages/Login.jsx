@@ -10,7 +10,7 @@ import styles from './AuthPage.module.css'
 
 // ─── Brand Panel ───────────────────────────────────────────────────────────
 function LoginBrand() {
-  return <div className={styles.brandContent}><Link to="/" aria-label="SANKALP home"><img className="auth-official-logo" src="/media/sankalp-logo.png" alt="SANKALP Andhra 2026" /></Link><h1 className={styles.headline}>Continue your<br />summit journey.</h1><p className={styles.brandSub}>Sign in to your SANKALP account.</p><Link className="text-link" to="/">Back to the summit </Link></div>
+  return <div className={styles.brandContent}><Link to="/" aria-label="SANKALP home"><img className="auth-official-logo" src="/media/sankalp-logo-640.jpg" decoding="async" alt="SANKALP Andhra 2026" /></Link><h1 className={styles.headline}>Continue your<br />summit journey.</h1><p className={styles.brandSub}>Sign in to your SANKALP account.</p><Link className="text-link" to="/">Back to the summit </Link></div>
 }
 
 // ─── Login Form ────────────────────────────────────────────────────────────

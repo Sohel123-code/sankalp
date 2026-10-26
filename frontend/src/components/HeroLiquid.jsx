@@ -4,7 +4,8 @@ import './HeroLiquid.css'
 export default function HeroLiquid({ heroRef, videoRef, enabled }) {
   const canvas = useRef(null)
   useEffect(() => {
-    if (!enabled) return
+    // The refraction follows a mouse. Touch screens have no hover, so they keep the plain video hero and skip the WebGL work.
+    if (!enabled || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     let disposed = false, cleanup, timer
     // Let the opening typography finish before measuring its final positions.
     timer = setTimeout(() => {

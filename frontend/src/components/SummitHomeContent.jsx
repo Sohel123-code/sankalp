@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useReducedMotion } from 'framer-motion'
+import { useCalmScroll } from '../utils/calmScroll'
 import { Link } from 'react-router-dom'
 import { TRACKS, SCHEDULE, TARGET_AUDIENCE, WORKSHOPS } from '../data/sankalpData'
 import { FancyButton } from './Motion'
@@ -15,7 +15,8 @@ function Marquee({ items, reverse = false }) {
 }
 
 export default function SummitHomeContent() {
-  const root = useRef(null), reduced = useReducedMotion()
+  // Touch devices never load the GSAP choreography at all; the chapters stay laid out and fade in once (utils/touchReveal).
+  const root = useRef(null), reduced = useCalmScroll()
   useEffect(() => {
     if (reduced) return
     let disposed = false, release

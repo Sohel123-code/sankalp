@@ -133,7 +133,8 @@ export function mountHeroLiquid({ canvas, hero, video, content }) {
     lastPointer = { x, y, time: now }
   }
   function leave() { lastPointer = null }
-  function invalidate() { dirty = true; clear() }
+  // Scrolling invalidates the measured text, but an idle overlay has nothing to clear (no GPU work on every scroll event).
+  function invalidate() { dirty = true; if (frame || wakes.length) clear() }
   function visibility() { if (document.hidden) clear() }
   function lost(event) { event.preventDefault(); cleanup() }
   observer = new ResizeObserver(invalidate); observer.observe(hero)

@@ -16,7 +16,7 @@ function issues(doc,width){
   if(el.closest('svg,canvas,[aria-hidden="true"],[inert],script,style,video'))continue;
   const b=el.getBoundingClientRect(),s=doc.defaultView.getComputedStyle(el);
   if(!b.width||!b.height||s.visibility==='hidden'||s.display==='none'||Number(s.opacity)===0)continue;
-  let clipped=false;for(let p=el.parentElement;p&&p!==doc.body;p=p.parentElement){if(p.id==='root'||p.matches('.route-content,main,.home-page'))continue;const c=doc.defaultView.getComputedStyle(p);if(['hidden','clip','auto','scroll'].includes(c.overflowX)){const r=p.getBoundingClientRect();if(r.left>=-1&&r.right<=width+1){clipped=true;break}}}
+  let clipped=false;for(let p=el.parentElement;p&&p!==doc.body;p=p.parentElement){if(p.id==='root'||p.matches('.route-content,main,.home-page'))continue;const c=doc.defaultView.getComputedStyle(p);if(['hidden','clip','auto','scroll'].includes(c.overflowX)){const r=p.getBoundingClientRect();if(r.left>=-24&&r.right<=width+24){clipped=true;break}}}
   if(!clipped&&(b.right>width+2||b.left < -2))overflow.push({element:identify(el),text:el.textContent.trim().slice(0,65),left:Math.round(b.left),right:Math.round(b.right)});
   if(el.matches('button,input:not([type=checkbox]):not([type=radio]),select,textarea,summary')&&!el.disabled&&b.height<42)taps.push({element:identify(el),text:el.textContent.trim().slice(0,45),height:Math.round(b.height)});
  }

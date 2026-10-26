@@ -1,6 +1,7 @@
 import { Children, Component, Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
 import { useInView, useReducedMotion } from 'framer-motion'
 import { buildHeroSnapshot } from '../utils/heroSnapshot'
+import { useCalmScroll } from '../utils/calmScroll'
 import TextRevealHelper from './framer/TextRevealHelper'
 import TypewriterEffect from './framer/TypewriterEffect'
 
@@ -27,6 +28,12 @@ function usePageVisible() {
     return () => document.removeEventListener('visibilitychange', update)
   }, [])
   return visible
+}
+
+// Frame time scales with the dot count, so phones and low-core machines form the title from fewer dots.
+function openingParticles() {
+  if (window.innerWidth < 700) return 3200
+  return (navigator.hardwareConcurrency || 8) <= 4 ? 5500 : 9000
 }
 
 export function homeIntroSeen() {
@@ -74,13 +81,14 @@ export function HomeOpening({ heroRef, onComplete, onReveal }) {
   }, [finish, reduced])
   return <div className={`home-opening particle-opening${leaving ? ' is-leaving' : ''}`} data-framer-effect="particle-formation" aria-label="SANKALP Andhra 2026">
     <div className="particle-opening-art" aria-hidden="true"><VisualBoundary onFailure={finish}><Suspense fallback={null}>
-      {snapshot && <ParticleIntro imageCanvas={snapshot.canvas} layoutMode="Fixed" imageWidth={snapshot.width} imageHeight={snapshot.height} particleCount={window.innerWidth < 700 ? 5500 : 9000} particleSize={2} duration={1} easing="easeInOutQuad" overrideColor={false} onComplete={formed} onError={finish} />}
+      {snapshot && <ParticleIntro imageCanvas={snapshot.canvas} layoutMode="Fixed" imageWidth={snapshot.width} imageHeight={snapshot.height} particleCount={openingParticles()} particleSize={2} duration={1} easing="easeInOutQuad" overrideColor={false} onComplete={formed} onError={finish} />}
     </Suspense></VisualBoundary></div>
   </div>
 }
 
 export function ScrollText({ text, className = '' }) {
-  const reduced = useReducedMotion()
+  // The word-by-word dimming is driven from JS on every scroll frame; touch devices show the sentence plainly.
+  const reduced = useCalmScroll()
   return <div className={`reveal-text ${className}`} data-scroll-owned data-framer-effect="text-reveal-helper">
     {reduced ? text : <><span className="effect-sr-only">{text}</span><div aria-hidden="true">
       <TextRevealHelper textComponent={<span>{text}</span>} revealMode="words" startOffset={92} endOffset={42} dimOpacity={.16} />

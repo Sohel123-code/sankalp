@@ -1,0 +1,173 @@
+/* Phone-first layer. Loaded after every page and effect style (see main.jsx), so it only has to win on order.
+   Principles: thumb-height controls, one idea per screen, swipe rows instead of long stacks, and motion that is
+   limited to opacity/transform so it stays on the compositor. Desktop rules are untouched. */
+
+/* ---- Touch feedback (all touch devices) -------------------------------- */
+@media(hover:none) and (pointer:coarse) {
+  a,button,summary,[role=button],label { touch-action:manipulation; }
+  .fancy-button,.summit-participation-grid>a,.summit-track-summary,.agenda-session,.research-card,.frontier-tabs button,.day-selector button,.filter-pills button,[class*="Card"] {
+    transition:transform .18s cubic-bezier(.22,1,.36,1),background-color .25s,border-color .25s;
+  }
+  .fancy-button:active,.summit-participation-grid>a:active,.frontier-tabs button:active,.day-selector button:active,.filter-pills button:active { transform:scale(.97); }
+  /* Hover-only decoration has nothing to follow on a touch screen. */
+  .summit-track-explorer .frontier-tabs button:hover { padding-left:0; }
+  .summit-participation-grid>a:hover::after { opacity:0; }
+}
+
+/* ---- One-shot entrance (utils/touchReveal) ------------------------------ */
+.tr { opacity:0; transform:translate3d(0,22px,0); transition:opacity .6s ease var(--tr-delay,0ms),transform .7s cubic-bezier(.22,1,.36,1) var(--tr-delay,0ms); }
+.tr.tr-in { opacity:1; transform:none; will-change:opacity,transform; }
+.tr:focus-within { opacity:1; transform:none; }
+@media(prefers-reduced-motion:reduce) { .tr { opacity:1; transform:none; transition:none; } }
+
+@media(max-width:700px) {
+  :root { --navbar-h:60px; }
+
+  /* ---- Header: shorter, quieter ---------------------------------------- */
+  .summit-redesign .header-shell { width:calc(100% - 24px); gap:8px; }
+  .header-brand { padding:2px 4px; border-radius:6px; }
+  .header-brand img { width:78px; height:39px; }
+  .header-cta .fancy-button { min-height:40px; padding:8px 16px; font-size:13px; }
+  .site-header .menu-toggle,.site-header .profile-trigger { min-width:42px; min-height:42px; width:42px; height:42px; }
+  .reading-progress { will-change:transform; }
+
+  /* ---- Menu: big thumb targets, account actions as buttons -------------- */
+  .mobile-panel { padding:18px 18px calc(24px + env(safe-area-inset-bottom)); }
+  .mobile-primary { grid-template-columns:1fr 1fr; gap:10px; font-size:19px; }
+  .mobile-primary>a { min-height:54px; padding:0 16px; border:1px solid #ffffff14; border-radius:14px; background:#11110f; }
+  .mobile-primary>a.active { border-color:#ff9657; background:#1b130d; color:#ffb58a; }
+  .mobile-secondary { gap:18px 14px; margin-top:22px; padding-top:20px; }
+  .mobile-secondary>div { gap:2px; }
+  .mobile-secondary .tiny-label { margin-bottom:6px; }
+  .mobile-secondary a { min-height:46px; font-size:14.5px; border-bottom:1px solid #ffffff0e; }
+  .mobile-account { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding-top:20px; margin-top:20px; }
+  .mobile-account>a,.mobile-account>button { justify-content:center; min-height:48px; border:1px solid #ffffff24; border-radius:999px; font-size:14px; color:#f1e6d8; }
+  .mobile-account>a:last-child { background:linear-gradient(135deg,#d4561f,#8f3412); border-color:transparent; color:#fff; }
+  .mobile-account>button:only-child { grid-column:1/-1; }
+
+  /* ---- Hero ------------------------------------------------------------- */
+  /* The 112% height only exists for the desktop parallax, which phones skip. */
+  .summit-hero .hero-video { height:100%; top:0; }
+  .summit-hero .hero-content { padding:32px 20px 120px; }
+  .hero-bottom { left:20px; right:20px; }
+  .home-chapters { position:sticky; top:var(--navbar-h); z-index:40; margin-inline:0!important; width:100%!important; padding:0 20px!important; background:#080807f2; border-bottom:1px solid #ffffff12; scrollbar-width:none; scroll-snap-type:x proximity; }
+  .home-chapters::-webkit-scrollbar { display:none; }
+  .home-chapters a { scroll-snap-align:start; padding-inline:2px; }
+
+  /* ---- Page headers on inner pages: compact ------------------------------ */
+  .page-intro .intro-index { display:none; }
+  .page-intro .intro-inner { padding-block:10px 4px; }
+  .page-intro .intro-inner>[data-hero-entry] { padding-block:20px 22px; animation:m-rise .55s cubic-bezier(.22,1,.36,1) both; }
+  .page-intro .eyebrow { margin-bottom:14px; }
+  .page-intro h1 { font-size:clamp(30px,9vw,40px); line-height:1.12; }
+  .page-intro p { margin-top:14px; }
+  .summit-redesign .route-content:not(.route-home) .compact-page,.summit-redesign .route-content:not(.route-home) [class*="_container_"] { padding-top:32px; }
+  .compact-page { padding-bottom:56px; }
+  .compact-cta { padding-top:36px; gap:14px; }
+  .compact-cta .fancy-button { width:100%; justify-content:center; }
+
+  /* ---- Home rhythm ------------------------------------------------------- */
+  .summit-section { padding-block:44px; }
+  .summit-section { scroll-margin-top:calc(var(--navbar-h) + 62px); }
+  .summit-section-heading { margin-bottom:24px; }
+  .summit-section-heading>p { margin-top:14px; font-size:14.5px; line-height:1.7; }
+  .summit-section .eyebrow { margin-bottom:14px; }
+  .summit-home-content h2 { font-size:clamp(30px,8.4vw,40px); line-height:1.1; }
+  #chapter-tracks>.summit-section-heading,#chapter-participate>.summit-section-heading { text-align:left; margin-bottom:24px; }
+  #chapter-tracks>.summit-section-heading>div,#chapter-participate>.summit-section-heading>div { margin-inline:0; }
+  #chapter-tracks>.summit-section-heading .eyebrow,#chapter-participate>.summit-section-heading .eyebrow { justify-content:flex-start; }
+  #chapter-tracks>.summit-section-heading>p { margin:14px 0 0; }
+  /* Ghost numerals overlap the copy on a narrow screen. */
+  .summit-section[data-home-scene]::after { display:none; }
+  .summit-marquee { padding:14px 0; }
+  .summit-marquee-track>span { font-size:clamp(30px,10vw,44px); gap:28px; padding-right:28px; }
+
+  /* Story: the four facts become a 2x2 board of stat tiles. */
+  .summit-story-stage { padding-block:44px; }
+  .summit-story-facts { margin-top:36px; }
+  .summit-story-panels { grid-template-columns:1fr 1fr; gap:10px; margin-top:20px; }
+  .summit-story-panel { padding:16px 14px; border:1px solid #ffffff14; border-radius:16px; background:#100f0c; }
+  .summit-story-number { font-size:40px; margin-bottom:8px; }
+  .summit-story-panel h3 { font-size:16px; margin-bottom:8px; }
+  .summit-story-panel p { font-size:12.5px; line-height:1.6; }
+  .summit-track-summary { border-radius:14px; }
+
+  /* Tracks: a swipe row of pills in place of four 100px rows. */
+  .summit-track-explorer { gap:16px; }
+  .summit-track-explorer .frontier-tabs { display:flex; flex-direction:row; justify-content:flex-start; align-items:center; gap:8px; overflow-x:auto; margin-inline:-20px; padding:2px 20px 6px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .summit-track-explorer .frontier-tabs::-webkit-scrollbar { display:none; }
+  .summit-track-explorer .frontier-tabs button { flex:0 0 auto; min-height:44px; padding:10px 18px; border:1px solid var(--summit-line,#ffffff1f); border-radius:999px; white-space:nowrap; }
+  .summit-track-explorer .frontier-tabs button>span { font-size:14.5px; }
+  .summit-track-explorer .frontier-tabs button small { display:none; }
+  .summit-track-explorer .frontier-tabs button[aria-pressed=true] { border-color:#ff9855; background:#21160d; }
+  .summit-track-preview.frontier-preview { min-height:0; border-radius:18px; }
+  .summit-track-preview>div { padding:22px 20px; }
+
+  /* About: the 80px section padding is for desktop; on a phone it reads as a blank screen. */
+  .summit-redesign .route-about .about-intro { padding-bottom:32px; gap:24px; }
+  .summit-redesign .route-about .impact-journey { padding-block:36px; margin-block:0; }
+  .summit-redesign .route-about .impact-art { max-width:300px; }
+
+  /* Filter pills everywhere (tracks, workshops, programme): one swipeable row instead of three wrapped lines. */
+  .filter-pills { justify-content:flex-start; flex-wrap:nowrap; overflow-x:auto; margin-inline:-20px; padding:2px 20px 6px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .filter-pills::-webkit-scrollbar { display:none; }
+  .filter-pills button { flex:0 0 auto; white-space:nowrap; }
+
+  /* Programme: day switch as a two-up segmented control. */
+  .summit-programme-preview { gap:18px; }
+  .summit-programme-preview .day-selector { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .summit-programme-preview .day-selector button { flex-direction:column; gap:8px; margin:0; padding:16px 14px; border:1px solid #ffffff1a; border-radius:14px; }
+  .summit-programme-preview .day-selector button>div { font-size:15px; line-height:1.35; }
+  .summit-programme-preview .day-selector button small { margin-top:8px; }
+  .summit-programme-preview .day-selector>.editorial-link { grid-column:1/-1; margin:6px 0 0; }
+  .summit-preview-session { padding:18px 0; }
+  .summit-preview-session h3 { font-size:18px; line-height:1.4; }
+
+  /* Workshops */
+  .summit-workshop-list { padding:6px 18px; border-radius:18px; }
+  .summit-workshop-list>div { padding:16px 0; }
+  .summit-workshop-list>.eyebrow { padding-top:16px; }
+  .summit-workshop-feature>.summit-section-body { gap:28px; }
+
+  /* Audience: compact tappable rows. */
+  .summit-audience-grid { gap:0; }
+  .summit-audience-grid details { padding:0; }
+  .summit-audience-grid summary { min-height:56px; align-items:center; font-size:17px; }
+  .summit-audience-grid p { margin:0 0 18px; font-size:14.5px; line-height:1.7; }
+
+  /* Participation: swipe cards that peek the next one. */
+  .summit-participation-grid { display:flex; gap:12px; overflow-x:auto; margin-inline:-20px; padding:2px 20px 8px; scroll-snap-type:x mandatory; scroll-padding-inline:20px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .summit-participation-grid::-webkit-scrollbar { display:none; }
+  .summit-participation-grid>a { flex:0 0 80%; min-height:216px; padding:22px 20px; scroll-snap-align:center; border-radius:18px; }
+  .summit-participation-grid h3 { font-size:21px; margin-bottom:14px; }
+  .summit-participation-grid p { margin-bottom:20px; }
+
+  .summit-closing { padding-block:64px; }
+  .summit-closing .summit-section-body>div { flex-direction:column; gap:18px; }
+  .summit-closing .fancy-button { width:100%; justify-content:center; }
+
+  /* ---- Footer ------------------------------------------------------------- */
+  .summit-footer-main { padding-block:40px; }
+  .summit-redesign .footer-bottom { padding-bottom:calc(8px + env(safe-area-inset-bottom)); }
+
+  /* ---- Cards and forms everywhere ----------------------------------------- */
+  .research-card,.agenda-session { border-radius:14px; }
+  body :is(input:not([type=checkbox]):not([type=radio]),select,textarea) { border-radius:12px; }
+  .explorer-controls input { min-height:48px; }
+}
+
+@keyframes m-rise { from { opacity:0; transform:translate3d(0,14px,0); } }
+@media(prefers-reduced-motion:reduce) { .page-intro .intro-inner>[data-hero-entry] { animation:none!important; } }
+
+/* ---- Small phones --------------------------------------------------------- */
+@media(max-width:360px) {
+  .summit-participation-grid>a { flex-basis:88%; }
+  .summit-story-panels { grid-template-columns:1fr; }
+  .mobile-primary { font-size:17px; }
+}
+
+/* ---- Landscape phones: do not let sticky chrome eat the viewport -------- */
+@media(max-height:500px) and (orientation:landscape) {
+  :root { --navbar-h:52px; }
+  .home-chapters { position:static; }
+}

@@ -29,7 +29,7 @@ export function mountResearchTunnel(host, progress) {
       onUpdate: syncAccess,
       scrollTrigger: {
         trigger: host, start: 'top top', end: 'bottom bottom',
-        scrub: .35, invalidateOnRefresh: true,
+        scrub: .3, invalidateOnRefresh: true,
       },
     })
     timeline.to(intro, { opacity: 0, y: -40, scale: .94, duration: .5, ease: 'power2.inOut' }, .2)

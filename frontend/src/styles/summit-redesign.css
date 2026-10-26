@@ -420,7 +420,7 @@
 
 /* ---- Homepage continuous choreography (utils/homeMotion.js) ------------- */
 .summit-home-content { overflow-x:clip; }
-.summit-section[data-home-scene] { --ghost-y:0; --glow-o:0; --rule:1; isolation:isolate; }
+.summit-section[data-home-scene] { --ghost-y:0; --glow-o:.6; --rule:1; isolation:isolate; }
 .summit-section[data-home-scene]::before { content:""; position:absolute; inset:0 -10vw; z-index:-1; pointer-events:none; background:radial-gradient(60% 55% at 50% 40%,#ff7a2a26,transparent 70%); opacity:var(--glow-o); }
 .summit-section[data-home-scene]::after { content:attr(data-index); position:absolute; right:-.04em; top:50%; z-index:-1; pointer-events:none; font-size:clamp(180px,26vw,420px); font-weight:600; line-height:1; letter-spacing:-.06em; color:transparent; -webkit-text-stroke:1px #ff96571f; transform:translateY(calc(-50% + var(--ghost-y) * 1px)); }
 .summit-section[data-home-scene]:nth-of-type(even)::after { right:auto; left:-.04em; }
@@ -444,9 +444,20 @@
 .summit-participation-grid>a:hover::after { opacity:1; }
 .summit-participation-grid>a>span::after { content:" \2192"; display:inline-block; transition:transform .35s; }
 .summit-participation-grid>a:hover>span::after { transform:translateX(6px); }
-.summit-closing { --closing-glow:0; }
+.summit-closing { --closing-glow:.8; }
 .summit-closing::before { content:""; position:absolute; inset:-10% -15vw; z-index:-1; pointer-events:none; background:radial-gradient(45% 55% at 50% 55%,#ff7a2a42,transparent 70%); opacity:var(--closing-glow); transform:scale(calc(.7 + var(--closing-glow) * .4)); }
 .summit-closing::after { display:none; }
+/* Scroll-linked ghost numeral and glows run on the compositor where supported; elsewhere they rest at their final look. */
+@supports (animation-timeline:view()) {
+  @media(prefers-reduced-motion:no-preference) {
+    .summit-section[data-home-scene]::before { animation:summit-glow linear both; animation-timeline:view(); }
+    .summit-section[data-home-scene]::after { animation:summit-ghost linear both; animation-timeline:view(); }
+    .summit-section.summit-closing[data-home-scene]::before { animation:summit-closing-glow linear both; animation-timeline:view(); animation-range:cover 5% cover 55%; }
+  }
+}
+@keyframes summit-glow { from { opacity:0; } to { opacity:1; } }
+@keyframes summit-ghost { from { transform:translateY(calc(-50% - 120px)); } to { transform:translateY(calc(-50% + 160px)); } }
+@keyframes summit-closing-glow { from { opacity:0; transform:scale(.7); } to { opacity:1; transform:scale(1.1); } }
 
 /* Full-bleed bands driven by scroll */
 .summit-marquee { width:100vw; margin-left:calc(50% - 50vw); overflow:hidden; padding:34px 0; border-block:1px solid #ffffff10; background:#050505; transform-origin:center; }

@@ -46,7 +46,7 @@ export default function Navbar() {
   const links = items => items.map(([to,label]) => <NavLink key={to} to={to} end={to === '/'} onClick={() => { setExpanded(false); setMobile(false); if (to === pathname) window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) }}>{label}</NavLink>)
   return <header className="site-header" ref={header}>
     <div className="header-shell">
-      <Link to="/" className="header-brand" aria-label="SANKALP Andhra 2026 home"><img src="/media/sankalp-logo.png" alt="SANKALP Andhra 2026" /></Link>
+      <Link to="/" className="header-brand" aria-label="SANKALP Andhra 2026 home"><img src="/media/sankalp-logo-640.jpg" width="640" height="320" decoding="async" alt="SANKALP Andhra 2026" /></Link>
       <nav className="header-links" aria-label="Main summit navigation">{links(main)}<button ref={explore} className={expanded ? 'is-open' : ''} onClick={() => setExpanded(v => !v)} aria-expanded={expanded} aria-controls="summit-explore">More <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4 3 3 3-3" stroke="currentColor" /></svg></button></nav>
       <div className="header-cta">{user ? <ProfileMenu /> : loading ? <span className="account-loading" role="status" aria-label="Checking your session" /> : <><Link to="/login" id="nav-login">Sign in</Link><FancyButton to="/register" id="nav-register-cta">Register</FancyButton></>}</div>
       <button ref={trigger} id="mobile-menu-toggle" className="menu-toggle" aria-label={mobile ? 'Close menu' : 'Open menu'} aria-expanded={mobile} aria-controls="mobile-navigation" onClick={() => { setMobile(v => !v); setExpanded(false) }}><span /><span /></button>

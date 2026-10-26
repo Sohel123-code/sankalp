@@ -17,7 +17,13 @@
 .scroll-scene .participation-section{padding-block:65px}
 .scroll-scene .comet-section{min-height:calc(100svh - var(--navbar-h));width:100%}
 .scroll-scene .comet-content h2{max-width:470px}
+/* Registered and non-inherited: writing these every scroll frame restyles only the unit itself, not its whole subtree. */
+@property --scroll-y{syntax:'<length>';inherits:false;initial-value:0px}
+@property --scroll-scale{syntax:'<number>';inherits:false;initial-value:1}
+@property --scroll-opacity{syntax:'<number>';inherits:false;initial-value:1}
+@property --scroll-inset{syntax:'<percentage>';inherits:false;initial-value:0%}
 .scroll-unit{transform-origin:top center;translate:0 var(--scroll-y,0px);opacity:var(--scroll-opacity,1)}
+.scroll-unit.is-revealing{will-change:translate,scale,opacity}
 .scroll-card-unit{scale:var(--scroll-scale,1);transition:none!important}
 .scroll-heading-unit{clip-path:inset(0 var(--scroll-inset,0%) 0 0);transition:none!important}
 .scroll-unit:focus-within{translate:none;scale:1;opacity:1;clip-path:none}

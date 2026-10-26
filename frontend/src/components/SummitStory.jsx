@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useReducedMotion } from 'framer-motion'
+import { useCalmScroll } from '../utils/calmScroll'
 import { TRACKS } from '../data/sankalpData'
 
 const facts = [
@@ -11,7 +11,7 @@ const facts = [
 
 export default function SummitStory() {
   const ref = useRef(null)
-  const reduced = useReducedMotion()
+  const reduced = useCalmScroll()
   useEffect(() => {
     if (reduced) return
     let disposed = false, release

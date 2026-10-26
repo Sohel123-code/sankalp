@@ -8,7 +8,8 @@ const SummitHomeContent = lazy(() => import('../components/SummitHomeContent'))
 
 function Hero() {
   const ref = useRef(null), video = useRef(null), reduced = useReducedMotion()
-  const [playing, setPlaying] = useState(true)
+  // Data Saver users keep the poster until they press Play.
+  const [playing, setPlaying] = useState(() => !navigator.connection?.saveData)
   const [opening, setOpening] = useState(() => !reduced && !homeIntroSeen())
   const [revealing, setRevealing] = useState(false)
   const revealHero = useCallback(() => setRevealing(true), [])

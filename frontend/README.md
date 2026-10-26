@@ -44,3 +44,19 @@ mobile menus, expanded disclosures and the registration modal. It writes
 `.mobile-audit.json` (ignored by Git). It does not submit forms or use real
 accounts. This checks desktop Chrome rendering at narrow widths; physical iOS
 and Android keyboard, browser chrome and touch behavior still need device review.
+
+## Touch and phone path
+
+Phones and touch tablets (`PHONE_QUERY` in `utils/calmScroll.js`) never mount the GSAP scroll choreography,
+the animated hero mesh, the pointer-driven WebGL hero or the Three.js tunnel. They get the same content laid out
+normally, a one-shot fade-up from `utils/touchReveal.js` (opacity/transform only, never hides anything on screen),
+and the phone-first layout in `styles/mobile.css`, which loads last so it only has to win on order.
+
+Rules that keep scrolling smooth on every device:
+
+- Do not write CSS custom properties on large containers every scroll frame; the whole subtree restyles.
+  Per-element values that change on scroll are registered with `@property ... inherits:false` (see `scroll-scenes.css`),
+  and decorative scroll-linked motion uses CSS scroll-driven animations (`summit-redesign.css`).
+- No `backdrop-filter` on the fixed header, and no looping canvas or WebGL work for touch devices.
+- GSAP `scrub` stays at 0.3s or less; larger values read as lag after the scroll stops.
+- Use `/media/sankalp-logo-640.jpg` (54 KB) for UI; `sankalp-logo.png` is the 1.4 MB original.

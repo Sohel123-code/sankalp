@@ -13,6 +13,8 @@ import './styles/framer-enhancements.css'
 import './styles/summit-redesign.css'
 // Responsive rules run after the page/effect layers they adapt.
 import './styles/responsive.css'
+// Phone-first layer: last, so it only has to win on order.
+import './styles/mobile.css'
 
 // On the home page, fetch the hero page and its dot animation in parallel with the app shell instead of one after the other.
 if (window.location.pathname === '/') {

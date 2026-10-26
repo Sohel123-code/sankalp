@@ -10,7 +10,7 @@ import { useAuth } from '../context/AuthContext'
 
 // ─── Brand Panel ───────────────────────────────────────────────────────────
 function RegisterBrand() {
-  return <div className={styles.brandContent}><Link to="/" aria-label="SANKALP home"><img className="auth-official-logo" src="/media/sankalp-logo.png" alt="SANKALP Andhra 2026" /></Link><h1 className={styles.headline}>Join the<br />conversation.</h1><p className={styles.brandSub}>Research. Technology. Real-world impact.</p><Link className="text-link" to="/">Back to the summit </Link></div>
+  return <div className={styles.brandContent}><Link to="/" aria-label="SANKALP home"><img className="auth-official-logo" src="/media/sankalp-logo-640.jpg" decoding="async" alt="SANKALP Andhra 2026" /></Link><h1 className={styles.headline}>Join the<br />conversation.</h1><p className={styles.brandSub}>Research. Technology. Real-world impact.</p><Link className="text-link" to="/">Back to the summit </Link></div>
 }
 
 // ─── Register Form ─────────────────────────────────────────────────────────

@@ -15,7 +15,7 @@ export function mountCinematicMotion(host) {
     const art = hero.querySelector('.ambient, .intro-graphic, .intro-image, .hero-video')
     if (art) gsap.fromTo(art, { yPercent: -2, scale: 1.045 }, {
       yPercent: desktop ? 9 : 4, scale: 1.01, ease: 'none',
-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .65, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .3, invalidateOnRefresh: true },
     })
     const heading = hero.querySelector('.intro-inner h1')
     if (heading && !heading.closest('[data-hero-entry]')) gsap.fromTo(heading, { clipPath: 'inset(0% 0% 100% 0%)', yPercent: 8 }, {
@@ -25,7 +25,7 @@ export function mountCinematicMotion(host) {
     const mesh = hero.querySelector('.hero-mesh')
     if (mesh) gsap.fromTo(mesh, { '--mesh-progress': 0 }, {
       '--mesh-progress': 1, ease: 'none',
-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .5 },
+      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .3 },
     })
     // Choreograph the existing About journey without pinning, reflow or wrappers.
     const journey = host.querySelector('.impact-journey')
@@ -33,7 +33,7 @@ export function mountCinematicMotion(host) {
       const reactor = journey.querySelector('.reactor-art'), content = journey.querySelector('.impact-content')
       const sequence = gsap.timeline({ scrollTrigger: {
         trigger: journey, start: 'top 90%', end: desktop ? 'center 54%' : 'top 35%',
-        scrub: .55, invalidateOnRefresh: true,
+        scrub: .3, invalidateOnRefresh: true,
       } })
       if (reactor) sequence.fromTo(reactor, { scale: .78, rotation: -22, opacity: .15, transformOrigin: '50% 50%' }, {
         scale: 1, rotation: 0, opacity: 1, duration: 1, ease: 'power2.out',
@@ -43,7 +43,7 @@ export function mountCinematicMotion(host) {
       }, .18)
       else if (content) gsap.fromTo(content, { y: 35, opacity: .12 }, {
         y: 0, opacity: 1, ease: 'power2.out', scrollTrigger: {
-          trigger: content, start: 'top 92%', end: 'top 65%', scrub: .45,
+          trigger: content, start: 'top 92%', end: 'top 65%', scrub: .3,
         },
       })
     }

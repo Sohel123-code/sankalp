@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { TRACKS } from '../data/sankalpData'
 import { VisualBoundary, ScrollText } from './FramerEnhancements'
 import ScrollZoomReveal from './framer/ScrollZoomReveal'
+import { useCalmScroll } from '../utils/calmScroll'
 
 const CubeBend = lazy(() => import('./framer/CubeBend'))
 const ScrollingWaveText = lazy(() => import('./framer/ScrollingWaveText'))
@@ -15,7 +16,8 @@ const tunnelLabels = TRACKS.flatMap(track => track.topics.slice(0, 4))
 function useWide() {
   const [wide, setWide] = useState(false)
   useEffect(() => {
-    const query = matchMedia('(min-width: 900px) and (min-height: 680px)')
+    // Hover-capable screens only: the WebGL tunnel and folding views are too heavy for a touch tablet to scroll smoothly.
+    const query = matchMedia('(min-width: 900px) and (min-height: 680px) and (hover: hover)')
     const update = () => setWide(query.matches)
     update(); query.addEventListener('change', update)
     return () => query.removeEventListener('change', update)
@@ -59,16 +61,17 @@ export function FoldedContent({ children, label }) {
 
 export function ResearchTunnel() {
   const ref = useRef(null), inView = useInView(ref, { margin: '120px' })
-  const reduced = useReducedMotion(), wide = useWide()
+  const reduced = useReducedMotion(), wide = useWide(), calm = useCalmScroll()
   const progress = useMotionValue(0)
   useEffect(() => {
-    if (reduced) return
+    // Touch devices keep the four frontiers in normal flow instead of a scroll-scrubbed sticky stage.
+    if (reduced || calm) return
     let disposed = false, cleanup
     import('../utils/researchTunnelMotion').then(({ mountResearchTunnel }) => {
       if (!disposed && ref.current) cleanup = mountResearchTunnel(ref.current, progress)
     }).catch(() => { /* Readable normal-flow content is the fallback. */ })
     return () => { disposed = true; cleanup?.() }
-  }, [reduced, progress])
+  }, [reduced, calm, progress])
   return <section ref={ref} className="research-tunnel" aria-label="Four connected technology frontiers" data-framer-effect="infinite-scroll" data-effect-owned data-scroll-owned>
     <div className="research-tunnel-stage">
       <div className="research-tunnel-art" aria-hidden="true">{inView && wide && !reduced && <VisualBoundary><Suspense fallback={null}><InfiniteScroll customImages={tunnelLabels} progress={progress} /></Suspense></VisualBoundary>}</div>

@@ -28,21 +28,21 @@ export function mountReferenceMotion(host) {
           // Reveal in normal document flow, then stay readable. A terminal
           // opacity:0 on the whole chapter can hide every descendant if an
           // upstream pin changes its measured scroll range after lazy mounting.
-          gsap.fromTo(scene, { opacity: 0 }, { opacity: 1, ease: 'power1.out', scrollTrigger: { trigger: scene, start: 'top 94%', end: 'top 62%', scrub: .55, invalidateOnRefresh: true } })
-          if (heading) gsap.fromTo(heading, { y: desktop ? 64 : 22 }, { y: 0, ease: 'power2.out', scrollTrigger: { trigger: heading, start: 'top 96%', end: 'top 38%', scrub: .6 } })
-          if (words.length) gsap.fromTo(words, { yPercent: 110 }, { yPercent: 0, stagger: .045, ease: 'power2.out', scrollTrigger: { trigger: heading, start: 'top 92%', end: 'top 45%', scrub: .55 } })
+          gsap.fromTo(scene, { opacity: 0 }, { opacity: 1, ease: 'power1.out', scrollTrigger: { trigger: scene, start: 'top 94%', end: 'top 62%', scrub: .3, invalidateOnRefresh: true } })
+          if (heading) gsap.fromTo(heading, { y: desktop ? 64 : 22 }, { y: 0, ease: 'power2.out', scrollTrigger: { trigger: heading, start: 'top 96%', end: 'top 38%', scrub: .3 } })
+          if (words.length) gsap.fromTo(words, { yPercent: 110 }, { yPercent: 0, stagger: .045, ease: 'power2.out', scrollTrigger: { trigger: heading, start: 'top 92%', end: 'top 45%', scrub: .3 } })
           panels.forEach((panel, index) => {
-            gsap.fromTo(panel, { opacity: 0, y: desktop ? 72 : 26, scale: desktop ? .96 : 1 }, { opacity: 1, y: 0, scale: 1, ease: 'power2.out', scrollTrigger: { trigger: panel, start: `top ${96 - index % 3 * 2}%`, end: 'top 54%', scrub: .55, invalidateOnRefresh: true } })
+            gsap.fromTo(panel, { opacity: 0, y: desktop ? 72 : 26, scale: desktop ? .96 : 1 }, { opacity: 1, y: 0, scale: 1, ease: 'power2.out', scrollTrigger: { trigger: panel, start: `top ${96 - index % 3 * 2}%`, end: 'top 54%', scrub: .3, invalidateOnRefresh: true } })
             panel.setAttribute('data-reference-animated', '')
           })
           animated.push(...panels)
           return
         }
-        if (heading) gsap.fromTo(heading, {opacity:0,y:desktop?38:18}, {opacity:1,y:0,ease:'none',scrollTrigger:{trigger:heading,start:'top 95%',end:'top 64%',scrub:.45,invalidateOnRefresh:true}})
-        if (words.length) gsap.fromTo(words,{yPercent:110},{yPercent:0,stagger:.035,ease:'power2.out',scrollTrigger:{trigger:heading,start:'top 94%',end:'top 62%',scrub:.5,invalidateOnRefresh:true}})
-        if (body && !body.querySelector('form') && !targets.length) gsap.fromTo(body,{opacity:0,y:desktop?54:24,scale:desktop?.975:1},{opacity:1,y:0,scale:1,ease:'none',scrollTrigger:{trigger:body,start:'top 98%',end:'top 63%',scrub:.45,invalidateOnRefresh:true}})
+        if (heading) gsap.fromTo(heading, {opacity:0,y:desktop?38:18}, {opacity:1,y:0,ease:'none',scrollTrigger:{trigger:heading,start:'top 95%',end:'top 64%',scrub:.3,invalidateOnRefresh:true}})
+        if (words.length) gsap.fromTo(words,{yPercent:110},{yPercent:0,stagger:.035,ease:'power2.out',scrollTrigger:{trigger:heading,start:'top 94%',end:'top 62%',scrub:.3,invalidateOnRefresh:true}})
+        if (body && !body.querySelector('form') && !targets.length) gsap.fromTo(body,{opacity:0,y:desktop?54:24,scale:desktop?.975:1},{opacity:1,y:0,scale:1,ease:'none',scrollTrigger:{trigger:body,start:'top 98%',end:'top 63%',scrub:.3,invalidateOnRefresh:true}})
         targets.forEach((card,index)=>{
-          gsap.fromTo(card,{opacity:0,y:desktop?64:24},{opacity:1,y:0,ease:'power1.out',scrollTrigger:{trigger:card,start:`top ${96-Math.min(index%3,2)*3}%`,end:`top ${63-Math.min(index%3,2)*3}%`,scrub:.45,invalidateOnRefresh:true}})
+          gsap.fromTo(card,{opacity:0,y:desktop?64:24},{opacity:1,y:0,ease:'power1.out',scrollTrigger:{trigger:card,start:`top ${96-Math.min(index%3,2)*3}%`,end:`top ${63-Math.min(index%3,2)*3}%`,scrub:.3,invalidateOnRefresh:true}})
         })
       }, scene)
       // Keyboard users must not encounter invisible controls. GSAP remains the
@@ -99,13 +99,14 @@ export function mountSummitStory(host) {
   gsap.registerPlugin(ScrollTrigger)
   const media=gsap.matchMedia()
   media.add('(min-width: 900px) and (min-height: 680px) and (prefers-reduced-motion: no-preference)',()=>{
+    if(isPhone())return // touch tablets keep the stacked layout: no pinned stage
     const stage=host.querySelector('.summit-story-stage'), opening=host.querySelector('.summit-story-opening')
     const facts=host.querySelector('.summit-story-facts'), panels=[...host.querySelectorAll('.summit-story-panel')]
     const summary=host.querySelector('.summit-story-summary')
     host.classList.add('story-pinned')
     // This lazy-mounted pin must be measured before all downstream chapters,
     // regardless of which React effect/import finishes first.
-    const timeline=gsap.timeline({scrollTrigger:{trigger:host,start:'top top',end:()=>`+=${window.innerHeight*3.2}`,pin:stage,scrub:.65,anticipatePin:1,invalidateOnRefresh:true,refreshPriority:10}})
+    const timeline=gsap.timeline({scrollTrigger:{trigger:host,start:'top top',end:()=>`+=${window.innerHeight*3.2}`,pin:stage,scrub:.3,anticipatePin:1,invalidateOnRefresh:true,refreshPriority:10}})
     gsap.set(facts,{opacity:0});gsap.set(panels,{opacity:0,y:28})
     timeline.to(opening,{scale:.78,opacity:0,y:-45,duration:1,ease:'power2.inOut'},.2)
       .to(facts,{opacity:1,duration:.5},1)
@@ -121,6 +122,7 @@ export function mountSummitStory(host) {
     return ()=>host.classList.remove('story-pinned')
   },host)
   media.add('(min-width: 701px) and (max-width: 899px) and (prefers-reduced-motion: no-preference)',()=>{
+    if(isPhone())return
     host.querySelectorAll('.summit-story-panel').forEach(panel=>{
       gsap.fromTo(panel,{opacity:0,y:24},{opacity:1,y:0,ease:'none',scrollTrigger:{trigger:panel,start:'top 95%',end:'top 65%',scrub:.3,invalidateOnRefresh:true}})
     })

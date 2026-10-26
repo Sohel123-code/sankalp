@@ -2,9 +2,10 @@ import { useEffect, useRef } from 'react'
 import { useInView, useReducedMotion } from 'framer-motion'
 
 // Projected wireframe surface: no scene graph, textures, or extra WebGL context.
-export default function HeroMesh({ pointerStrength = .35, scale = 1 }) {
+// still: draw one frame and stop (touch devices, where the sphere has no pointer to follow and a 30fps canvas competes with scrolling).
+export default function HeroMesh({ pointerStrength = .35, scale = 1, still: stillProp = false }) {
   const host = useRef(null), canvas = useRef(null)
-  const visible = useInView(host, { amount: .05 }), reduced = useReducedMotion()
+  const visible = useInView(host, { amount: .05 }), reduced = useReducedMotion() || stillProp
   useEffect(() => {
     if (!visible || !canvas.current) return
     const ctx = canvas.current.getContext('2d')

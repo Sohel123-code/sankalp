@@ -59,8 +59,8 @@ async function route(path) {
   }
   for (const img of document.querySelectorAll('img')) {
     const imagePath = new URL(img.src).pathname
-    // The logo, and the owner-supplied Kakinada photographs on the Venue page, are the approved images.
-    assert(imagePath === '/media/sankalp-logo.png' || (path === '/venue' && imagePath.startsWith('/media/kakinada/')), `${path} must not display unapproved decorative or stock images`)
+    // The logo (full size and the 640px copy the navbar and auth pages use), and the owner-supplied Kakinada photographs on the Venue page, are the approved images.
+    assert(imagePath === '/media/sankalp-logo.png' || imagePath === '/media/sankalp-logo-640.jpg' || (path === '/venue' && imagePath.startsWith('/media/kakinada/')), `${path} must not display unapproved decorative or stock images`)
   }
   assert(!/[\u{1F000}-\u{1FAFF}\u2600-\u27BF\u23E9-\u23FA]/u.test(document.body.textContent), `${path} must not render decorative emoji`)
 }

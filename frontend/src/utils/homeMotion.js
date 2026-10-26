@@ -22,23 +22,22 @@ export function mountHomeMotion(host) {
       const intro = scene.querySelector('.summit-section-heading > p')
       const heading = scene.querySelector('.summit-section-heading')
       if (heading && words.length) {
-        const tl = gsap.timeline({ scrollTrigger: { trigger: heading, start: 'top 90%', end: 'top 42%', scrub: .6 } })
+        const tl = gsap.timeline({ scrollTrigger: { trigger: heading, start: 'top 90%', end: 'top 42%', scrub: .3 } })
         tl.fromTo(words, { yPercent: 125, rotate: 6, opacity: 0 }, { yPercent: 0, rotate: 0, opacity: 1, stagger: .09, ease: 'power3.out', duration: 1 }, 0)
         if (eyebrow) tl.fromTo(eyebrow, { x: x(-60), opacity: 0 }, { x: 0, opacity: 1, ease: 'power2.out', duration: .7 }, 0)
         if (intro) tl.fromTo(intro, { y: y(40), opacity: 0 }, { y: 0, opacity: 1, ease: 'power2.out', duration: .8 }, .35)
       }
-      // Ghost numeral and glow parallax at different speeds than the content.
-      gsap.fromTo(scene, { '--ghost-y': -120, '--glow-o': 0 }, { '--ghost-y': 160, '--glow-o': 1, ease: 'none', scrollTrigger: { trigger: scene, start: 'top bottom', end: 'bottom top', scrub: true } })
-      gsap.fromTo(scene, { '--rule': 0 }, { '--rule': 1, ease: 'power2.out', scrollTrigger: { trigger: scene, start: 'top 85%', end: 'top 40%', scrub: .5 } })
+      // The ghost numeral and glow drift with CSS scroll-driven animations (summit-redesign.css), off the main thread.
+      // Writing custom properties on the whole chapter here restyled its entire subtree on every scroll frame.
     })
 
     // 01 Tracks: tabs sweep in one by one, preview card unveils with a clip wipe + settle.
     const tracks = host.querySelector('#chapter-tracks')
     if (tracks) {
       const tabs = q(tracks, '.frontier-tabs button'), stage = tracks.querySelector('[data-track-stage]')
-      gsap.fromTo(tabs, { x: x(-90), opacity: 0 }, { x: 0, opacity: 1, stagger: .12, ease: 'power3.out', scrollTrigger: { trigger: tracks.querySelector('.summit-track-explorer'), start: 'top 88%', end: 'top 40%', scrub: .6 } })
+      gsap.fromTo(tabs, { x: x(-90), opacity: 0 }, { x: 0, opacity: 1, stagger: .12, ease: 'power3.out', scrollTrigger: { trigger: tracks.querySelector('.summit-track-explorer'), start: 'top 88%', end: 'top 40%', scrub: .3 } })
       if (stage) {
-        gsap.fromTo(stage, { clipPath: 'inset(0% 0% 100% 0% round 6px)', y: y(80), scale: .94 }, { clipPath: 'inset(0% 0% 0% 0% round 4px)', y: 0, scale: 1, ease: 'power3.out', scrollTrigger: { trigger: stage, start: 'top 92%', end: 'top 42%', scrub: .7 } })
+        gsap.fromTo(stage, { clipPath: 'inset(0% 0% 100% 0% round 6px)', y: y(80), scale: .94 }, { clipPath: 'inset(0% 0% 0% 0% round 4px)', y: 0, scale: 1, ease: 'power3.out', scrollTrigger: { trigger: stage, start: 'top 92%', end: 'top 42%', scrub: .3 } })
         gsap.to(stage, { yPercent: d ? -6 : 0, ease: 'none', scrollTrigger: { trigger: stage, start: 'top 40%', end: 'bottom top', scrub: true } })
       }
     }
@@ -47,9 +46,9 @@ export function mountHomeMotion(host) {
     const programme = host.querySelector('#chapter-programme')
     if (programme) {
       const days = q(programme, '.day-selector > *'), selector = programme.querySelector('.summit-programme-preview')
-      gsap.fromTo(days, { x: x(-80), opacity: 0 }, { x: 0, opacity: 1, stagger: .14, ease: 'power3.out', scrollTrigger: { trigger: selector, start: 'top 88%', end: 'top 45%', scrub: .6 } })
+      gsap.fromTo(days, { x: x(-80), opacity: 0 }, { x: 0, opacity: 1, stagger: .14, ease: 'power3.out', scrollTrigger: { trigger: selector, start: 'top 88%', end: 'top 45%', scrub: .3 } })
       q(programme, '.summit-preview-session').forEach((row, i) => {
-        gsap.fromTo(row, { x: x(110), opacity: 0, '--rule': 0 }, { x: 0, opacity: 1, '--rule': 1, ease: 'power3.out', scrollTrigger: { trigger: row, start: `top ${96 - i * 3}%`, end: `top ${58 - i * 3}%`, scrub: .55 } })
+        gsap.fromTo(row, { x: x(110), opacity: 0, '--rule': 0 }, { x: 0, opacity: 1, '--rule': 1, ease: 'power3.out', scrollTrigger: { trigger: row, start: `top ${96 - i * 3}%`, end: `top ${58 - i * 3}%`, scrub: .3 } })
       })
     }
 
@@ -58,32 +57,32 @@ export function mountHomeMotion(host) {
     if (workshops) {
       const list = workshops.querySelector('.summit-workshop-list'), copy = workshops.querySelector('.summit-workshop-feature > .summit-section-body > div:last-child')
       if (list) {
-        gsap.fromTo(list, { rotateY: d ? 14 : 0, x: x(-100), opacity: 0, transformPerspective: 1100 }, { rotateY: 0, x: 0, opacity: 1, ease: 'power3.out', scrollTrigger: { trigger: list, start: 'top 92%', end: 'top 40%', scrub: .7 } })
-        gsap.fromTo(q(list, ':scope > div'), { y: y(36), opacity: 0 }, { y: 0, opacity: 1, stagger: .18, ease: 'power2.out', scrollTrigger: { trigger: list, start: 'top 78%', end: 'bottom 70%', scrub: .6 } })
+        gsap.fromTo(list, { rotateY: d ? 14 : 0, x: x(-100), opacity: 0, transformPerspective: 1100 }, { rotateY: 0, x: 0, opacity: 1, ease: 'power3.out', scrollTrigger: { trigger: list, start: 'top 92%', end: 'top 40%', scrub: .3 } })
+        gsap.fromTo(q(list, ':scope > div'), { y: y(36), opacity: 0 }, { y: 0, opacity: 1, stagger: .18, ease: 'power2.out', scrollTrigger: { trigger: list, start: 'top 78%', end: 'bottom 70%', scrub: .3 } })
       }
       if (copy) {
-        gsap.fromTo(copy.children, { y: y(70), opacity: 0 }, { y: 0, opacity: 1, stagger: .14, ease: 'power3.out', scrollTrigger: { trigger: copy, start: 'top 90%', end: 'top 40%', scrub: .6 } })
+        gsap.fromTo(copy.children, { y: y(70), opacity: 0 }, { y: 0, opacity: 1, stagger: .14, ease: 'power3.out', scrollTrigger: { trigger: copy, start: 'top 90%', end: 'top 40%', scrub: .3 } })
         if (d) gsap.fromTo(copy, { yPercent: 8 }, { yPercent: -8, ease: 'none', scrollTrigger: { trigger: workshops, start: 'top bottom', end: 'bottom top', scrub: true } })
       }
     }
 
     // 04 Audience: rows draw a rule and glide in alternately from each side.
     q(host, '.summit-audience-grid > details').forEach((row, i) => {
-      gsap.fromTo(row, { x: x(i % 2 ? 90 : -90), opacity: 0, '--rule': 0 }, { x: 0, opacity: 1, '--rule': 1, ease: 'power3.out', scrollTrigger: { trigger: row, start: 'top 94%', end: 'top 62%', scrub: .5 } })
+      gsap.fromTo(row, { x: x(i % 2 ? 90 : -90), opacity: 0, '--rule': 0 }, { x: 0, opacity: 1, '--rule': 1, ease: 'power3.out', scrollTrigger: { trigger: row, start: 'top 94%', end: 'top 62%', scrub: .3 } })
     })
 
     // 05 Participation: cards fan up in 3D, staggered, with a floating settle.
     const cards = q(host, '.summit-participation-grid > a')
     if (cards.length) {
       const grid = cards[0].parentElement
-      gsap.fromTo(cards, { y: y(150), rotateX: d ? -28 : 0, scale: .9, opacity: 0, transformPerspective: 1000, transformOrigin: '50% 100%' }, { y: 0, rotateX: 0, scale: 1, opacity: 1, stagger: .14, ease: 'power3.out', scrollTrigger: { trigger: grid, start: 'top 94%', end: 'top 46%', scrub: .7 } })
+      gsap.fromTo(cards, { y: y(150), rotateX: d ? -28 : 0, scale: .9, opacity: 0, transformPerspective: 1000, transformOrigin: '50% 100%' }, { y: 0, rotateX: 0, scale: 1, opacity: 1, stagger: .14, ease: 'power3.out', scrollTrigger: { trigger: grid, start: 'top 94%', end: 'top 46%', scrub: .3 } })
       if (d) cards.forEach((card, i) => gsap.to(card, { yPercent: i % 2 ? 4 : -4, ease: 'none', scrollTrigger: { trigger: grid, start: 'top 40%', end: 'bottom top', scrub: true } }))
     }
 
     // Marquees: scroll drives horizontal travel, so the bands feel tied to the page.
     q(host, '.summit-marquee').forEach(band => {
       const track = band.querySelector('[data-marquee]'), reverse = band.classList.contains('is-reverse')
-      gsap.fromTo(track, { xPercent: reverse ? -33.3 : 0 }, { xPercent: reverse ? 0 : -33.3, ease: 'none', scrollTrigger: { trigger: band, start: 'top bottom', end: 'bottom top', scrub: .4 } })
+      gsap.fromTo(track, { xPercent: reverse ? -33.3 : 0 }, { xPercent: reverse ? 0 : -33.3, ease: 'none', scrollTrigger: { trigger: band, start: 'top bottom', end: 'bottom top', scrub: .3 } })
       gsap.fromTo(band, { opacity: 0, scaleY: .6 }, { opacity: 1, scaleY: 1, ease: 'power2.out', scrollTrigger: { trigger: band, start: 'top 98%', end: 'top 80%', scrub: true } })
     })
 
@@ -91,9 +90,8 @@ export function mountHomeMotion(host) {
     const closing = host.querySelector('.summit-closing')
     if (closing) {
       const h2 = closing.querySelector('h2'), rest = q(closing, '.eyebrow, .summit-section-body > div, .summit-section-body > p')
-      gsap.fromTo(closing, { '--closing-glow': 0 }, { '--closing-glow': 1, ease: 'none', scrollTrigger: { trigger: closing, start: 'top 90%', end: 'center center', scrub: true } })
-      if (h2) gsap.fromTo(h2, { scale: .82, y: y(60), opacity: .2 }, { scale: 1, y: 0, opacity: 1, ease: 'power3.out', scrollTrigger: { trigger: closing, start: 'top 88%', end: 'center 60%', scrub: .7 } })
-      gsap.fromTo(rest, { y: y(50), opacity: 0 }, { y: 0, opacity: 1, stagger: .12, ease: 'power2.out', scrollTrigger: { trigger: closing, start: 'top 60%', end: 'center 50%', scrub: .6 } })
+      if (h2) gsap.fromTo(h2, { scale: .82, y: y(60), opacity: .2 }, { scale: 1, y: 0, opacity: 1, ease: 'power3.out', scrollTrigger: { trigger: closing, start: 'top 88%', end: 'center 60%', scrub: .3 } })
+      gsap.fromTo(rest, { y: y(50), opacity: 0 }, { y: 0, opacity: 1, stagger: .12, ease: 'power2.out', scrollTrigger: { trigger: closing, start: 'top 60%', end: 'center 50%', scrub: .3 } })
     }
 
     // Stacked chapters (desktop): like the story's opening, each chapter holds,
@@ -129,10 +127,10 @@ export function mountHomeMotion(host) {
     const footer = document.querySelector('.summit-footer')
     if (footer) {
       const cols = q(footer, '.summit-footer-main > *'), mark = footer.querySelector('.summit-footer-wordmark')
-      gsap.fromTo(cols, { y: y(60), opacity: 0 }, { y: 0, opacity: 1, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: footer, start: 'top 95%', end: 'top 45%', scrub: .6 } })
+      gsap.fromTo(cols, { y: y(60), opacity: 0 }, { y: 0, opacity: 1, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: footer, start: 'top 95%', end: 'top 45%', scrub: .3 } })
       if (mark) {
         const letters = q(mark, '[data-letter]')
-        gsap.fromTo(letters, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, stagger: .05, ease: 'power3.out', scrollTrigger: { trigger: footer, start: 'top 70%', end: 'bottom bottom', scrub: .6 } })
+        gsap.fromTo(letters, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, stagger: .05, ease: 'power3.out', scrollTrigger: { trigger: footer, start: 'top 70%', end: 'bottom bottom', scrub: .3 } })
       }
     }
   }, host)
